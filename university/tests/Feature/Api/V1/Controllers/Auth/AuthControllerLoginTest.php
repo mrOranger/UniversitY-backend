@@ -27,6 +27,7 @@ class AuthControllerLoginTest extends TestCase
         $response = $this->actingAs($user)->postJson($this->test_url);
 
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
+        $response->assertJsonPath('errors.email.0', 'The email field is required.');
     }
     public final function test_login_without_email_returns_unprocessable_content () : void
     {
@@ -37,6 +38,7 @@ class AuthControllerLoginTest extends TestCase
         ]);
 
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
+        $response->assertJsonPath('errors.email.0', 'The email field is required.');
     }
     public final function test_login_without_password_returns_unprocessable_content () : void
     {
@@ -47,6 +49,7 @@ class AuthControllerLoginTest extends TestCase
         ]);
 
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
+        $response->assertJsonPath('errors.password.0', 'The password field is required.');
     }
     public final function test_login_with_not_valid_email_returns_unprocessable_content () : void
     {
@@ -57,6 +60,7 @@ class AuthControllerLoginTest extends TestCase
         ]);
 
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
+        $response->assertJsonPath('errors.email.0', 'The email field must be a valid email address.');
     }
     public final function test_login_with_unknown_email_returns_unprocessable_content () : void
     {
@@ -67,6 +71,7 @@ class AuthControllerLoginTest extends TestCase
         ]);
 
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
+        $response->assertJsonPath('errors.email.0', 'The selected email is invalid.');
     }
     public final function test_login_with_not_valid_password_min_length_returns_unprocessable_content () : void
     {
@@ -77,6 +82,7 @@ class AuthControllerLoginTest extends TestCase
         ]);
 
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
+        $response->assertJsonPath('errors.email.0', 'The email field is required.');
     }
     public final function test_login_with_not_valid_password_max_length_returns_unprocessable_content () : void
     {
@@ -87,6 +93,7 @@ class AuthControllerLoginTest extends TestCase
         ]);
 
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
+        $response->assertJsonPath('errors.email.0', 'The email field is required.');
     }
     public final function test_login_with_not_valid_password_letters_returns_unprocessable_content () : void
     {
@@ -97,6 +104,7 @@ class AuthControllerLoginTest extends TestCase
         ]);
 
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
+        $response->assertJsonPath('errors.email.0', 'The email field is required.');
     }
     public final function test_login_with_not_valid_password_numbers_returns_unprocessable_content () : void
     {
@@ -107,6 +115,7 @@ class AuthControllerLoginTest extends TestCase
         ]);
 
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
+        $response->assertJsonPath('errors.email.0', 'The email field is required.');
     }
     public final function test_login_with_not_valid_password_symbols_returns_unprocessable_content () : void
     {
@@ -117,6 +126,7 @@ class AuthControllerLoginTest extends TestCase
         ]);
 
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
+        $response->assertJsonPath('errors.email.0', 'The email field is required.');
     }
     public final function test_login_with_valid_email_and_password_returns_okau () : void
     {
@@ -128,5 +138,6 @@ class AuthControllerLoginTest extends TestCase
         ]);
 
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
+        $response->assertJsonPath('errors.email.0', 'The email field is required.');
     }
 }
