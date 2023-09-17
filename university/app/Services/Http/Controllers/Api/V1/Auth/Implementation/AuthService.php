@@ -33,8 +33,8 @@ final class AuthService implements AuthServiceInterface
     }
     public function logout (Request $request) : Response
     {
-        $request->user()->currentAccessToken()->delete();
-        return new InfoResponse('Logout successfull', SynfonyResponse::HTTP_OK);
+        $request->user()->tokens()->delete();
+        return new InfoResponse('Logout successfull.', SynfonyResponse::HTTP_OK);
     }
     public function register(RegisterRequest $registerRequest) : Response
     {

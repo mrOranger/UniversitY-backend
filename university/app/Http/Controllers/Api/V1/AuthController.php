@@ -4,12 +4,11 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Auth\LoginRequest;
-use App\Http\Requests\V1\Auth\LogoutRequest;
 use App\Http\Requests\V1\Auth\RegisterRequest;
-use App\Http\Responses\V1\Auth\LogoutResponse;
 use App\Http\Responses\V1\Auth\RegisterResponse;
 use App\Http\Responses\V1\Response;
 use App\Services\Http\Controllers\Api\V1\Auth\AuthServiceInterface;
+use Illuminate\Http\Request;
 
 class AuthController extends Controller
 {
@@ -25,7 +24,7 @@ class AuthController extends Controller
         return $this->authenticationService->login($loginRequest);
     }
 
-    public final function logout (LogoutRequest $logoutRequest) : LogoutResponse
+    public final function logout (Request $logoutRequest) : Response
     {
         return $this->authenticationService->logout($logoutRequest);
     }
