@@ -24,7 +24,7 @@ class AuthControllerLoginTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $response = $this->actingAs($user)->postJson($this->test_url);
+        $response = $this->postJson($this->test_url);
 
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
         $response->assertJsonPath('errors.email.0', 'The email field is required.');
@@ -34,7 +34,7 @@ class AuthControllerLoginTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $response = $this->actingAs($user)->postJson($this->test_url, [
+        $response = $this->postJson($this->test_url, [
             'password' => $user->password
         ]);
 
@@ -45,7 +45,7 @@ class AuthControllerLoginTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $response = $this->actingAs($user)->postJson($this->test_url, [
+        $response = $this->postJson($this->test_url, [
             'email' => $user->email
         ]);
 
@@ -58,7 +58,7 @@ class AuthControllerLoginTest extends TestCase
             'password' => 'ThisIsAValidPassword1!'
         ]);
 
-        $response = $this->actingAs($user)->postJson($this->test_url, [
+        $response = $this->postJson($this->test_url, [
             'email' => 'notavalidemail',
             'password' => $user->password
         ]);
@@ -72,7 +72,7 @@ class AuthControllerLoginTest extends TestCase
             'password' => 'ThisIsAValidPassword1!'
         ]);
 
-        $response = $this->actingAs($user)->postJson($this->test_url, [
+        $response = $this->postJson($this->test_url, [
             'email' => 'unknown@email.com',
             'password' => $user->password
         ]);
@@ -84,7 +84,7 @@ class AuthControllerLoginTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $response = $this->actingAs($user)->postJson($this->test_url, [
+        $response = $this->postJson($this->test_url, [
             'email' => $user->email,
             'password' => 'Paw1!'
         ]);
@@ -96,7 +96,7 @@ class AuthControllerLoginTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $response = $this->actingAs($user)->postJson($this->test_url, [
+        $response = $this->postJson($this->test_url, [
             'email' => $user->email,
             'password' => 'P1!1111111'
         ]);
@@ -108,7 +108,7 @@ class AuthControllerLoginTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $response = $this->actingAs($user)->postJson($this->test_url, [
+        $response = $this->postJson($this->test_url, [
             'email' => $user->email,
             'password' => 'Password!!'
         ]);
@@ -120,7 +120,7 @@ class AuthControllerLoginTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $response = $this->actingAs($user)->postJson($this->test_url, [
+        $response = $this->postJson($this->test_url, [
             'email' => $user->email,
             'password' => 'Password12'
         ]);
@@ -132,7 +132,7 @@ class AuthControllerLoginTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $response = $this->actingAs($user)->postJson($this->test_url, [
+        $response = $this->postJson($this->test_url, [
             'email' => $user->email,
             'password' => 'Password1!'
         ]);
@@ -145,7 +145,7 @@ class AuthControllerLoginTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $response = $this->actingAs($user)->postJson($this->test_url, [
+        $response = $this->postJson($this->test_url, [
             'email' => $user->email,
             'password' => 'ThisIsNotThwRightPassword1!'
         ]);
@@ -160,7 +160,7 @@ class AuthControllerLoginTest extends TestCase
             'password' => Hash::make('ThisIsAValidPassword1!')
         ]);
 
-        $response = $this->actingAs($user)->postJson($this->test_url, [
+        $response = $this->postJson($this->test_url, [
             'email' => $user->email,
             'password' => 'ThisIsAValidPassword1!'
         ]);
