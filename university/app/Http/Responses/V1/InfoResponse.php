@@ -4,15 +4,13 @@ namespace App\Http\Responses\V1;
 use Illuminate\Contracts\Support\Responsable;
 use Illuminate\Http\JsonResponse;
 
-final class InfoResponse implements Responsable
+final class InfoResponse extends Response implements Responsable
 {
-
     private int $statusCode;
-    private string $message;
 
     public function __construct(string $message, int $statusCode)
     {
-        $this->message = $message;
+        parent::__construct($message);
         $this->statusCode = $statusCode;
     }
 
