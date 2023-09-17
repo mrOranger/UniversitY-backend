@@ -156,16 +156,16 @@ return [
     */
 
     'providers' => ServiceProvider::defaultProviders()->merge([
-        /*
-         * Package Service Providers...
-         */
+            /*
+             * Package Service Providers...
+             */
 
-        /*
-         * Application Service Providers...
-         */
+            /*
+             * Application Service Providers...
+             */
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
-        // App\Providers\BroadcastServiceProvider::class,
+            // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
     ])->toArray(),
@@ -185,4 +185,15 @@ return [
         // 'Example' => App\Facades\Example::class,
     ])->toArray(),
 
+    /*
+    |--------------------------------------------------------------------------
+    | Token expiration time
+    |--------------------------------------------------------------------------
+    |
+    | This value indicates the expiration time of the personal access token.
+    | If no value is setted in the .env file, then a standard of 24 *60 minutes
+    | is used.
+    |
+    */
+    'token_expires_at' => env('TOKEN_EXPIRES_AT', 24 * 60)
 ];
