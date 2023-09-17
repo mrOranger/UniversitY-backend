@@ -13,6 +13,7 @@ use App\Http\Responses\V1\Response;
 use App\Models\User;
 use App\Services\Http\Controllers\Api\V1\Auth\AuthServiceInterface;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use Symfony\Component\HttpFoundation\Response as SynfonyResponse;
 
 final class AuthService implements AuthServiceInterface
@@ -22,14 +23,14 @@ final class AuthService implements AuthServiceInterface
         $validatedData = $loginRequest->validated();
         $user = User::where('email', $validatedData['email'])->first();
         if(!Hash::check($validatedData['password'], $user->password)) {
-            return new InfoResponse('Invalid password', SynfonyResponse::HTTP_UNAUTHORIZED);
+            return new InfoResponse('Invalid password.', SynfonyResponse::HTTP_UNAUTHORIZED);
         }
         $device = substr($loginRequest->userAgent() ?? '', 0, 255);
         return new LoginResponse(
-            'Login successfull',
+            'Login successfull.',
             $user->createToken($device)->plainTextToken,
             config('app.token_expires_at'),
-            HttpStatusCode::OKAY->value
+            SynfonyResponse::HTTP_OK
         );
     }
     public function logout (LogoutRequest $logoutRequest) : Response
