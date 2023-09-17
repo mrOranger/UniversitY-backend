@@ -3,7 +3,6 @@
 namespace App\Services\Http\Controllers\Api\V1\Auth\Implementation;
 
 use App\Http\Requests\V1\Auth\LoginRequest;
-use App\Http\Requests\V1\Auth\LogoutRequest;
 use App\Http\Requests\V1\Auth\RegisterRequest;
 use App\Http\Responses\V1\Auth\LoginResponse;
 use App\Http\Responses\V1\Auth\LogoutResponse;
@@ -13,7 +12,6 @@ use App\Http\Responses\V1\Response;
 use App\Models\User;
 use App\Services\Http\Controllers\Api\V1\Auth\AuthServiceInterface;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Log;
 use Symfony\Component\HttpFoundation\Response as SynfonyResponse;
 
 final class AuthService implements AuthServiceInterface
@@ -33,7 +31,7 @@ final class AuthService implements AuthServiceInterface
             SynfonyResponse::HTTP_OK
         );
     }
-    public function logout (LogoutRequest $logoutRequest) : Response
+    public function logout () : Response
     {
         return new LogoutResponse('Logout successfull');
     }
