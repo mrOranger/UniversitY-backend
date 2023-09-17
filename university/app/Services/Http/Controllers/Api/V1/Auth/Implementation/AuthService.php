@@ -38,6 +38,15 @@ final class AuthService implements AuthServiceInterface
     }
     public function register(RegisterRequest $registerRequest) : Response
     {
-        return new RegisterResponse('Register successfull');
+        $validatedRequest = $registerRequest->validated();
+        $user = new User([
+            'first_name' => $validatedRequest['first_name'],
+            'last_name' => $validatedRequest['last_name'],
+            'birth_date' => $validatedRequest['birth_date'],
+            'email' => $validatedRequest['email'],
+            'password' => Hash::make($validatedRequest['password'])
+        ]);
+        $user->save();
+        return new RegisterResponse('Register successfull', SynfonyResponse::HTTP_OK, $user);
     }
 }
