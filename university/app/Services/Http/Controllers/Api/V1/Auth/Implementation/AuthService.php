@@ -34,10 +34,10 @@ final class AuthService implements AuthServiceInterface
     }
     public function logout (LogoutRequest $logoutRequest) : Response
     {
-        return new LogoutResponse();
+        return new LogoutResponse('Logout successfull');
     }
     public function register(RegisterRequest $registerRequest) : Response
     {
-        return new RegisterResponse();
+        return new RegisterResponse('Register successfull');
     }
 }

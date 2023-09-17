@@ -6,9 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Auth\LoginRequest;
 use App\Http\Requests\V1\Auth\LogoutRequest;
 use App\Http\Requests\V1\Auth\RegisterRequest;
-use App\Http\Responses\V1\Auth\LoginResponse;
 use App\Http\Responses\V1\Auth\LogoutResponse;
 use App\Http\Responses\V1\Auth\RegisterResponse;
+use App\Http\Responses\V1\Response;
 use App\Services\Http\Controllers\Api\V1\Auth\AuthServiceInterface;
 
 class AuthController extends Controller
@@ -20,7 +20,7 @@ class AuthController extends Controller
         $this->authenticationService = $authenticationService;
     }
 
-    public final function login (LoginRequest $loginRequest) : LoginResponse
+    public final function login (LoginRequest $loginRequest) : Response
     {
         return $this->authenticationService->login($loginRequest);
     }
