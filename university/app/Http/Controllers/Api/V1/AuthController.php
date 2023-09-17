@@ -29,7 +29,7 @@ class AuthController extends Controller
         return $this->authenticationService->logout($logoutRequest);
     }
 
-    public final function register (RegisterRequest $registerRequest) : RegisterResponse
+    public final function register (RegisterRequest $registerRequest) : Response
     {
         return $this->authenticationService->register($registerRequest);
     }
