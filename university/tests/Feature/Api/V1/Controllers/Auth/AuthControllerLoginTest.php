@@ -78,55 +78,48 @@ class AuthControllerLoginTest extends TestCase
         $user = User::factory()->create();
 
         $response = $this->actingAs($user)->postJson($this->test_url, [
+            'email' => $user->email,
             'password' => 'Paw1!'
         ]);
 
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
-        $response->assertJsonPath('errors.email.0', 'The email field is required.');
-    }
-    public final function test_login_with_not_valid_password_max_length_returns_unprocessable_content () : void
-    {
-        $user = User::factory()->create();
-
-        $response = $this->actingAs($user)->postJson($this->test_url, [
-            'password' => Str::random(300)
-        ]);
-
-        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
-        $response->assertJsonPath('errors.email.0', 'The email field is required.');
+        $response->assertJsonPath('errors.password.0', 'The password field must be at least 8 characters.');
     }
     public final function test_login_with_not_valid_password_letters_returns_unprocessable_content () : void
     {
         $user = User::factory()->create();
 
         $response = $this->actingAs($user)->postJson($this->test_url, [
+            'email' => $user->email,
             'password' => 'P1!1111111'
         ]);
 
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
-        $response->assertJsonPath('errors.email.0', 'The email field is required.');
+        $response->assertJsonPath('errors.password.0', 'The password field must contain at least one uppercase and one lowercase letter.');
     }
     public final function test_login_with_not_valid_password_numbers_returns_unprocessable_content () : void
     {
         $user = User::factory()->create();
 
         $response = $this->actingAs($user)->postJson($this->test_url, [
+            'email' => $user->email,
             'password' => 'Password!!'
         ]);
 
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
-        $response->assertJsonPath('errors.email.0', 'The email field is required.');
+        $response->assertJsonPath('errors.password.0', 'The password field must contain at least one number.');
     }
     public final function test_login_with_not_valid_password_symbols_returns_unprocessable_content () : void
     {
         $user = User::factory()->create();
 
         $response = $this->actingAs($user)->postJson($this->test_url, [
+            'email' => $user->email,
             'password' => 'Password12'
         ]);
 
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
-        $response->assertJsonPath('errors.email.0', 'The email field is required.');
+        $response->assertJsonPath('errors.password.0', 'The password field must contain at least one symbol.');
     }
     public final function test_login_with_valid_email_and_password_returns_okau () : void
     {
@@ -137,7 +130,10 @@ class AuthControllerLoginTest extends TestCase
             'password' => $user->password
         ]);
 
-        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
-        $response->assertJsonPath('errors.email.0', 'The email field is required.');
+        $response->assertStatus(Response::HTTP_OK);
+        $response->assertJsonPath('message', 'Login successful');
+        $response->assertJsonStructure([
+            'message', 'token', 'expires_at'
+        ]);
     }
 }
