@@ -8,14 +8,13 @@ use Illuminate\Http\JsonResponse;
 
 final class RegisterResponse extends Response implements Responsable
 {
-    private string $message;
     private int $statusCode;
     private User $user;
 
     public function __construct(string $message, int $statusCode, User $user)
     {
+        parent::__construct($message);
         $this->user = $user;
-        $this->message = $message;
         $this->statusCode = $statusCode;
     }
     final public function toResponse($registerRequest) : JsonResponse
