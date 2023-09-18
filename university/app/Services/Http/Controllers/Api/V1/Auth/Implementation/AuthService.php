@@ -44,7 +44,8 @@ final class AuthService implements AuthServiceInterface
             'last_name' => $validatedRequest['last_name'],
             'birth_date' => $validatedRequest['birth_date'],
             'email' => $validatedRequest['email'],
-            'password' => Hash::make($validatedRequest['password'])
+            'password' => Hash::make($validatedRequest['password']),
+            'role' => $validatedRequest['role']
         ]);
         $user->save();
         return new RegisterResponse('Register successfull', SynfonyResponse::HTTP_OK, $user);
