@@ -48,6 +48,6 @@ final class AuthService implements AuthServiceInterface
             'role' => $validatedRequest['role']
         ]);
         $user->save();
-        return new RegisterResponse('Register successfull', SynfonyResponse::HTTP_OK, $user);
+        return new RegisterResponse('Register successfull.', SynfonyResponse::HTTP_OK, $user);
     }
 }
