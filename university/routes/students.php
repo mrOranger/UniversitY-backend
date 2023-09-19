@@ -13,4 +13,6 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "api" middleware group. Make something great!
 */
 
-Route::resource('students', StudentController::class);
+Route::resource('students', StudentController::class)->except([
+    'create', 'edit'
+]);
