@@ -18,6 +18,8 @@ return new class extends Migration
             $table->integer('master_final_mark')->nullable(true);
             $table->integer('phd_final_mark')->nullable(true);
             $table->boolean('outside_prescribed_time')->nullable(false)->default(false);
+            $table->foreign('user')->references('id')->on('users');
+            $table->foreign('course')->references('id')->on('degree_courses');
             $table->softDeletes();
         });
     }
