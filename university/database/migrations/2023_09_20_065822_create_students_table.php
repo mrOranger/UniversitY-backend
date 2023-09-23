@@ -17,10 +17,10 @@ return new class extends Migration
             $table->integer('master_final_mark')->nullable(true);
             $table->integer('phd_final_mark')->nullable(true);
             $table->boolean('outside_prescribed_time')->nullable(false)->default(false);
-            $table->bigInteger('user')->nullable(false)->unsigned();
-            $table->bigInteger('course')->nullable(false)->unsigned();
-            $table->foreign('user')->references('id')->on('users');
-            $table->foreign('course')->references('id')->on('degree_courses');
+            $table->bigInteger('user_id')->nullable(false)->unsigned();
+            $table->bigInteger('course_id')->nullable(false)->unsigned();
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('course_id')->references('id')->on('degree_courses');
             $table->timestamps();
             $table->softDeletes();
         });
