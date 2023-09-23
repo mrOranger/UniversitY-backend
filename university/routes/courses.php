@@ -15,4 +15,4 @@ use Illuminate\Support\Facades\Route;
 
 Route::resource('courses', CourseController::class)->except([
     'create', 'edit'
-]);
+])->middleware('role:admin,employee');
