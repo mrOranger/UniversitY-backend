@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('students', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
             $table->integer('bachelor_final_mark')->nullable(true);
             $table->integer('master_final_mark')->nullable(true);
             $table->integer('phd_final_mark')->nullable(true);
@@ -22,6 +21,7 @@ return new class extends Migration
             $table->bigInteger('course')->nullable(false)->unsigned();
             $table->foreign('user')->references('id')->on('users');
             $table->foreign('course')->references('id')->on('degree_courses');
+            $table->timestamps();
             $table->softDeletes();
         });
     }
