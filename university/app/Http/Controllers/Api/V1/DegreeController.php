@@ -3,10 +3,18 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
+use App\Services\Http\Controllers\Api\V1\Degree\DegreeServiceInterface;
 use Illuminate\Http\Request;
 
 class DegreeController extends Controller
 {
+
+    private DegreeServiceInterface $degreeServiceInterface;
+
+    public function __construct(DegreeServiceInterface $degreeServiceInterface)
+    {
+        $this->degreeServiceInterface = $degreeServiceInterface;
+    }
     /**
      * Display a listing of the resource.
      */
