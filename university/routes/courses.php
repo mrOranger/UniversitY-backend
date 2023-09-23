@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\Api\V1\CourseController;
-use App\Http\Controllers\Api\V1\StudentController;
 use Illuminate\Support\Facades\Route;
 
 /*
