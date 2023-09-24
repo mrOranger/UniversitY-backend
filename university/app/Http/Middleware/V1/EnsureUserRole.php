@@ -18,7 +18,7 @@ class EnsureUserRole
     {
         if(!Auth::check()) {
             return response()->json([
-                'message' => 'Unauthenticated'
+                'message' => 'Unauthenticated.'
             ], Response::HTTP_UNAUTHORIZED);
         }
         $user = Auth::user();

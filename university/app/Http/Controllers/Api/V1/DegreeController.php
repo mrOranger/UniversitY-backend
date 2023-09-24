@@ -20,7 +20,7 @@ class DegreeController extends Controller
      */
     public function index()
     {
-
+        return $this->degreeServiceInterface->getAll();
     }
 
     /**
