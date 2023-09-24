@@ -15,7 +15,6 @@ final class DegreeService implements DegreeServiceInterface
     {
         return new DegreeCollection(Degree::all());
     }
-
     final public function getById(string $id): DegreeResource
     {
         $degree = Degree::find($id);
@@ -25,12 +24,21 @@ final class DegreeService implements DegreeServiceInterface
 
         return new DegreeResource($degree);
     }
-
     final public function save(DegreeRequest $degreeRequest): DegreeResource
     {
         $degree = new Degree($degreeRequest->toArray());
         $degree->save();
 
+        return new DegreeResource($degree);
+    }
+    final public function update(DegreeRequest $degreeRequest, string $id) : DegreeResource
+    {
+        /** @var Degree $degree */
+        $degree = Degree::find($id);
+        if($degree === null) {
+            throw new ResourceNotFoundException('Degree ' . $id . ' does not exist');
+        }
+        $degree->update($degreeRequest->toArray());
         return new DegreeResource($degree);
     }
 }

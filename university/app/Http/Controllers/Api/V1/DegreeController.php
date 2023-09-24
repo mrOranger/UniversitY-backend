@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Degrees\DegreeRequest;
 use App\Http\Resources\Collections\DegreeCollection;
 use App\Services\Http\Controllers\Api\V1\Degree\DegreeServiceInterface;
-use Illuminate\Http\Request;
 
 class DegreeController extends Controller
 {
@@ -44,7 +43,7 @@ class DegreeController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(DegreeRequest $request, string $id)
     {
         //
     }
