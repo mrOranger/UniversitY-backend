@@ -3,7 +3,8 @@
 namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
-use Throwable;
+use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class Handler extends ExceptionHandler
 {
@@ -23,8 +24,10 @@ class Handler extends ExceptionHandler
      */
     public function register(): void
     {
-        $this->reportable(function (Throwable $e) {
-            //
+        $this->renderable(function (ResourceNotFoundException $resourceNotFoundException, Request $request) {
+            return response()->json([
+                'message' => $resourceNotFoundException->getMessage()
+            ], Response::HTTP_NOT_FOUND);
         });
     }
 }
