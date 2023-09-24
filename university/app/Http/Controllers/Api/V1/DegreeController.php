@@ -18,6 +18,7 @@ class DegreeController extends Controller
     }
     /**
      * Display a listing of the resource.
+     *
      */
     public function index() : DegreeCollection
     {
@@ -25,17 +26,17 @@ class DegreeController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Display the specified resource.
      */
-    public function store(Request $request)
+    public function show(string $id)
     {
         //
     }
 
     /**
-     * Display the specified resource.
+     * Store a newly created resource in storage.
      */
-    public function show(string $id)
+    public function store(Request $request)
     {
         //
     }
