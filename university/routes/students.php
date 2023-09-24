@@ -15,4 +15,4 @@ use Illuminate\Support\Facades\Route;
 
 Route::resource('students', StudentController::class)->except([
     'create', 'edit',
-]);
+])->middleware(['auth:sanctum', 'role:admin,employee']);
