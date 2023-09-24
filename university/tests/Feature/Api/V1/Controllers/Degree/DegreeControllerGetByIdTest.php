@@ -61,7 +61,7 @@ class DegreeControllerGetByIdTest extends TestCase
             ->getJson($this->test_url . '0');
 
         $response->assertStatus(Response::HTTP_NOT_FOUND);
-        $response->assertJsonPath('message', 'Not Found.');
+        $response->assertJsonPath('message', 'Degree 0 does not exist.');
     }
     public final function test_get_degree_by_id_as_admin_returns_ok () : void
     {
@@ -87,7 +87,7 @@ class DegreeControllerGetByIdTest extends TestCase
             ->getJson($this->test_url . '0');
 
         $response->assertStatus(Response::HTTP_NOT_FOUND);
-        $response->assertJsonPath('message', 'Not Found.');
+        $response->assertJsonPath('message', 'Degree 0 does not exist.');
     }
     public final function test_get_degree_by_id_as_employee_returns_ok () : void
     {

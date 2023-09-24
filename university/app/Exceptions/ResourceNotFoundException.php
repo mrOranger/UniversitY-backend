@@ -6,8 +6,8 @@ use Exception;
 
 class ResourceNotFoundException extends Exception
 {
-    public function getMessage() : string
+    public function __construct(string $message)
     {
-        return 'Resource Not Found.';
+        $this->message = $message;
     }
 }
