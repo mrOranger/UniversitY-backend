@@ -8,7 +8,6 @@ use Illuminate\Http\Request;
 
 class StudentController extends Controller
 {
-
     private StudentServiceInterface $studentServiceInterface;
 
     public function __construct(StudentServiceInterface $studentServiceInterface)

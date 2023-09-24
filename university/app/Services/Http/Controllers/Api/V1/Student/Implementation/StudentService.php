@@ -18,7 +18,7 @@ final class StudentService implements StudentServiceInterface
     {
         $student = Student::find($id);
         if($student === null) {
-            throw new ResourceNotFoundException('Student ' . $id . ' not found.');
+            throw new ResourceNotFoundException('Student ' . $id . ' does not exist.');
         }
         return new StudentResource($student);
     }
