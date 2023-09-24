@@ -3,16 +3,24 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
+use App\Services\Http\Controllers\Api\V1\Student\StudentServiceInterface;
 use Illuminate\Http\Request;
 
 class StudentController extends Controller
 {
+
+    private StudentServiceInterface $studentServiceInterface;
+
+    public function __construct(StudentServiceInterface $studentServiceInterface)
+    {
+        $this->studentServiceInterface = $studentServiceInterface;
+    }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        return $this->studentServiceInterface->getAll();
     }
 
     /**
