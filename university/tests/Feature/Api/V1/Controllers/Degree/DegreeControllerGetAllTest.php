@@ -2,8 +2,10 @@
 
 namespace Tests\Feature\Api\V1\Controllers\Degree;
 
+use App\Models\Degree;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Testing\Fluent\AssertableJson;
 use Symfony\Component\HttpFoundation\Response;
 use Tests\TestCase;
 
@@ -66,25 +68,84 @@ class DegreeControllerGetAllTest extends TestCase
 
     public function test_get_all_degrees_as_admin_returns_one_course () : void
     {
+        $admin = User::factory()->create([ 'role' => 'admin' ]);
+        $degree = Degree::factory()->create();
 
+        $response = $this
+            ->actingAs($admin)
+            ->getJson($this->test_url);
+
+        $response->assertStatus(Response::HTTP_OK);
+        $response->assertJsonCount(1, 'data');
+        $response->assertJsonPath('data.0.id', $degree->id);
+        $response->assertJsonPath('data.0.name', $degree->name);
+        $response->assertJsonPath('data.0.code', $degree->code);
+        $response->assertJsonPath('data.0.course_type', $degree->course_type);
     }
 
     public function test_get_all_degrees_as_admin_returns_many_degrees () : void
     {
+        $admin = User::factory()->create([ 'role' => 'admin' ]);
+        $degrees = Degree::factory(100)->create();
 
+        $response = $this
+            ->actingAs($admin)
+            ->getJson($this->test_url);
+
+        $response->assertStatus(Response::HTTP_OK);
+        $response->assertJsonCount(100, 'data');
+        $degrees->each(function (Degree $degree, int $index) use ($response) {
+            $response->assertJsonPath('data.' . $index . '.id', $degree->id);
+            $response->assertJsonPath('data.' . $index . '.name', $degree->name);
+            $response->assertJsonPath('data.' . $index . '.code', $degree->code);
+            $response->assertJsonPath('data.' . $index . '.course_type', $degree->course_type);
+        });
     }
     public function test_get_all_degrees_as_employee_returns_empty_response () : void
     {
+        $employee = User::factory()->create([ 'role' => 'employee' ]);
 
+        $response = $this
+            ->actingAs($employee)
+            ->getJson($this->test_url);
+
+        $response->assertStatus(Response::HTTP_OK);
+        $response->assertJsonPath('data', []);
     }
 
     public function test_get_all_degrees_as_employee_returns_one_course () : void
     {
+        $employee = User::factory()->create([ 'role' => 'employee' ]);
+        $degree = Degree::factory()->create();
 
+        $response = $this
+            ->actingAs($employee)
+            ->getJson($this->test_url);
+
+        $response->assertStatus(Response::HTTP_OK);
+        $response->assertJsonCount(1, 'data');
+        $response->assertJsonPath('data.0.id', $degree->id);
+        $response->assertJsonPath('data.0.name', $degree->name);
+        $response->assertJsonPath('data.0.code', $degree->code);
+        $response->assertJsonPath('data.0.course_type', $degree->course_type);
     }
 
     public function test_get_all_degrees_as_employee_returns_many_degrees () : void
     {
+        $employee = User::factory()->create([ 'role' => 'employee' ]);
+        $degrees = Degree::factory(100)->create();
 
+        $response = $this
+            ->actingAs($employee)
+            ->getJson($this->test_url);
+
+        $response->assertStatus(Response::HTTP_OK);
+        $response->assertJsonCount(100, 'data');
+        $degrees->each(function (Degree $degree, int $index) use ($response) {
+            $response->assertJsonPath('data.' . $index . '.id', $degree->id);
+            $response->assertJsonPath('data.' . $index . '.name', $degree->name);
+            $response->assertJsonPath('data.' . $index . '.code', $degree->code);
+            $response->assertJsonPath('data.' . $index . '.course_type', $degree->course_type);
+        });
     }
 }
