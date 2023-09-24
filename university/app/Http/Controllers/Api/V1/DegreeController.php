@@ -30,7 +30,7 @@ class DegreeController extends Controller
      */
     public function show(string $id)
     {
-        //
+        return $this->degreeServiceInterface->getById($id);
     }
 
     /**
