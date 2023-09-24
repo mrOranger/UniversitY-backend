@@ -128,19 +128,6 @@ class AuthControllerLoginTest extends TestCase
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
         $response->assertJsonPath('message', 'The password field must contain at least one symbol.');
     }
-    public final function test_login_with_invalid_data_leak_password_returns_unprocessable_content () : void
-    {
-        $user = User::factory()->create();
-
-        $response = $this->postJson($this->test_url, [
-            'email' => $user->email,
-            'password' => 'Password1!'
-        ]);
-
-        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
-        $response->assertJsonPath('message', 'The given password has appeared in a data leak. Please choose a different password.');
-    }
-
     public final function test_login_with_invalid_password_matching_returns_unauthorized () : void
     {
         $user = User::factory()->create();

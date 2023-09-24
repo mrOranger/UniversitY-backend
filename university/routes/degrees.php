@@ -15,4 +15,4 @@ use Illuminate\Support\Facades\Route;
 
 Route::resource('degrees', DegreeController::class)->except([
     'create', 'edit'
-])->middleware('role:admin,employee');
+])->middleware(['auth:sanctum', 'role:admin,employee']);

@@ -5,6 +5,7 @@ namespace App\Http\Middleware\V1;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Symfony\Component\HttpFoundation\Response;
 
 class EnsureUserRole
@@ -17,6 +18,7 @@ class EnsureUserRole
     public function handle(Request $request, Closure $next, ... $roles): Response
     {
         if(!Auth::check()) {
+            Log::info(Auth::user());
             return response()->json([
                 'message' => 'Unauthenticated.'
             ], Response::HTTP_UNAUTHORIZED);
