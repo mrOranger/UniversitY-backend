@@ -3,15 +3,14 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\V1\Degrees\DegreeRequest;
 use App\Http\Resources\Collections\DegreeCollection;
 use App\Services\Http\Controllers\Api\V1\Degree\DegreeServiceInterface;
 use Illuminate\Http\Request;
 
 class DegreeController extends Controller
 {
-
     private DegreeServiceInterface $degreeServiceInterface;
-
     public function __construct(DegreeServiceInterface $degreeServiceInterface)
     {
         $this->degreeServiceInterface = $degreeServiceInterface;
@@ -36,9 +35,9 @@ class DegreeController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(DegreeRequest $request)
     {
-        //
+        return $this->degreeServiceInterface->save($request);
     }
 
     /**
