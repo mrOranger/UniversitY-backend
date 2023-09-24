@@ -2,6 +2,7 @@
 
 namespace App\Exceptions;
 
+use App\Http\Responses\V1\InfoResponse;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -25,9 +26,7 @@ class Handler extends ExceptionHandler
     public function register(): void
     {
         $this->renderable(function (ResourceNotFoundException $resourceNotFoundException, Request $request) {
-            return response()->json([
-                'message' => $resourceNotFoundException->getMessage(),
-            ], Response::HTTP_NOT_FOUND);
+            return new InfoResponse($resourceNotFoundException->getMessage(), Response::HTTP_NOT_FOUND);
         });
     }
 }
