@@ -34,12 +34,20 @@ final class DegreeService implements DegreeServiceInterface
     }
     final public function update(UpdateDegreeRequest $degreeRequest, string $id) : DegreeResource
     {
-        /** @var Degree $degree */
         $degree = Degree::find($id);
         if($degree === null) {
             throw new ResourceNotFoundException('Degree ' . $id . ' does not exist.');
         }
         $degree->update($degreeRequest->toArray());
+        return new DegreeResource($degree);
+    }
+    final public function deleteById(string $id) : DegreeResource
+    {
+        $degree = Degree::find($id);
+        if($degree === null) {
+            throw new ResourceNotFoundException('Degree ' . $id . ' does not exist.');
+        }
+        $degree->delete();
         return new DegreeResource($degree);
     }
 }

@@ -13,4 +13,5 @@ interface DegreeServiceInterface
     public function getById(string $id): DegreeResource;
     public function save(DegreeRequest $degreeRequest): DegreeResource;
     public function update(UpdateDegreeRequest $degreeRequest, string $id) : DegreeResource;
+    public function deleteById(string $id): DegreeResource;
 }

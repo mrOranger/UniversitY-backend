@@ -54,6 +54,6 @@ class DegreeController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        return $this->degreeServiceInterface->deleteById($id);
     }
 }
