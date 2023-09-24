@@ -25,9 +25,14 @@ class Student extends Model
      * @var array<int, string>
      */
     protected $hidden = [
+        'degree_id',
         'updated_at',
         'created_at',
         'deleted_at',
+    ];
+
+    protected $casts = [
+        'outside_prescribed_time' => 'boolean'
     ];
 
     public function degree () : BelongsTo
