@@ -14,6 +14,18 @@ class StudentResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return parent::toArray($request);
+        return [
+            'id' => $this->id,
+            'bachelor_final_mark' => $this->bachelor_final_mark,
+            'master_final_mark' => $this->master_final_mark,
+            'phd_final_mark' => $this->phd_final_mark,
+            'outside_prescribed_time' => $this->outside_prescribed_time,
+            'degree' => [
+                'id' => $this->degree->id,
+                'name' => $this->degree->name,
+                'code' => $this->degree->code,
+                'course_type' => $this->degree->course_type
+            ]
+        ];
     }
 }
