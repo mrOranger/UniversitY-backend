@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Degrees\DegreeRequest;
+use App\Http\Requests\V1\Degrees\UpdateDegreeRequest;
 use App\Http\Resources\Collections\DegreeCollection;
 use App\Services\Http\Controllers\Api\V1\Degree\DegreeServiceInterface;
 
@@ -43,9 +44,9 @@ class DegreeController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(DegreeRequest $request, string $id)
+    public function update(UpdateDegreeRequest $request, string $id)
     {
-        //
+        return $this->degreeServiceInterface->update($request, $id);
     }
 
     /**
