@@ -24,7 +24,7 @@ class DegreeRequest extends FormRequest
         return [
             'name' => ['required','string','max:255', 'unique:degrees,name'],
             'code' => ['required', 'string', 'max:255'],
-            'course_type' => ['required', 'string', 'in:bachelor,master.phd'],
+            'course_type' => ['required', 'string', 'in:bachelor,master,phd'],
         ];
     }
 }

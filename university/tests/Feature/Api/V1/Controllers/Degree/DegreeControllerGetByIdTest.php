@@ -10,7 +10,6 @@ use Tests\TestCase;
 
 class DegreeControllerGetByIdTest extends TestCase
 {
-
     use RefreshDatabase;
     private string $test_url;
     public function setUp() : void
@@ -18,7 +17,6 @@ class DegreeControllerGetByIdTest extends TestCase
         parent::setUp();
         $this->test_url = 'api/v1/degrees/';
     }
-
     public final function test_get_degree_by_id_without_authentication_returns_unauthenticated () : void
     {
         $degree = Degree::factory()->create();
