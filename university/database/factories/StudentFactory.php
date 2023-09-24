@@ -21,7 +21,6 @@ class StudentFactory extends Factory
             'master_final_mark' => $this->faker->numberBetween(66, 110),
             'phd_final_mark' => $this->faker->numberBetween(66, 110),
             'outside_prescribed_time' => $this->faker->boolean(),
-            'user' => $this->faker->randomNumber(),
             'degree_id' => $this->faker->randomNumber(),
         ];
     }
