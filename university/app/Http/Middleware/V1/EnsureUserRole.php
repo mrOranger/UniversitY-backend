@@ -30,7 +30,7 @@ class EnsureUserRole
                 }
             }
             return response()->json([
-                'message' => 'Unauthorized'
+                'message' => 'Unauthorized.'
             ], Response::HTTP_FORBIDDEN);
         }
         return $next($request);
