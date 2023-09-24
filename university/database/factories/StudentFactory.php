@@ -22,7 +22,7 @@ class StudentFactory extends Factory
             'phd_final_mark' => $this->faker->numberBetween(66, 110),
             'outside_prescribed_time' => $this->faker->boolean(),
             'user' => $this->faker->randomNumber(),
-            'course' => $this->faker->randomNumber()
+            'course' => $this->faker->randomNumber(),
         ];
     }
 }

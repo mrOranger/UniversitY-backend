@@ -19,7 +19,7 @@ class DegreeFactory extends Factory
         return [
             'name' => $this->faker->text(50),
             'code' => $this->faker->text(50),
-            'course_type' => $this->faker->randomElement(['bachelor', 'master', 'phd'])
+            'course_type' => $this->faker->randomElement(['bachelor', 'master', 'phd']),
         ];
     }
 }

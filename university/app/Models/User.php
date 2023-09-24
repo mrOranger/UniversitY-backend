@@ -22,7 +22,7 @@ class User extends Authenticatable
         'email',
         'password',
         'birth_date',
-        'role'
+        'role',
     ];
 
     /**
@@ -36,7 +36,7 @@ class User extends Authenticatable
         'password_confirmation',
         'role',
         'updated_at',
-        'created_at'
+        'created_at',
     ];
 
     /**

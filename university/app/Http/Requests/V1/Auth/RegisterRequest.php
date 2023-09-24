@@ -29,7 +29,7 @@ class RegisterRequest extends FormRequest
             'birth_date' => ['bail', 'required', 'date'],
             'password' => ['bail', 'string', 'required', Password::min(8)->letters()->mixedCase()->numbers()->symbols()->uncompromised()],
             'password_confirmation' => ['bail', 'string', 'required', 'same:password'],
-            'role' => ['required', 'string', 'in:admin,student,professor,employee']
+            'role' => ['required', 'string', 'in:admin,student,professor,employee'],
         ];
     }
 }

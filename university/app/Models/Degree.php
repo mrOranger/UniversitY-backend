@@ -11,7 +11,7 @@ class Degree extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name', 'code', 'course_type'
+        'name', 'code', 'course_type',
     ];
 
     /**
@@ -22,10 +22,10 @@ class Degree extends Model
     protected $hidden = [
         'updated_at',
         'created_at',
-        'deleted_at'
+        'deleted_at',
     ];
 
-    public function students () : HasMany
+    public function students(): HasMany
     {
         return $this->hasMany(Student::class);
     }

@@ -16,14 +16,15 @@ use Symfony\Component\HttpFoundation\Response as SynfonyResponse;
 
 final class AuthService implements AuthServiceInterface
 {
-    public function login(LoginRequest $loginRequest) : Response
+    public function login(LoginRequest $loginRequest): Response
     {
         $validatedData = $loginRequest->validated();
         $user = User::where('email', $validatedData['email'])->first();
-        if(!Hash::check($validatedData['password'], $user->password)) {
+        if (! Hash::check($validatedData['password'], $user->password)) {
             return new InfoResponse('Invalid password.', SynfonyResponse::HTTP_UNAUTHORIZED);
         }
         $device = substr($loginRequest->userAgent() ?? '', 0, 255);
+
         return new LoginResponse(
             'Login successfull.',
             $user->createToken($device)->plainTextToken,
@@ -31,12 +32,15 @@ final class AuthService implements AuthServiceInterface
             SynfonyResponse::HTTP_OK
         );
     }
-    public function logout (Request $request) : Response
+
+    public function logout(Request $request): Response
     {
         $request->user()->tokens()->delete();
+
         return new InfoResponse('Logout successfull.', SynfonyResponse::HTTP_OK);
     }
-    public function register(RegisterRequest $registerRequest) : Response
+
+    public function register(RegisterRequest $registerRequest): Response
     {
         $validatedRequest = $registerRequest->validated();
         $user = new User([
@@ -45,9 +49,10 @@ final class AuthService implements AuthServiceInterface
             'birth_date' => $validatedRequest['birth_date'],
             'email' => $validatedRequest['email'],
             'password' => Hash::make($validatedRequest['password']),
-            'role' => $validatedRequest['role']
+            'role' => $validatedRequest['role'],
         ]);
         $user->save();
+
         return new RegisterResponse('Register successfull.', SynfonyResponse::HTTP_OK, $user);
     }
 }

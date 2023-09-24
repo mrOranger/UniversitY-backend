@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Responses\V1;
+
 use Illuminate\Contracts\Support\Responsable;
 
 abstract class Response implements Responsable

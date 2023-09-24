@@ -22,16 +22,16 @@ class DegreeRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['bail', 'required','string','max:255', 'unique:degrees,name'],
+            'name' => ['bail', 'required', 'string', 'max:255', 'unique:degrees,name'],
             'code' => ['bail', 'required', 'string', 'max:255'],
-            'course_type' => ['required', 'string', 'in:bachelor,master,phd']
+            'course_type' => ['required', 'string', 'in:bachelor,master,phd'],
         ];
     }
 
-    public function messages () : array
+    public function messages(): array
     {
         return [
-            'in' => 'The :attribute field must be bachelor, master or phd.'
+            'in' => 'The :attribute field must be bachelor, master or phd.',
         ];
     }
 }

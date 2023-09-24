@@ -26,7 +26,7 @@ class Handler extends ExceptionHandler
     {
         $this->renderable(function (ResourceNotFoundException $resourceNotFoundException, Request $request) {
             return response()->json([
-                'message' => $resourceNotFoundException->getMessage()
+                'message' => $resourceNotFoundException->getMessage(),
             ], Response::HTTP_NOT_FOUND);
         });
     }

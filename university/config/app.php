@@ -156,16 +156,16 @@ return [
     */
 
     'providers' => ServiceProvider::defaultProviders()->merge([
-            /*
+        /*
              * Package Service Providers...
              */
 
-            /*
+        /*
              * Application Service Providers...
              */
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
-            // App\Providers\BroadcastServiceProvider::class,
+        // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
     ])->toArray(),
@@ -195,5 +195,5 @@ return [
     | is used.
     |
     */
-    'token_expires_at' => env('TOKEN_EXPIRES_AT', 24 * 60)
+    'token_expires_at' => env('TOKEN_EXPIRES_AT', 24 * 60),
 ];

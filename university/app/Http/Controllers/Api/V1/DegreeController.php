@@ -11,15 +11,16 @@ use Illuminate\Http\Request;
 class DegreeController extends Controller
 {
     private DegreeServiceInterface $degreeServiceInterface;
+
     public function __construct(DegreeServiceInterface $degreeServiceInterface)
     {
         $this->degreeServiceInterface = $degreeServiceInterface;
     }
+
     /**
      * Display a listing of the resource.
-     *
      */
-    public function index() : DegreeCollection
+    public function index(): DegreeCollection
     {
         return $this->degreeServiceInterface->getAll();
     }

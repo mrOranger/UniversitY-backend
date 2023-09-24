@@ -9,7 +9,9 @@ use Illuminate\Http\Request;
 
 interface AuthServiceInterface
 {
-    public function login(LoginRequest $loginRequest) : Response;
-    public function logout (Request $request) : Response;
-    public function register(RegisterRequest $registerRequest) : Response;
+    public function login(LoginRequest $loginRequest): Response;
+
+    public function logout(Request $request): Response;
+
+    public function register(RegisterRequest $registerRequest): Response;
 }

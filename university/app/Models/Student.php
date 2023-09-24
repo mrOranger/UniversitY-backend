@@ -15,7 +15,7 @@ class Student extends Model
         'phd_final_mark',
         'outside_prescribed_time',
         'user',
-        'course'
+        'course',
     ];
 
     /**
@@ -26,6 +26,6 @@ class Student extends Model
     protected $hidden = [
         'updated_at',
         'created_at',
-        'deleted_at'
+        'deleted_at',
     ];
 }

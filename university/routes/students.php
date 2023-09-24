@@ -14,5 +14,5 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::resource('students', StudentController::class)->except([
-    'create', 'edit'
+    'create', 'edit',
 ]);
