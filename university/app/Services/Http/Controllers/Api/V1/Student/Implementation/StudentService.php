@@ -9,6 +9,6 @@ final class StudentService implements StudentServiceInterface
 {
     public final function getAll() : StudentCollection
     {
-        return new StudentCollection(Student::all());
+        return new StudentCollection(Student::with('degree')->get());
     }
 }
