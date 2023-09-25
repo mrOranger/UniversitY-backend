@@ -28,5 +28,8 @@ class Handler extends ExceptionHandler
         $this->renderable(function (ResourceNotFoundException $resourceNotFoundException, Request $request) {
             return new InfoResponse($resourceNotFoundException->getMessage(), Response::HTTP_NOT_FOUND);
         });
+        $this->renderable(function (ResourceNotFoundException $resourceNotFoundException, Request $request) {
+            return new InfoResponse($resourceNotFoundException->getMessage(), Response::HTTP_CONFLICT);
+        });
     }
 }
