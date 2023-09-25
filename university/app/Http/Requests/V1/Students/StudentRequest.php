@@ -22,7 +22,15 @@ class StudentRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'bachelor_final_mark' => ['bail', 'numeric', 'min:66', 'max:110'],
+            'master_final_mark' => ['bail', 'numeric', 'min:66', 'max:110'],
+            'phd_final_mark' => ['bail', 'numeric', 'min:66', 'max:110'],
+            'outside_prescribed_time' => ['bail', 'required', 'boolean'],
+            'degree' => [
+                'name' => ['bail', 'required', 'string', 'max:255', 'unique:degrees,name'],
+                'code' => ['bail', 'required', 'string', 'max:255'],
+                'course_type' => ['required', 'string', 'in:bachelor,master,phd'],
+            ]
         ];
     }
 }
