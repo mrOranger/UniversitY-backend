@@ -25,6 +25,12 @@ class StudentResource extends JsonResource
                 'name' => $this->degree->name,
                 'code' => $this->degree->code,
                 'course_type' => $this->degree->course_type
+            ],
+            'user' => [
+                'first_name' => $this->user->first_name,
+                'last_name' => $this->user->last_name,
+                'email' => $this->user->email,
+                'birth_date' => $this->user->birth_date
             ]
         ];
     }

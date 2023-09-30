@@ -21,8 +21,10 @@ class StudentControllerGetByIdTest extends TestCase
     final public function test_get_student_by_id_without_authentication_returns_unauthenticated(): void
     {
         $degree = Degree::factory()->create();
+        $user = User::factory()->create();
         $student = Student::factory()->create([
-            'degree_id' => $degree->id
+            'degree_id' => $degree->id,
+            'user_id' => $user->id
         ]);
 
         $response = $this->getJson($this->test_url . $student->id);
@@ -33,8 +35,10 @@ class StudentControllerGetByIdTest extends TestCase
     final public function test_get_student_by_id_as_student_returns_unauthorized(): void
     {
         $degree = Degree::factory()->create();
+        $user = User::factory()->create();
         Student::factory()->create([
-            'degree_id' => $degree->id
+            'degree_id' => $degree->id,
+            'user_id' => $user->id
         ]);
         $student = User::factory()->create(['role' => 'student']);
 
@@ -48,8 +52,10 @@ class StudentControllerGetByIdTest extends TestCase
     final public function test_get_student_by_id_as_professor_returns_unauthorized(): void
     {
         $degree = Degree::factory()->create();
+        $user = User::factory()->create();
         Student::factory()->create([
-            'degree_id' => $degree->id
+            'degree_id' => $degree->id,
+            'user_id' => $user->id
         ]);
         $professor = User::factory()->create(['role' => 'professor']);
 
@@ -74,8 +80,10 @@ class StudentControllerGetByIdTest extends TestCase
     final public function test_get_student_by_id_as_admin_returns_ok(): void
     {
         $degree = Degree::factory()->create();
+        $user = User::factory()->create();
         $student = Student::factory()->create([
-            'degree_id' => $degree->id
+            'degree_id' => $degree->id,
+            'user_id' => $user->id
         ]);
         $admin = User::factory()->create(['role' => 'admin']);
 
@@ -93,6 +101,10 @@ class StudentControllerGetByIdTest extends TestCase
         $response->assertJsonPath('data.degree.name', $degree->name);
         $response->assertJsonPath('data.degree.code', $degree->code);
         $response->assertJsonPath('data.degree.course_type', $degree->course_type);
+        $response->assertJsonPath('data.user.first_name', $user->first_name);
+        $response->assertJsonPath('data.user.last_name', $user->last_name);
+        $response->assertJsonPath('data.user.birth_date', $user->birth_date);
+        $response->assertJsonPath('data.user.email', $user->email);
     }
     final public function test_get_student_by_id_as_employee_returns_not_found(): void
     {
@@ -108,8 +120,10 @@ class StudentControllerGetByIdTest extends TestCase
     final public function test_get_student_by_id_as_employee_returns_ok(): void
     {
         $degree = Degree::factory()->create();
+        $user = User::factory()->create();
         $student = Student::factory()->create([
-            'degree_id' => $degree->id
+            'degree_id' => $degree->id,
+            'user_id' => $user->id
         ]);
         $employee = User::factory()->create(['role' => 'employee']);
 
@@ -127,5 +141,9 @@ class StudentControllerGetByIdTest extends TestCase
         $response->assertJsonPath('data.degree.name', $degree->name);
         $response->assertJsonPath('data.degree.code', $degree->code);
         $response->assertJsonPath('data.degree.course_type', $degree->course_type);
+        $response->assertJsonPath('data.user.first_name', $user->first_name);
+        $response->assertJsonPath('data.user.last_name', $user->last_name);
+        $response->assertJsonPath('data.user.birth_date', $user->birth_date);
+        $response->assertJsonPath('data.user.email', $user->email);
     }
 }

@@ -23,6 +23,10 @@ return new class extends Migration
             $table->foreignId('degree_id')
                 ->references('id')
                 ->on('degrees');
+
+            $table->foreignId('user_id')
+                ->references('id')
+                ->on('users');
         });
     }
 

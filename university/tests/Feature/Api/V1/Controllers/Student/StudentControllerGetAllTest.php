@@ -70,8 +70,10 @@ class StudentControllerGetAllTest extends TestCase
     public final function test_get_all_students_ad_admin_returns_one_student(): void
     {
         $degree = Degree::factory()->create();
+        $user = User::factory()->create();
         $student = Student::factory()->create([
-            'degree_id' => $degree->id
+            'degree_id' => $degree->id,
+            'user_id' => $user->id
         ]);
         $admin = User::factory()->create(['role' => 'admin']);
 
@@ -90,13 +92,19 @@ class StudentControllerGetAllTest extends TestCase
         $response->assertJsonPath('data.0.degree.name', $degree->name);
         $response->assertJsonPath('data.0.degree.code', $degree->code);
         $response->assertJsonPath('data.0.degree.course_type', $degree->course_type);
+        $response->assertJsonPath('data.0.user.first_name', $user->first_name);
+        $response->assertJsonPath('data.0.user.last_name', $user->last_name);
+        $response->assertJsonPath('data.0.user.birth_date', $user->birth_date);
+        $response->assertJsonPath('data.0.user.email', $user->email);
     }
 
     public final function test_get_all_students_ad_admin_returns_many_students(): void
     {
         $degree = Degree::factory()->create();
+        $user = User::factory()->create();
         $students = Student::factory(100)->create([
-            'degree_id' => $degree->id
+            'degree_id' => $degree->id,
+            'user_id' => $user->id
         ]);
         $admin = User::factory()->create(['role' => 'admin']);
 
@@ -116,6 +124,10 @@ class StudentControllerGetAllTest extends TestCase
             $response->assertJsonPath('data.' . $index . '.degree.name', $student->degree->name);
             $response->assertJsonPath('data.' . $index . '.degree.code', $student->degree->code);
             $response->assertJsonPath('data.' . $index . '.degree.course_type', $student->degree->course_type);
+            $response->assertJsonPath('data.' . $index . '.user.first_name', $student->user->first_name);
+            $response->assertJsonPath('data.' . $index . '.user.last_name', $student->user->last_name);
+            $response->assertJsonPath('data.' . $index . '.user.birth_date', $student->user->birth_date);
+            $response->assertJsonPath('data.' . $index . '.user.email', $student->user->email);
         });
     }
 
@@ -135,10 +147,12 @@ class StudentControllerGetAllTest extends TestCase
     public final function test_get_all_students_ad_employee_returns_one_student(): void
     {
         $degree = Degree::factory()->create();
+        $user = User::factory()->create();
         $student = Student::factory()->create([
-            'degree_id' => $degree->id
+            'degree_id' => $degree->id,
+            'user_id' => $user->id
         ]);
-        $employee = User::factory()->create(['role' => 'admin']);
+        $employee = User::factory()->create(['role' => 'employee']);
 
         $response = $this
             ->actingAs($employee)
@@ -155,13 +169,20 @@ class StudentControllerGetAllTest extends TestCase
         $response->assertJsonPath('data.0.degree.name', $degree->name);
         $response->assertJsonPath('data.0.degree.code', $degree->code);
         $response->assertJsonPath('data.0.degree.course_type', $degree->course_type);
+        $response->assertJsonPath('data.0.user.first_name', $user->first_name);
+        $response->assertJsonPath('data.0.user.last_name', $user->last_name);
+        $response->assertJsonPath('data.0.user.birth_date', $user->birth_date);
+        $response->assertJsonPath('data.0.user.email', $user->email);
+
     }
 
     public final function test_get_all_students_ad_employee_returns_many_students(): void
     {
         $degree = Degree::factory()->create();
+        $user = User::factory()->create();
         $students = Student::factory(100)->create([
-            'degree_id' => $degree->id
+            'degree_id' => $degree->id,
+            'user_id' => $user->id
         ]);
         $employee = User::factory()->create(['role' => 'employee']);
 
@@ -181,6 +202,10 @@ class StudentControllerGetAllTest extends TestCase
             $response->assertJsonPath('data.' . $index . '.degree.name', $student->degree->name);
             $response->assertJsonPath('data.' . $index . '.degree.code', $student->degree->code);
             $response->assertJsonPath('data.' . $index . '.degree.course_type', $student->degree->course_type);
+            $response->assertJsonPath('data.' . $index . '.user.first_name', $student->user->first_name);
+            $response->assertJsonPath('data.' . $index . '.user.last_name', $student->user->last_name);
+            $response->assertJsonPath('data.' . $index . '.user.birth_date', $student->user->birth_date);
+            $response->assertJsonPath('data.' . $index . '.user.email', $student->user->email);
         });
     }
 }

@@ -2,22 +2,21 @@
 
 namespace App\Services\Http\Controllers\Api\V1\Student\Implementation;
 
-use App\Exceptions\ResourceConflictException;
 use App\Exceptions\ResourceNotFoundException;
 use App\Http\Requests\V1\Students\StudentRequest;
 use App\Http\Resources\collections\StudentCollection;
 use App\Http\Resources\StudentResource;
 use App\Models\Degree;
 use App\Models\Student;
+use App\Models\User;
 use App\Services\Http\Controllers\Api\V1\Student\StudentServiceInterface;
 use Illuminate\Support\Facades\Log;
-use Symfony\Component\HttpFoundation\Response;
 
 final class StudentService implements StudentServiceInterface
 {
     public final function getAll(): StudentCollection
     {
-        return new StudentCollection(Student::with('degree')->get());
+        return new StudentCollection(Student::with(['degree', 'user'])->get());
     }
 
     public final function getById(string $id): StudentResource
@@ -26,7 +25,7 @@ final class StudentService implements StudentServiceInterface
         if ($student === null) {
             throw new ResourceNotFoundException('Student ' . $id . ' does not exist.');
         }
-        return new StudentResource($student);
+        return new StudentResource($student->with(['degree', 'user'])->first());
     }
 
     public final function save(StudentRequest $studentRequest): StudentResource
@@ -35,6 +34,17 @@ final class StudentService implements StudentServiceInterface
             ->where('code', '=', $studentRequest->degree['code'])
             ->where('course_type', '=', $studentRequest->degree['course_type'])
             ->first();
+
+        $user = User::where('first_name', '=', $studentRequest->user['first_name'])
+            ->where('last_name', '=', $studentRequest->user['last_name'])
+            ->where('birth_date', '=', $studentRequest->user['birth_date'])
+            ->where('email', '=', $studentRequest->user['email'])
+            ->first();
+
+        if($user === null) {
+            throw new ResourceNotFoundException('Associated user does not exists.');
+        }
+
         if ($degree === null) {
             $degree = Degree::create($studentRequest->degree);
         }
@@ -43,9 +53,11 @@ final class StudentService implements StudentServiceInterface
             'master_final_mark' => $studentRequest->master_final_mark,
             'phd_final_mark' => $studentRequest->phd_final_mark,
             'outside_prescribed_time' => $studentRequest->outside_prescribed_time,
-            'degree_id' => $degree->id
+            'degree_id' => $degree->id,
+            'user_id' => $user->id
         ]);
         $student->degree()->associate($degree);
+        $student->user()->associate($user);
         $student->save();
         return new StudentResource($student);
     }
@@ -60,23 +72,36 @@ final class StudentService implements StudentServiceInterface
             ->where('code', '=', $studentRequest->degree['code'])
             ->where('course_type', '=', $studentRequest->degree['course_type'])
             ->first();
+
+        $user = User::where('first_name', '=', $studentRequest->user['first_name'])
+            ->where('last_name', '=', $studentRequest->user['last_name'])
+            ->where('birth_date', '=', $studentRequest->user['birth_date'])
+            ->where('email', '=', $studentRequest->user['email'])
+            ->first();
+
+        if($user === null) {
+            throw new ResourceNotFoundException('User does not exist.');
+        }
+
         if ($degree === null) {
             $degree = Degree::create($studentRequest->degree);
         }
-        $student->degree()->associate($degree);
         $student->update([
             'bachelor_final_mark' => $studentRequest->bachelor_final_mark,
             'master_final_mark' => $studentRequest->master_final_mark,
             'phd_final_mark' => $studentRequest->phd_final_mark,
             'outside_prescribed_time' => $studentRequest->outside_prescribed_time,
-            'degree_id' => $degree->id
+            'degree_id' => $degree->id,
+            'user_id' => $user->id
         ]);
+        $student->degree()->associate($degree);
+        $student->user()->associate($user);
         return new StudentResource($student);
     }
 
     public final function delete (string $id) : StudentResource
     {
-        $student = Student::find($id);
+        $student = Student::with(['degree', 'user'])->first();
         if($student === null) {
             throw new ResourceNotFoundException('Student ' . $id . ' does not exist.');
         }

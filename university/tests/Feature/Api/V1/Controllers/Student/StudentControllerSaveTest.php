@@ -61,6 +61,12 @@ class StudentControllerSaveTest extends TestCase
         $response = $this
             ->actingAs($admin)
             ->postJson($route,  [
+                'user' => [
+                    'first_name' => 'Mario',
+                    'last_name' => 'Rossi',
+                    'birth_date' => '01/01/2000',
+                    'email' => 'mario.rossi@gmail.com',
+                ],
                 'bachelor_final_mark' => 'as',
                 'master_final_mark' => null,
                 'phd_final_mark' => null,
@@ -85,6 +91,12 @@ class StudentControllerSaveTest extends TestCase
         $response = $this
             ->actingAs($admin)
             ->postJson($route,  [
+                'user' => [
+                    'first_name' => 'Mario',
+                    'last_name' => 'Rossi',
+                    'birth_date' => '01/01/2000',
+                    'email' => 'mario.rossi@gmail.com',
+                ],
                 'bachelor_final_mark' => 65,
                 'master_final_mark' => 110,
                 'phd_final_mark' => null,
@@ -109,6 +121,12 @@ class StudentControllerSaveTest extends TestCase
         $response = $this
             ->actingAs($admin)
             ->postJson($route,  [
+                'user' => [
+                    'first_name' => 'Mario',
+                    'last_name' => 'Rossi',
+                    'birth_date' => '01/01/2000',
+                    'email' => 'mario.rossi@gmail.com',
+                ],
                 'bachelor_final_mark' => 116,
                 'master_final_mark' => null,
                 'phd_final_mark' => null,
@@ -133,6 +151,12 @@ class StudentControllerSaveTest extends TestCase
         $response = $this
             ->actingAs($admin)
             ->postJson($route,  [
+                'user' => [
+                    'first_name' => 'Mario',
+                    'last_name' => 'Rossi',
+                    'birth_date' => '01/01/2000',
+                    'email' => 'mario.rossi@gmail.com',
+                ],
                 'bachelor_final_mark' => 98,
                 'master_final_mark' => 'NaN',
                 'phd_final_mark' => null,
@@ -157,6 +181,12 @@ class StudentControllerSaveTest extends TestCase
         $response = $this
             ->actingAs($admin)
             ->postJson($route,  [
+                'user' => [
+                    'first_name' => 'Mario',
+                    'last_name' => 'Rossi',
+                    'birth_date' => '01/01/2000',
+                    'email' => 'mario.rossi@gmail.com',
+                ],
                 'bachelor_final_mark' => 98,
                 'master_final_mark' => 65,
                 'phd_final_mark' => null,
@@ -181,6 +211,12 @@ class StudentControllerSaveTest extends TestCase
         $response = $this
             ->actingAs($admin)
             ->postJson($route,  [
+                'user' => [
+                    'first_name' => 'Mario',
+                    'last_name' => 'Rossi',
+                    'birth_date' => '01/01/2000',
+                    'email' => 'mario.rossi@gmail.com',
+                ],
                 'bachelor_final_mark' => 98,
                 'master_final_mark' => 112,
                 'phd_final_mark' => null,
@@ -205,6 +241,12 @@ class StudentControllerSaveTest extends TestCase
         $response = $this
             ->actingAs($admin)
             ->postJson($route,  [
+                'user' => [
+                    'first_name' => 'Mario',
+                    'last_name' => 'Rossi',
+                    'birth_date' => '01/01/2000',
+                    'email' => 'mario.rossi@gmail.com',
+                ],
                 'bachelor_final_mark' => 98,
                 'master_final_mark' => 109,
                 'phd_final_mark' => 'NaN',
@@ -229,6 +271,12 @@ class StudentControllerSaveTest extends TestCase
         $response = $this
             ->actingAs($admin)
             ->postJson($route,  [
+                'user' => [
+                    'first_name' => 'Mario',
+                    'last_name' => 'Rossi',
+                    'birth_date' => '01/01/2000',
+                    'email' => 'mario.rossi@gmail.com',
+                ],
                 'bachelor_final_mark' => 98,
                 'master_final_mark' => 109,
                 'phd_final_mark' => 62,
@@ -253,6 +301,12 @@ class StudentControllerSaveTest extends TestCase
         $response = $this
             ->actingAs($admin)
             ->postJson($route,  [
+                'user' => [
+                    'first_name' => 'Mario',
+                    'last_name' => 'Rossi',
+                    'birth_date' => '01/01/2000',
+                    'email' => 'mario.rossi@gmail.com',
+                ],
                 'bachelor_final_mark' => 98,
                 'master_final_mark' => 109,
                 'phd_final_mark' => 198,
@@ -277,6 +331,12 @@ class StudentControllerSaveTest extends TestCase
         $response = $this
             ->actingAs($admin)
             ->postJson($route,  [
+                'user' => [
+                    'first_name' => 'Mario',
+                    'last_name' => 'Rossi',
+                    'birth_date' => '01/01/2000',
+                    'email' => 'mario.rossi@gmail.com',
+                ],
                 'bachelor_final_mark' => 98,
                 'master_final_mark' => 109,
                 'phd_final_mark' => 109,
@@ -300,6 +360,12 @@ class StudentControllerSaveTest extends TestCase
         $response = $this
             ->actingAs($admin)
             ->postJson($route,  [
+                'user' => [
+                    'first_name' => 'Mario',
+                    'last_name' => 'Rossi',
+                    'birth_date' => '01/01/2000',
+                    'email' => 'mario.rossi@gmail.com',
+                ],
                 'bachelor_final_mark' => 98,
                 'master_final_mark' => 109,
                 'phd_final_mark' => 109,
@@ -316,7 +382,7 @@ class StudentControllerSaveTest extends TestCase
         $response->assertJsonPath('errors.outside_prescribed_time.0', 'The outside prescribed time field must be true or false.');
     }
 
-    public final function test_save_student_as_admin_returns_ok () : void
+    public final function test_save_student_as_admin_returns_not_found () : void
     {
         $admin = User::factory()->create(['role' => 'admin']);
         $degree = Degree::factory()->create([
@@ -329,6 +395,43 @@ class StudentControllerSaveTest extends TestCase
         $response = $this
             ->actingAs($admin)
             ->postJson($route,  [
+                'user' => [
+                    'first_name' => 'Mario',
+                    'last_name' => 'Rossi',
+                    'birth_date' => '01/01/2000',
+                    'email' => 'mario.rossi@gmail.com',
+                ],
+                'bachelor_final_mark' => 98,
+                'master_final_mark' => 109,
+                'phd_final_mark' => 109,
+                'outside_prescribed_time' => true,
+                'degree' => $degree
+            ]);
+
+            $response->assertStatus(Response::HTTP_NOT_FOUND);
+            $response->assertJsonPath('message', 'Associated user does not exists.');
+    }
+
+    public final function test_save_student_as_admin_returns_created () : void
+    {
+        $admin = User::factory()->create(['role' => 'admin']);
+        $user = User::factory()->create();
+        $degree = Degree::factory()->create([
+            'name' => 'Computer Science',
+            'code' => 'PH-18',
+            'course_type' => 'phd'
+        ]);
+        $route = route('students.store');
+
+        $response = $this
+            ->actingAs($admin)
+            ->postJson($route,  [
+                'user' => [
+                    'first_name' => $user->first_name,
+                    'last_name' => $user->last_name,
+                    'birth_date' => $user->birth_date,
+                    'email' => $user->email,
+                ],
                 'bachelor_final_mark' => 98,
                 'master_final_mark' => 109,
                 'phd_final_mark' => 109,
@@ -347,6 +450,10 @@ class StudentControllerSaveTest extends TestCase
         $response = $this
             ->actingAs($employee)
             ->postJson($route,  [
+                'first_name' => 'Mario',
+                'last_name' => 'Rossi',
+                'birth_date' => '1996-05-04',
+                'email' => 'email@example.com',
                 'bachelor_final_mark' => 65,
                 'master_final_mark' => 110,
                 'phd_final_mark' => null,
@@ -361,26 +468,6 @@ class StudentControllerSaveTest extends TestCase
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
         $response->assertJsonPath('message', 'The bachelor final mark field must be at least 66.');
         $response->assertJsonPath('errors.bachelor_final_mark.0', 'The bachelor final mark field must be at least 66.');
-        $employee = User::factory()->create(['role' => 'employee']);
-        $route = route('students.store');
-
-        $response = $this
-            ->actingAs($employee)
-            ->postJson($route,  [
-                'bachelor_final_mark' => 'as',
-                'master_final_mark' => null,
-                'phd_final_mark' => null,
-                'outside_prescribed_time' => true,
-                'degree' => [
-                    'name' => 'Computer Science',
-                    'code' => 'LM-101',
-                    'course_type' => 'master'
-                ]
-            ]);
-
-        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
-        $response->assertJsonPath('message', 'The bachelor final mark field must be a number.');
-        $response->assertJsonPath('errors.bachelor_final_mark.0', 'The bachelor final mark field must be a number.');
     }
 
     public final function test_save_student_as_employee_with_bachelor_final_mark_greater_than_110_returns_unprocessable_content () : void
@@ -391,6 +478,12 @@ class StudentControllerSaveTest extends TestCase
         $response = $this
             ->actingAs($employee)
             ->postJson($route,  [
+                'user' => [
+                    'first_name' => 'Mario',
+                    'last_name' => 'Rossi',
+                    'birth_date' => '1996-05-04',
+                    'email' => 'email@example.com',
+                ],
                 'bachelor_final_mark' => 116,
                 'master_final_mark' => null,
                 'phd_final_mark' => null,
@@ -415,6 +508,12 @@ class StudentControllerSaveTest extends TestCase
         $response = $this
             ->actingAs($employee)
             ->postJson($route,  [
+                'user' => [
+                    'first_name' => 'Mario',
+                    'last_name' => 'Rossi',
+                    'birth_date' => '1996-05-04',
+                    'email' => 'email@example.com',
+                ],
                 'bachelor_final_mark' => 98,
                 'master_final_mark' => 'NaN',
                 'phd_final_mark' => null,
@@ -439,6 +538,12 @@ class StudentControllerSaveTest extends TestCase
         $response = $this
             ->actingAs($employee)
             ->postJson($route,  [
+                'user' => [
+                    'first_name' => 'Mario',
+                    'last_name' => 'Rossi',
+                    'birth_date' => '1996-05-04',
+                    'email' => 'email@example.com',
+                ],
                 'bachelor_final_mark' => 98,
                 'master_final_mark' => 65,
                 'phd_final_mark' => null,
@@ -463,6 +568,12 @@ class StudentControllerSaveTest extends TestCase
         $response = $this
             ->actingAs($employee)
             ->postJson($route,  [
+                'user' => [
+                    'first_name' => 'Mario',
+                    'last_name' => 'Rossi',
+                    'birth_date' => '1996-05-04',
+                    'email' => 'email@example.com',
+                ],
                 'bachelor_final_mark' => 98,
                 'master_final_mark' => 112,
                 'phd_final_mark' => null,
@@ -487,6 +598,12 @@ class StudentControllerSaveTest extends TestCase
         $response = $this
             ->actingAs($employee)
             ->postJson($route,  [
+                'user' => [
+                    'first_name' => 'Mario',
+                    'last_name' => 'Rossi',
+                    'birth_date' => '1996-05-04',
+                    'email' => 'email@example.com',
+                ],
                 'bachelor_final_mark' => 98,
                 'master_final_mark' => 109,
                 'phd_final_mark' => 'NaN',
@@ -511,6 +628,12 @@ class StudentControllerSaveTest extends TestCase
         $response = $this
             ->actingAs($employee)
             ->postJson($route,  [
+                'user' => [
+                    'first_name' => 'Mario',
+                    'last_name' => 'Rossi',
+                    'birth_date' => '1996-05-04',
+                    'email' => 'email@example.com',
+                ],
                 'bachelor_final_mark' => 98,
                 'master_final_mark' => 109,
                 'phd_final_mark' => 62,
@@ -535,6 +658,12 @@ class StudentControllerSaveTest extends TestCase
         $response = $this
             ->actingAs($employee)
             ->postJson($route,  [
+                'user' => [
+                    'first_name' => 'Mario',
+                    'last_name' => 'Rossi',
+                    'birth_date' => '1996-05-04',
+                    'email' => 'email@example.com',
+                ],
                 'bachelor_final_mark' => 98,
                 'master_final_mark' => 109,
                 'phd_final_mark' => 198,
@@ -559,6 +688,12 @@ class StudentControllerSaveTest extends TestCase
         $response = $this
             ->actingAs($employee)
             ->postJson($route,  [
+                'user' => [
+                    'first_name' => 'Mario',
+                    'last_name' => 'Rossi',
+                    'birth_date' => '1996-05-04',
+                    'email' => 'email@example.com',
+                ],
                 'bachelor_final_mark' => 98,
                 'master_final_mark' => 109,
                 'phd_final_mark' => 109,
@@ -582,6 +717,12 @@ class StudentControllerSaveTest extends TestCase
         $response = $this
             ->actingAs($employee)
             ->postJson($route,  [
+                'user' => [
+                    'first_name' => 'Mario',
+                    'last_name' => 'Rossi',
+                    'birth_date' => '1996-05-04',
+                    'email' => 'email@example.com',
+                ],
                 'bachelor_final_mark' => 98,
                 'master_final_mark' => 109,
                 'phd_final_mark' => 109,
@@ -598,7 +739,7 @@ class StudentControllerSaveTest extends TestCase
         $response->assertJsonPath('errors.outside_prescribed_time.0', 'The outside prescribed time field must be true or false.');
     }
 
-    public final function test_save_student_as_employee_returns_ok () : void
+    public final function test_save_student_as_employee_returns_not_found () : void
     {
         $employee = User::factory()->create(['role' => 'employee']);
         $degree = Degree::factory()->create([
@@ -611,6 +752,43 @@ class StudentControllerSaveTest extends TestCase
         $response = $this
             ->actingAs($employee)
             ->postJson($route,  [
+                'user' => [
+                    'first_name' => 'Mario',
+                    'last_name' => 'Rossi',
+                    'birth_date' => '1996-05-04',
+                    'email' => 'email@example.com',
+                ],
+                'bachelor_final_mark' => 98,
+                'master_final_mark' => 109,
+                'phd_final_mark' => 109,
+                'outside_prescribed_time' => true,
+                'degree' => $degree
+            ]);
+
+        $response->assertStatus(Response::HTTP_NOT_FOUND);
+        $response->assertJsonPath('message', 'Associated user does not exists.');
+    }
+
+    public final function test_save_student_as_employee_returns_created () : void
+    {
+        $employee = User::factory()->create(['role' => 'employee']);
+        $user = User::factory()->create();
+        $degree = Degree::factory()->create([
+            'name' => 'Computer Science',
+            'code' => 'PH-18',
+            'course_type' => 'phd'
+        ]);
+        $route = route('students.store');
+
+        $response = $this
+            ->actingAs($employee)
+            ->postJson($route,  [
+                'user' => [
+                    'first_name' => $user->first_name,
+                    'last_name' => $user->last_name,
+                    'birth_date' => $user->birth_date,
+                    'email' => $user->email,
+                ],
                 'bachelor_final_mark' => 98,
                 'master_final_mark' => 109,
                 'phd_final_mark' => 109,

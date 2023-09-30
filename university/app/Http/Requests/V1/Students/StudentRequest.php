@@ -22,10 +22,12 @@ class StudentRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'first_name' => ['bail', 'required', 'string'],
-            'last_name' => ['bail', 'required', 'string'],
-            'email' => ['bail', 'email', 'required'],
-            'birth_date' => ['bail', 'required', 'date'],
+            'user' => [
+                'first_name' => ['bail', 'required', 'string'],
+                'last_name' => ['bail', 'required', 'string'],
+                'email' => ['bail', 'email', 'required'],
+                'birth_date' => ['bail', 'required', 'date'],
+            ],
             'bachelor_final_mark' => ['bail', 'numeric', 'min:66', 'max:110', 'nullable'],
             'master_final_mark' => ['bail', 'numeric', 'min:66', 'max:110', 'nullable'],
             'phd_final_mark' => ['bail', 'numeric', 'min:66', 'max:110', 'nullable'],
