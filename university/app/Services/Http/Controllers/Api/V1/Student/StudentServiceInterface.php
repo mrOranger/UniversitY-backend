@@ -10,4 +10,5 @@ interface StudentServiceInterface
     public function getAll() : StudentCollection;
     public function getById (string $id) : StudentResource;
     public function save (StudentRequest $studentRequest) : StudentResource;
+    public function update (StudentRequest $studentRequest, string $id) : StudentResource;
 }

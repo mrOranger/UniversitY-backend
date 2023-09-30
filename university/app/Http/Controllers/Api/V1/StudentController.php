@@ -44,7 +44,7 @@ class StudentController extends Controller
      */
     public function update(StudentRequest $request, string $id)
     {
-        //
+        return $this->studentServiceInterface->update($request, $id);
     }
 
     /**
