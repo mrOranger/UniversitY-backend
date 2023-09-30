@@ -11,7 +11,7 @@ class StudentRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,9 +22,9 @@ class StudentRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'bachelor_final_mark' => ['bail', 'numeric', 'min:66', 'max:110'],
-            'master_final_mark' => ['bail', 'numeric', 'min:66', 'max:110'],
-            'phd_final_mark' => ['bail', 'numeric', 'min:66', 'max:110'],
+            'bachelor_final_mark' => ['bail', 'numeric', 'min:66', 'max:110', 'nullable'],
+            'master_final_mark' => ['bail', 'numeric', 'min:66', 'max:110', 'nullable'],
+            'phd_final_mark' => ['bail', 'numeric', 'min:66', 'max:110', 'nullable'],
             'outside_prescribed_time' => ['bail', 'required', 'boolean'],
             'degree' => [
                 'name' => ['bail', 'required', 'string', 'max:255', 'unique:degrees,name'],

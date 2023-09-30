@@ -6,8 +6,10 @@ use App\Exceptions\ResourceNotFoundException;
 use App\Http\Requests\V1\Students\StudentRequest;
 use App\Http\Resources\collections\StudentCollection;
 use App\Http\Resources\StudentResource;
+use App\Models\Degree;
 use App\Models\Student;
 use App\Services\Http\Controllers\Api\V1\Student\StudentServiceInterface;
+use Illuminate\Support\Facades\Log;
 
 final class StudentService implements StudentServiceInterface
 {
@@ -27,11 +29,21 @@ final class StudentService implements StudentServiceInterface
 
     public final function save (StudentRequest $studentRequest) : StudentResource
     {
-        $studentFields = $studentRequest->validated();
-        if(Student::find($studentFields['id']) !== null) {
-            throw new ResourceConflictException('Student ' . $studentFields['id'] . ' is already registered.');
+        $degree = Degree::where('name', '=', $studentRequest->degree['name'])
+            ->where('code', '=', $studentRequest->degree['code'])
+            ->where('course_type', '=', $studentRequest->degree['course_type'])
+            ->first();
+        if($degree === null) {
+            $degree = Degree::create($studentRequest->degree);
         }
-        $student = new Student($studentFields);
+        $student = new Student([
+            'bachelor_final_mark' => $studentRequest->bachelor_final_mark,
+            'master_final_mark' => $studentRequest->master_final_mark,
+            'phd_final_mark' => $studentRequest->phd_final_mark,
+            'outside_prescribed_time' => $studentRequest->outside_prescribed_time,
+            'degree_id' => $degree->id
+        ]);
+        $student->degree()->associate($degree);
         $student->save();
         return new StudentResource($student);
     }

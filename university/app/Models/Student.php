@@ -16,7 +16,8 @@ class Student extends Model
         'phd_final_mark',
         'outside_prescribed_time',
         'user',
-        'course',
+        'degree',
+        'degree_id'
     ];
 
     /**
@@ -25,7 +26,6 @@ class Student extends Model
      * @var array<int, string>
      */
     protected $hidden = [
-        'degree_id',
         'updated_at',
         'created_at',
         'deleted_at',
