@@ -16,24 +16,27 @@ jobs:
       with:
         php-version: '8.2.7'
     - name : Change directory
-      run : |
-        cd ..
-        cd ..
-        cd university
+      run : cd ../../
     - uses: actions/checkout@v3
     - name: Copy .env
+      working-directory: ./university
       run: php -r "file_exists('.env') || copy('.env.example', '.env');"
     - name: Install Dependencies
+      working-directory: ./university
       run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
     - name: Generate key
+      working-directory: ./university
       run: php artisan key:generate
     - name: Directory Permissions
+      working-directory: ./university
       run: chmod -R 777 storage bootstrap/cache
     - name: Create Database
+      working-directory: ./university
       run: |
         mkdir -p database
         touch database/database.sqlite
     - name: Execute tests (Unit and Feature tests) via PHPUnit
+      working-directory: ./university
       env:
         DB_CONNECTION: sqlite
         DB_DATABASE: database/database.sqlite
