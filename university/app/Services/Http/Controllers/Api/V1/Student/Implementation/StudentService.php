@@ -4,13 +4,12 @@ namespace App\Services\Http\Controllers\Api\V1\Student\Implementation;
 
 use App\Exceptions\ResourceNotFoundException;
 use App\Http\Requests\V1\Students\StudentRequest;
-use App\Http\Resources\collections\StudentCollection;
+use App\Http\Resources\Collections\StudentCollection;
 use App\Http\Resources\StudentResource;
 use App\Models\Degree;
 use App\Models\Student;
 use App\Models\User;
 use App\Services\Http\Controllers\Api\V1\Student\StudentServiceInterface;
-use Illuminate\Support\Facades\Log;
 
 final class StudentService implements StudentServiceInterface
 {
