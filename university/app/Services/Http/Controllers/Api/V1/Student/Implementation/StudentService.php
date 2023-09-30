@@ -50,7 +50,7 @@ final class StudentService implements StudentServiceInterface
         return new StudentResource($student);
     }
 
-    public function update(StudentRequest $studentRequest, string $id): StudentResource
+    public final function update(StudentRequest $studentRequest, string $id): StudentResource
     {
         $student = Student::find($id);
         if ($student === null) {
@@ -71,6 +71,16 @@ final class StudentService implements StudentServiceInterface
             'outside_prescribed_time' => $studentRequest->outside_prescribed_time,
             'degree_id' => $degree->id
         ]);
+        return new StudentResource($student);
+    }
+
+    public final function delete (string $id) : StudentResource
+    {
+        $student = Student::find($id);
+        if($student === null) {
+            throw new ResourceNotFoundException('Student ' . $id . ' does not exist.');
+        }
+        $student->delete();
         return new StudentResource($student);
     }
 }
