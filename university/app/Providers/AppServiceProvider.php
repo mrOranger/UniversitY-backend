@@ -6,6 +6,8 @@ use App\Services\Http\Controllers\Api\V1\Auth\AuthServiceInterface;
 use App\Services\Http\Controllers\Api\V1\Auth\Implementation\AuthService;
 use App\Services\Http\Controllers\Api\V1\Degree\DegreeServiceInterface;
 use App\Services\Http\Controllers\Api\V1\Degree\Implementation\DegreeService;
+use App\Services\Http\Controllers\Api\V1\Professor\Implementation\ProfessorService;
+use App\Services\Http\Controllers\Api\V1\Professor\ProfessorServiceInterface;
 use App\Services\Http\Controllers\Api\V1\Student\Implementation\StudentService;
 use App\Services\Http\Controllers\Api\V1\Student\StudentServiceInterface;
 use Illuminate\Support\ServiceProvider;
@@ -25,6 +27,9 @@ class AppServiceProvider extends ServiceProvider
         });
         $this->app->bind(StudentServiceInterface::class, function () {
             return new StudentService();
+        });
+        $this->app->bind(ProfessorServiceInterface::class, function () {
+            return new ProfessorService();
         });
     }
 
