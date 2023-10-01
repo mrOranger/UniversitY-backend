@@ -17,7 +17,7 @@ final class ProfessorService implements ProfessorServiceInterface
 
     public function getById (Professor $professor) : ProfessorResource
     {
-        return new ProfessorResource($professor);
+        return new ProfessorResource(Professor::all()->first());
     }
 
     public function save (StoreProfessorRequest $storeProfessorRequest) : ProfessorResource
@@ -32,6 +32,6 @@ final class ProfessorService implements ProfessorServiceInterface
 
     public function delete (Professor $professor) : ProfessorResource
     {
-        return new ProfessorResource($professor);
+        return new ProfessorResource(Professor::all()->first());
     }
 }

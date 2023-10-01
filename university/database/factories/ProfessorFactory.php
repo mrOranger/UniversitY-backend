@@ -17,10 +17,11 @@ class ProfessorFactory extends Factory
      */
     public function definition(): array
     {
+        $professor = User::factory()->create(['role' => 'professor']);
         return [
             'level' => $this->faker->randomElement(['researcher', 'associate professor', 'tenured professor']),
             'subject' => $this->faker->randomElement(['ING-INF', 'MAT', 'INF']),
-            'user_id' => User::where('role', '=', 'professor')->get()->random()->id
+            'user_id' => $professor->id
         ];
     }
 }
