@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Services\Http\Controllers\Api\V1\Professor\Implementation;
+use App\Exceptions\ResourceNotFoundException;
 use App\Http\Requests\V1\Professors\StoreProfessorRequest;
 use App\Http\Requests\V1\Professors\UpdateProfessorRequest;
 use App\Http\Resources\Collections\ProfessorCollection;
@@ -17,7 +18,11 @@ final class ProfessorService implements ProfessorServiceInterface
 
     public function getById (Professor $professor) : ProfessorResource
     {
-        return new ProfessorResource(Professor::all()->first());
+        \Illuminate\Support\Facades\Log::info($professor);
+        if($professor->id === null) {
+            throw new ResourceNotFoundException('Professor not found.');
+        }
+        return new ProfessorResource($professor);
     }
 
     public function save (StoreProfessorRequest $storeProfessorRequest) : ProfessorResource

@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Exceptions\ResourceNotFoundException;
+use App\Models\Professor;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Http\Request;
@@ -24,6 +26,12 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        parent::boot();
+
+        Route::model('professor', Professor::class, function () {
+            throw new ResourceNotFoundException('Professor not found.');
+        });
+
         RateLimiter::for('api', function (Request $request) {
             return Limit::perMinute(60)->by($request->user()?->id ?: $request->ip());
         });

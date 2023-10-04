@@ -10,7 +10,6 @@ use App\Services\Http\Controllers\Api\V1\Professor\ProfessorServiceInterface;
 
 class ProfessorController extends Controller
 {
-
     private ProfessorServiceInterface $professorServiceInterface;
 
     public function __construct(ProfessorServiceInterface $professorServiceInterface)
@@ -28,6 +27,8 @@ class ProfessorController extends Controller
 
     /**
      * Store a newly created resource in storage.
+     *
+     * @param StoreProfessorRequest $request save new professor request.
      */
     public function store(StoreProfessorRequest $request)
     {
@@ -36,6 +37,8 @@ class ProfessorController extends Controller
 
     /**
      * Display the specified resource.
+     *
+     * @param Professor $professor professor to show.
      */
     public function show(Professor $professor)
     {
@@ -44,6 +47,9 @@ class ProfessorController extends Controller
 
     /**
      * Update the specified resource in storage.
+     *
+     * @param UpdateProfessorRequest $request update existing professor request.
+     * @param Professor $professor professor to update.
      */
     public function update(UpdateProfessorRequest $request, Professor $professor)
     {
@@ -52,6 +58,8 @@ class ProfessorController extends Controller
 
     /**
      * Remove the specified resource from storage.
+     *
+     * @param Professor $professor professor to delete.
      */
     public function destroy(Professor $professor)
     {
