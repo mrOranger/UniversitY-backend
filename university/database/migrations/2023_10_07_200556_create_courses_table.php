@@ -13,6 +13,12 @@ return new class extends Migration
     {
         Schema::create('courses', function (Blueprint $table) {
             $table->id();
+            $table->string('name')->nullable(false);
+            $table->string('sector')->nullable(false);
+            $table->date('starting_date')->nullable(false);
+            $table->date('ending_date')->nullable(false);
+            $table->smallInteger('cfu')->nullable(false)->default(6);
+            $table->softDeletes();
             $table->timestamps();
         });
     }
