@@ -9,7 +9,6 @@ use App\Services\Http\Controllers\Api\V1\Teacher\TeacherServiceInterface;
 
 class TeacherController extends Controller
 {
-
     private TeacherServiceInterface $teacherServiceInterface;
 
     public function __construct(TeacherServiceInterface $teacherService)

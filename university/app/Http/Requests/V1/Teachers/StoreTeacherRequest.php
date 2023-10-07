@@ -11,7 +11,7 @@ class StoreTeacherRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,8 @@ class StoreTeacherRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'role' => ['required', 'string', 'in:researcher,associate,full'],
+            'subject' => ['required', 'string']
         ];
     }
 }
