@@ -13,7 +13,7 @@ final class TeacherService implements TeacherServiceInterface
 {
     public function getAll() : TeacherCollection
     {
-        return new TeacherCollection(Teacher::with('user')->all());
+        return new TeacherCollection(Teacher::with('user')->get());
     }
 
     public function getById(string $id) : TeacherResource
