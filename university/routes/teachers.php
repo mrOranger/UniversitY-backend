@@ -13,6 +13,6 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "api" middleware group. Make something great!
 */
 
-Route::resource('students', TeacherController::class)->except([
+Route::resource('teachers', TeacherController::class)->except([
     'create', 'edit',
 ])->middleware(['auth:sanctum', 'role:admin,employee,professor']);
