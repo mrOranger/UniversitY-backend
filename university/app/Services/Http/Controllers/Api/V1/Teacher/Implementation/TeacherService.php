@@ -20,7 +20,7 @@ final class TeacherService implements TeacherServiceInterface
     {
         $teacher = Teacher::with('user')->find($id);
         if($teacher === null) {
-            throw new ResourceNotFoundException('Teacher ' . $id . ' not found.');
+            throw new ResourceNotFoundException('Teacher ' . $id . ' does not exist.');
         }
         return new TeacherResource($teacher);
     }
