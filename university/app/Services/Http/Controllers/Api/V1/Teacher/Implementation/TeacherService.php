@@ -62,7 +62,7 @@ final class TeacherService implements TeacherServiceInterface
         }
 
         if ($teacher === null) {
-            throw new ResourceNotFoundException('Teacher ' . $teacherId . 'does not exists.');
+            throw new ResourceNotFoundException('Teacher ' . $teacherId . ' does not exists.');
         }
 
         $teacher->update([
