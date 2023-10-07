@@ -14,7 +14,7 @@ class TeacherSeeder extends Seeder
      */
     public function run(): void
     {
-        for($i = 0; $i < 200; $i++) {
+        for($i = 0; $i < 20; $i++) {
             Teacher::factory()->create([
                 'user_id' => User::factory()->create(['role' => 'professor'])
             ]);
