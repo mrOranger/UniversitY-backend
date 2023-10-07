@@ -64,7 +64,7 @@ class StudentControllerUpdateTest extends TestCase
             'course_type' => 'master'
         ]);
         $student = Student::factory()->create([
-            'bachelor_final_mark' => 'as',
+            'bachelor_final_mark' => 89,
             'master_final_mark' => null,
             'phd_final_mark' => null,
             'outside_prescribed_time' => true,
@@ -110,7 +110,7 @@ class StudentControllerUpdateTest extends TestCase
             'course_type' => 'master'
         ]);
         $student = Student::factory()->create([
-            'bachelor_final_mark' => 'as',
+            'bachelor_final_mark' => 89,
             'master_final_mark' => null,
             'phd_final_mark' => null,
             'outside_prescribed_time' => true,
@@ -156,7 +156,7 @@ class StudentControllerUpdateTest extends TestCase
             'course_type' => 'master'
         ]);
         $student = Student::factory()->create([
-            'bachelor_final_mark' => 'as',
+            'bachelor_final_mark' => 89,
             'master_final_mark' => null,
             'phd_final_mark' => null,
             'outside_prescribed_time' => true,
@@ -202,7 +202,7 @@ class StudentControllerUpdateTest extends TestCase
             'course_type' => 'master'
         ]);
         $student = Student::factory()->create([
-            'bachelor_final_mark' => 'as',
+            'bachelor_final_mark' => 89,
             'master_final_mark' => null,
             'phd_final_mark' => null,
             'outside_prescribed_time' => true,
@@ -248,7 +248,7 @@ class StudentControllerUpdateTest extends TestCase
             'course_type' => 'master'
         ]);
         $student = Student::factory()->create([
-            'bachelor_final_mark' => 'as',
+            'bachelor_final_mark' => 89,
             'master_final_mark' => null,
             'phd_final_mark' => null,
             'outside_prescribed_time' => true,
@@ -294,7 +294,7 @@ class StudentControllerUpdateTest extends TestCase
             'course_type' => 'master'
         ]);
         $student = Student::factory()->create([
-            'bachelor_final_mark' => 'as',
+            'bachelor_final_mark' => 89,
             'master_final_mark' => null,
             'phd_final_mark' => null,
             'outside_prescribed_time' => true,
@@ -340,7 +340,7 @@ class StudentControllerUpdateTest extends TestCase
             'course_type' => 'master'
         ]);
         $student = Student::factory()->create([
-            'bachelor_final_mark' => 'as',
+            'bachelor_final_mark' => 89,
             'master_final_mark' => null,
             'phd_final_mark' => null,
             'outside_prescribed_time' => true,
@@ -386,7 +386,7 @@ class StudentControllerUpdateTest extends TestCase
             'course_type' => 'master'
         ]);
         $student = Student::factory()->create([
-            'bachelor_final_mark' => 'as',
+            'bachelor_final_mark' => 89,
             'master_final_mark' => null,
             'phd_final_mark' => null,
             'outside_prescribed_time' => true,
@@ -432,7 +432,7 @@ class StudentControllerUpdateTest extends TestCase
             'course_type' => 'master'
         ]);
         $student = Student::factory()->create([
-            'bachelor_final_mark' => 'as',
+            'bachelor_final_mark' => 89,
             'master_final_mark' => null,
             'phd_final_mark' => null,
             'outside_prescribed_time' => true,
@@ -478,7 +478,7 @@ class StudentControllerUpdateTest extends TestCase
             'course_type' => 'master'
         ]);
         $student = Student::factory()->create([
-            'bachelor_final_mark' => 'as',
+            'bachelor_final_mark' => 89,
             'master_final_mark' => null,
             'phd_final_mark' => null,
             'outside_prescribed_time' => true,
@@ -523,7 +523,7 @@ class StudentControllerUpdateTest extends TestCase
             'course_type' => 'master'
         ]);
         $student = Student::factory()->create([
-            'bachelor_final_mark' => 'as',
+            'bachelor_final_mark' => 89,
             'master_final_mark' => null,
             'phd_final_mark' => null,
             'outside_prescribed_time' => true,
@@ -601,7 +601,7 @@ class StudentControllerUpdateTest extends TestCase
             'course_type' => 'master'
         ]);
         $student = Student::factory()->create([
-            'bachelor_final_mark' => 'as',
+            'bachelor_final_mark' => 89,
             'master_final_mark' => null,
             'phd_final_mark' => null,
             'outside_prescribed_time' => true,
@@ -636,7 +636,7 @@ class StudentControllerUpdateTest extends TestCase
             'course_type' => 'master'
         ]);
         $student = Student::factory()->create([
-            'bachelor_final_mark' => 'as',
+            'bachelor_final_mark' => 89,
             'master_final_mark' => null,
             'phd_final_mark' => null,
             'outside_prescribed_time' => true,
@@ -683,7 +683,7 @@ class StudentControllerUpdateTest extends TestCase
             'course_type' => 'master'
         ]);
         $student = Student::factory()->create([
-            'bachelor_final_mark' => 'as',
+            'bachelor_final_mark' => 89,
             'master_final_mark' => null,
             'phd_final_mark' => null,
             'outside_prescribed_time' => true,
@@ -729,7 +729,7 @@ class StudentControllerUpdateTest extends TestCase
             'course_type' => 'master'
         ]);
         $student = Student::factory()->create([
-            'bachelor_final_mark' => 'as',
+            'bachelor_final_mark' => 89,
             'master_final_mark' => null,
             'phd_final_mark' => null,
             'outside_prescribed_time' => true,
@@ -775,7 +775,7 @@ class StudentControllerUpdateTest extends TestCase
             'course_type' => 'master'
         ]);
         $student = Student::factory()->create([
-            'bachelor_final_mark' => 'as',
+            'bachelor_final_mark' => 89,
             'master_final_mark' => null,
             'phd_final_mark' => null,
             'outside_prescribed_time' => true,
@@ -821,7 +821,7 @@ class StudentControllerUpdateTest extends TestCase
             'course_type' => 'master'
         ]);
         $student = Student::factory()->create([
-            'bachelor_final_mark' => 'as',
+            'bachelor_final_mark' => 89,
             'master_final_mark' => null,
             'phd_final_mark' => null,
             'outside_prescribed_time' => true,
@@ -867,7 +867,7 @@ class StudentControllerUpdateTest extends TestCase
             'course_type' => 'master'
         ]);
         $student = Student::factory()->create([
-            'bachelor_final_mark' => 'as',
+            'bachelor_final_mark' => 89,
             'master_final_mark' => null,
             'phd_final_mark' => null,
             'outside_prescribed_time' => true,
@@ -913,7 +913,7 @@ class StudentControllerUpdateTest extends TestCase
             'course_type' => 'master'
         ]);
         $student = Student::factory()->create([
-            'bachelor_final_mark' => 'as',
+            'bachelor_final_mark' => 89,
             'master_final_mark' => null,
             'phd_final_mark' => null,
             'outside_prescribed_time' => true,
@@ -959,7 +959,7 @@ class StudentControllerUpdateTest extends TestCase
             'course_type' => 'master'
         ]);
         $student = Student::factory()->create([
-            'bachelor_final_mark' => 'as',
+            'bachelor_final_mark' => 89,
             'master_final_mark' => null,
             'phd_final_mark' => null,
             'outside_prescribed_time' => true,
@@ -1005,7 +1005,7 @@ class StudentControllerUpdateTest extends TestCase
             'course_type' => 'master'
         ]);
         $student = Student::factory()->create([
-            'bachelor_final_mark' => 'as',
+            'bachelor_final_mark' => 89,
             'master_final_mark' => null,
             'phd_final_mark' => null,
             'outside_prescribed_time' => true,
@@ -1050,7 +1050,7 @@ class StudentControllerUpdateTest extends TestCase
             'course_type' => 'master'
         ]);
         $student = Student::factory()->create([
-            'bachelor_final_mark' => 'as',
+            'bachelor_final_mark' => 89,
             'master_final_mark' => null,
             'phd_final_mark' => null,
             'outside_prescribed_time' => true,
@@ -1128,7 +1128,7 @@ class StudentControllerUpdateTest extends TestCase
         ]);
         $user = User::factory()->create();
         $student = Student::factory()->create([
-            'bachelor_final_mark' => 'as',
+            'bachelor_final_mark' => 89,
             'master_final_mark' => null,
             'phd_final_mark' => null,
             'outside_prescribed_time' => true,
