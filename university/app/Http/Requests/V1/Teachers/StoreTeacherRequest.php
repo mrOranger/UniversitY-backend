@@ -23,7 +23,13 @@ class StoreTeacherRequest extends FormRequest
     {
         return [
             'role' => ['required', 'string', 'in:researcher,associate,full'],
-            'subject' => ['required', 'string']
+            'subject' => ['required', 'string'],
+            'user' => [
+                'first_name' => ['bail', 'required', 'string'],
+                'last_name' => ['bail', 'required', 'string'],
+                'email' => ['bail', 'email', 'required'],
+                'birth_date' => ['bail', 'required', 'date'],
+            ],
         ];
     }
 }

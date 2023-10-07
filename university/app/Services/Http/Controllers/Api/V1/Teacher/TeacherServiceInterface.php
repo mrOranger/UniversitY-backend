@@ -11,6 +11,6 @@ interface TeacherServiceInterface
     public function getAll() : TeacherCollection;
     public function getById(string $id) : TeacherResource;
     public function save (StoreTeacherRequest $request) : TeacherResource;
-    public function update (UpdateTeacherRequest $request) : TeacherResource;
+    public function update (UpdateTeacherRequest $request, string $teacher) : TeacherResource;
     public function delete (string $id) : TeacherResource;
 }

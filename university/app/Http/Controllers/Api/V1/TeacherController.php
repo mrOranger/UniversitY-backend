@@ -37,7 +37,7 @@ class TeacherController extends Controller
      */
     public function store(StoreTeacherRequest $request)
     {
-        //
+        return $this->teacherServiceInterface->save($request);
     }
 
     /**
@@ -45,7 +45,7 @@ class TeacherController extends Controller
      */
     public function update(UpdateTeacherRequest $request, string $teacher)
     {
-        //
+        return $this->teacherServiceInterface->update($request, $teacher);
     }
 
     /**
