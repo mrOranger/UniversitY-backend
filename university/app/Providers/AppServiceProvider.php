@@ -6,6 +6,8 @@ use App\Services\Http\Controllers\Api\V1\Auth\AuthServiceInterface;
 use App\Services\Http\Controllers\Api\V1\Auth\Implementation\AuthService;
 use App\Services\Http\Controllers\Api\V1\Degree\DegreeServiceInterface;
 use App\Services\Http\Controllers\Api\V1\Degree\Implementation\DegreeService;
+use App\Services\Http\Controllers\Api\V1\Professor\Implementation\ProfessorService;
+use App\Services\Http\Controllers\Api\V1\Professor\ProfessorServiceInterface;
 use App\Services\Http\Controllers\Api\V1\Student\Implementation\StudentService;
 use App\Services\Http\Controllers\Api\V1\Student\StudentServiceInterface;
 use App\Services\Http\Controllers\Api\V1\Teacher\Implementation\TeacherService;
