@@ -14,10 +14,10 @@ class StudentSeeder extends Seeder
      * Run the database seeds.
      */
     public function run(): void{
-        for($i = 0; $i < 200; $i++) {
+        for($i = 0; $i < 2000; $i++) {
             Student::factory()->create([
                 'degree_id' => Degree::all()->random()->id,
-                'user_id' => User::all()->random()->id
+                'user_id' => User::factory()->create(['role' => 'professor'])
             ]);
         }
     }
