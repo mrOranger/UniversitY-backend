@@ -14,7 +14,7 @@ final class CourseService implements CourseServiceInterface
 {
     public function getAll() : CourseCollection
     {
-        return new CourseCollection(Course::all());
+        return new CourseCollection(Course::with('professor', 'professor.user')->get());
     }
 
     public function getById(string $courseId) : CourseResource
