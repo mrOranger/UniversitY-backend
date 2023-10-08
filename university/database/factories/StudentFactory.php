@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Degree;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -21,7 +23,8 @@ class StudentFactory extends Factory
             'master_final_mark' => $this->faker->numberBetween(66, 110),
             'phd_final_mark' => $this->faker->numberBetween(66, 110),
             'outside_prescribed_time' => $this->faker->boolean(),
-            'degree_id' => $this->faker->randomNumber(),
+            'degree_id' => Degree::all()->random()->id,
+            'user_id' => User::factory()->create()->id
         ];
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -18,7 +19,8 @@ class TeacherFactory extends Factory
     {
         return [
             'role' => $this->faker->randomElement(['reseracher', 'associate', 'full']),
-            'subject' => $this->faker->text(20)
+            'subject' => $this->faker->text(20),
+            'user_id' => User::factory()->create()->id
         ];
     }
 }
