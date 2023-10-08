@@ -22,7 +22,12 @@ class StoreCourseRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => ['required', 'string', 'bail'],
+            'sector' => ['required', 'string', 'bail'],
+            'starting_date' => ['required', 'date', 'bail'],
+            'ending_date' => ['required', 'date', 'bail', 'after_or_equal:starting_date'],
+            'cfu' => ['required', 'number', 'bail'],
+            'professor' => ['required', 'number', 'bail'],
         ];
     }
 }

@@ -3,18 +3,31 @@
 namespace Tests\Feature\Api\V1\Controllers\Course;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Collection;
 use Tests\TestCase;
 
 class CourseControllerDeleteTest extends TestCase
 {
-    /**
-     * A basic feature test example.
-     */
-    public function test_example(): void
-    {
-        $response = $this->get('/');
+    use RefreshDatabase;
+    private Collection $roles;
 
-        $response->assertStatus(200);
+    public function setUp(): void
+    {
+        parent::setUp();
+        $this->roles = collect(['professor', 'admin', 'employee']);
+    }
+    final public function test_delete_course_by_id_without_authentication_returns_unauthenticated(): void
+    {
+    }
+    final public function test_delete_course_by_id_returns_unauthorized(): void
+    {
+    }
+
+    final public function test_delete_course_by_id_returns_not_found(): void
+    {
+    }
+
+    final public function test_delete_course_by_id_returns_ok(): void
+    {
     }
 }
