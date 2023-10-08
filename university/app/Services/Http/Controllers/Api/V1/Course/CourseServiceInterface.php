@@ -11,6 +11,6 @@ interface CourseServiceInterface
     public function getAll() : CourseCollection;
     public function getById(string $courseId) : CourseResource;
     public function save(StoreCourseRequest $request) : CourseResource;
-    public function update (UpdateCourseRequest $request) : CourseResource;
+    public function update (UpdateCourseRequest $request, string $id) : CourseResource;
     public function delete (string $courseId) : CourseResource;
 }

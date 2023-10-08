@@ -31,7 +31,7 @@ final class CourseService implements CourseServiceInterface
         return new CourseResource($request);
     }
 
-    public function update (UpdateCourseRequest $request) : CourseResource
+    public function update (UpdateCourseRequest $request, string $id) : CourseResource
     {
         return new CourseResource($request);
     }
