@@ -27,7 +27,16 @@ class UpdateCourseRequest extends FormRequest
             'starting_date' => ['required', 'date', 'bail'],
             'ending_date' => ['required', 'date', 'bail', 'after_or_equal:starting_date'],
             'cfu' => ['required', 'number', 'bail'],
-            'professor' => ['required', 'number', 'bail'],
+            'professor' => [
+                'role' => ['required', 'string', 'in:researcher,associate,full'],
+                'subject' => ['required', 'string'],
+                'user' => [
+                    'first_name' => ['bail', 'required', 'string'],
+                    'last_name' => ['bail', 'required', 'string'],
+                    'email' => ['bail', 'email', 'required'],
+                    'birth_date' => ['bail', 'required', 'date'],
+                ],
+            ],
         ];
     }
 }
