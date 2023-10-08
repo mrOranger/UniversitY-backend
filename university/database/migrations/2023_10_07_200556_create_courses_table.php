@@ -18,8 +18,10 @@ return new class extends Migration
             $table->date('starting_date')->nullable(false);
             $table->date('ending_date')->nullable(false);
             $table->smallInteger('cfu')->nullable(false)->default(6);
-            $table->unsignedInteger('professor')->nullable(false);
-            $table->foreign('professor')
+
+            $table->bigInteger('professor_id')->unsigned()->nullable();
+
+            $table->foreign('professor_id')
                 ->references('id')
                 ->on('teachers')
                 ->onDelete('set null');
