@@ -2,7 +2,7 @@
 
 namespace App\Http\Resources;
 
-use App\Http\Resources\Collections\TeacherCollection;
+use App\Http\Resources\TeacherResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -22,7 +22,7 @@ class CourseResource extends JsonResource
             'starting_date' => $this->starting_date,
             'ending_date' => $this->ending_date,
             'cfu' => $this->cfu,
-            'professors' => new TeacherCollection($this->professors)
+            'professors' => new TeacherResource($this->professors)
         ];
     }
 }

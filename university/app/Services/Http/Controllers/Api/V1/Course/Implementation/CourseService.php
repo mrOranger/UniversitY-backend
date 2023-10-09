@@ -3,11 +3,12 @@
 namespace App\Services\Http\Controllers\Api\V1\Course\Implementation;
 
 use App\Exceptions\ResourceNotFoundException;
-use App\Http\Requests\StoreCourseRequest;
-use App\Http\Requests\UpdateCourseRequest;
+use App\Http\Requests\V1\Courses\StoreCourseRequest;
+use App\Http\Requests\V1\Courses\UpdateCourseRequest;
 use App\Http\Resources\Collections\CourseCollection;
 use App\Http\Resources\CourseResource;
 use App\Models\Course;
+use App\Models\User;
 use App\Services\Http\Controllers\Api\V1\Course\CourseServiceInterface;
 
 final class CourseService implements CourseServiceInterface
@@ -28,12 +29,61 @@ final class CourseService implements CourseServiceInterface
 
     public function save(StoreCourseRequest $request) : CourseResource
     {
-        return new CourseResource($request);
+        $validatedRequest = $request->validated();
+        \Illuminate\Support\Facades\Log::info($request);
+        $professor = User::where('first_name', '=', $validatedRequest['professor']['user']['first_name'])
+            ->where('last_name', '=', $validatedRequest['professor']['user']['last_name'])
+            ->where('email', '=', $validatedRequest['professor']['user']['email'])
+            ->where('birth_date', '=', $validatedRequest['professor']['user']['birth_date'])
+            ->first();
+        if($professor === null) {
+            throw new ResourceNotFoundException('Professor does not exist.');
+        }
+
+        $course = new Course([
+            'name' => $validatedRequest['name'],
+            'sector' => $validatedRequest['sector'],
+            'starting_date' => $validatedRequest['starting_date'],
+            'ending_date' => $validatedRequest['ending_date'],
+            'cfu' => $validatedRequest['cfu']
+        ]);
+
+        $course->professor()->associate($professor->teacher()->get()->first());
+        $course->save();
+
+        \Illuminate\Support\Facades\Log::info($course);
+        return new CourseResource($course);
     }
 
     public function update (UpdateCourseRequest $request, string $id) : CourseResource
     {
-        return new CourseResource($request);
+        $validatedRequest = $request->validated();
+        $course = Course::find($id);
+
+        if ($course === null) {
+
+        }
+        $professor = User::where('first_name', '=', $validatedRequest->professor['user']['first_name'])
+            ->where('last_name', '=', $validatedRequest->professor['user']['last_name'])
+            ->where('email', '=', $validatedRequest->professor['user']['email'])
+            ->where('birth_date', '=', $validatedRequest->professor['user']['birth_date'])
+            ->first();
+        if($professor === null) {
+            throw new ResourceNotFoundException('Professor does not exist.');
+        }
+
+        $course = new Course([
+            'name' => $validatedRequest->name,
+            'sector' => $validatedRequest->sector,
+            'starting_date' => $validatedRequest->starting_date,
+            'ending_date' => $validatedRequest->ending_date,
+            'cfu' => $validatedRequest->cfu
+        ]);
+
+        $course->professor()->associate($professor->teacher()->get());
+        $course->save();
+
+        return new CourseResource($course);
     }
 
     public function delete (string $courseId) : CourseResource

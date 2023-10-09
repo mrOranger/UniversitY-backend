@@ -3,13 +3,12 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreCourseRequest;
-use App\Http\Requests\UpdateCourseRequest;
+use App\Http\Requests\V1\Courses\StoreCourseRequest;
+use App\Http\Requests\V1\Courses\UpdateCourseRequest;
 use App\Services\Http\Controllers\Api\V1\Course\CourseServiceInterface;
 
 class CourseController extends Controller
 {
-
     private CourseServiceInterface $courseServiceInterface;
 
     public function __construct(CourseServiceInterface $courseServiceInterface)
@@ -37,6 +36,8 @@ class CourseController extends Controller
 
     /**
      * Store a newly created resource in storage.
+     *
+     * @param
      */
     public function store(StoreCourseRequest $request)
     {

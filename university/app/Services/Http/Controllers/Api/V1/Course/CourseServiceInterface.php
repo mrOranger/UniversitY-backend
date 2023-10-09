@@ -1,8 +1,8 @@
 <?php
 
 namespace App\Services\Http\Controllers\Api\V1\Course;
-use App\Http\Requests\StoreCourseRequest;
-use App\Http\Requests\UpdateCourseRequest;
+use App\Http\Requests\V1\Courses\StoreCourseRequest;
+use App\Http\Requests\V1\Courses\UpdateCourseRequest;
 use App\Http\Resources\Collections\CourseCollection;
 use App\Http\Resources\CourseResource;
 
