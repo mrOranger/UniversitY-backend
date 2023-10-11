@@ -30,11 +30,13 @@ final class CourseService implements CourseServiceInterface
     public function save(StoreCourseRequest $request) : CourseResource
     {
         $validatedRequest = $request->validated();
+
         $professor = User::where('first_name', '=', $validatedRequest['professor']['user']['first_name'])
             ->where('last_name', '=', $validatedRequest['professor']['user']['last_name'])
             ->where('email', '=', $validatedRequest['professor']['user']['email'])
             ->where('birth_date', '=', $validatedRequest['professor']['user']['birth_date'])
             ->first();
+
         if($professor === null) {
             throw new ResourceNotFoundException('Professor does not exist.');
         }
@@ -59,13 +61,15 @@ final class CourseService implements CourseServiceInterface
         $course = Course::find($id);
 
         if ($course === null) {
-
+            throw new ResourceNotFoundException('Course ' . $id . ' does not exist.');
         }
+
         $professor = User::where('first_name', '=', $validatedRequest->professor['user']['first_name'])
             ->where('last_name', '=', $validatedRequest->professor['user']['last_name'])
             ->where('email', '=', $validatedRequest->professor['user']['email'])
             ->where('birth_date', '=', $validatedRequest->professor['user']['birth_date'])
             ->first();
+
         if($professor === null) {
             throw new ResourceNotFoundException('Professor does not exist.');
         }
@@ -86,7 +90,7 @@ final class CourseService implements CourseServiceInterface
 
     public function delete (string $courseId) : CourseResource
     {
-        $course = Course::find($courseId);
+        $course = Course::with('professor', 'professor.user')->find($courseId);
         if($course === null) {
             throw new ResourceNotFoundException('Course ' . $courseId . ' not found.');
         }
