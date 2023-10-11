@@ -22,7 +22,7 @@ class CourseResource extends JsonResource
             'starting_date' => $this->starting_date,
             'ending_date' => $this->ending_date,
             'cfu' => $this->cfu,
-            'professors' => new TeacherResource($this->professors)
+            'professor' => new TeacherResource($this->professor)
         ];
     }
 }

@@ -20,9 +20,9 @@ final class CourseService implements CourseServiceInterface
 
     public function getById(string $courseId) : CourseResource
     {
-        $course = Course::find($courseId);
+        $course = Course::with('professor', 'professor.user')->find($courseId);
         if($course === null) {
-            throw new ResourceNotFoundException('Course ' . $courseId . ' not found.');
+            throw new ResourceNotFoundException('Course ' . $courseId . ' does not exist.');
         }
         return new CourseResource($course);
     }
@@ -30,7 +30,6 @@ final class CourseService implements CourseServiceInterface
     public function save(StoreCourseRequest $request) : CourseResource
     {
         $validatedRequest = $request->validated();
-        \Illuminate\Support\Facades\Log::info($request);
         $professor = User::where('first_name', '=', $validatedRequest['professor']['user']['first_name'])
             ->where('last_name', '=', $validatedRequest['professor']['user']['last_name'])
             ->where('email', '=', $validatedRequest['professor']['user']['email'])
@@ -51,7 +50,6 @@ final class CourseService implements CourseServiceInterface
         $course->professor()->associate($professor->teacher()->get()->first());
         $course->save();
 
-        \Illuminate\Support\Facades\Log::info($course);
         return new CourseResource($course);
     }
 

@@ -11,7 +11,6 @@ use Tests\TestCase;
 
 class CourseControllerGetAllTest extends TestCase
 {
-
     use RefreshDatabase;
 
     private Collection $roles;
