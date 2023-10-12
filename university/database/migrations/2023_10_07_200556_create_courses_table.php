@@ -13,6 +13,20 @@ return new class extends Migration
     {
         Schema::create('courses', function (Blueprint $table) {
             $table->id();
+            $table->string('name')->nullable(false);
+            $table->string('sector')->nullable(false);
+            $table->date('starting_date')->nullable(false);
+            $table->date('ending_date')->nullable(false);
+            $table->smallInteger('cfu')->nullable(false)->default(6);
+
+            $table->bigInteger('professor_id')->unsigned()->nullable();
+
+            $table->foreign('professor_id')
+                ->references('id')
+                ->on('teachers')
+                ->onDelete('set null');
+
+            $table->softDeletes();
             $table->timestamps();
         });
     }

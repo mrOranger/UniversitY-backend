@@ -3,17 +3,25 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreCourseRequest;
-use App\Http\Requests\UpdateCourseRequest;
+use App\Http\Requests\V1\Courses\StoreCourseRequest;
+use App\Http\Requests\V1\Courses\UpdateCourseRequest;
+use App\Services\Http\Controllers\Api\V1\Course\CourseServiceInterface;
 
 class CourseController extends Controller
 {
+    private CourseServiceInterface $courseServiceInterface;
+
+    public function __construct(CourseServiceInterface $courseServiceInterface)
+    {
+        $this->courseServiceInterface = $courseServiceInterface;
+    }
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        return $this->courseServiceInterface->getAll();
     }
 
     /**
@@ -23,15 +31,17 @@ class CourseController extends Controller
      */
     public function show(string $id)
     {
-        //
+        return $this->courseServiceInterface->getById($id);
     }
 
     /**
      * Store a newly created resource in storage.
+     *
+     * @param
      */
     public function store(StoreCourseRequest $request)
     {
-        //
+        return $this->courseServiceInterface->save($request);
     }
 
     /**
@@ -39,7 +49,7 @@ class CourseController extends Controller
      */
     public function update(UpdateCourseRequest $request, string $id)
     {
-        //
+        return $this->courseServiceInterface->update($request, $id);
     }
 
     /**
@@ -47,6 +57,6 @@ class CourseController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        return $this->courseServiceInterface->delete($id);
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\V1\Courses;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -11,7 +11,7 @@ class StoreCourseRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,21 @@ class StoreCourseRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => ['required', 'string', 'bail'],
+            'sector' => ['required', 'string', 'bail'],
+            'starting_date' => ['required', 'date', 'bail'],
+            'ending_date' => ['required', 'date', 'bail', 'after_or_equal:starting_date'],
+            'cfu' => ['required', 'numeric', 'bail'],
+            'professor' => [
+                'role' => ['required', 'string', 'in:researcher,associate,full'],
+                'subject' => ['required', 'string'],
+                'user' => [
+                    'first_name' => ['bail', 'required', 'string'],
+                    'last_name' => ['bail', 'required', 'string'],
+                    'email' => ['bail', 'email', 'required'],
+                    'birth_date' => ['bail', 'required', 'date'],
+                ],
+            ],
         ];
     }
 }
