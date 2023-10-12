@@ -93,6 +93,7 @@ final class CourseService implements CourseServiceInterface
         if($course === null) {
             throw new ResourceNotFoundException('Course ' . $courseId . ' does not exist.');
         }
+        $course->delete();
         return new CourseResource($course);
     }
 }
