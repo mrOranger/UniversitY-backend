@@ -48,6 +48,8 @@ class Student extends Model
 
     public function courses () : BelongsToMany
     {
-        return $this->belongsToMany(Courses::class);
+        return $this->belongsToMany(Courses::class)
+            ->withTimestamps()
+            ->whereNull('course_student.deleted_at');
     }
 }
