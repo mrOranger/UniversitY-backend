@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Course;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -30,6 +31,7 @@ class Student extends Model
         'updated_at',
         'created_at',
         'deleted_at',
+        'pivot'
     ];
 
     protected $casts = [
@@ -48,7 +50,7 @@ class Student extends Model
 
     public function courses () : BelongsToMany
     {
-        return $this->belongsToMany(Courses::class)
+        return $this->belongsToMany(Course::class)
             ->withTimestamps()
             ->whereNull('course_student.deleted_at');
     }

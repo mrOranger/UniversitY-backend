@@ -13,14 +13,14 @@ class Course extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = ['name', 'sector', 'starting_date', 'ending_date', 'cfu'];
-    protected $hidden = ['created_at', 'updated_at', 'deleted_at', 'professor_id'];
+    protected $hidden = ['created_at', 'updated_at', 'deleted_at', 'professor_id', 'pivot'];
 
-    public function professor () : BelongsTo
+    public function professor(): BelongsTo
     {
         return $this->belongsTo(Teacher::class);
     }
 
-    public function students () : BelongsToMany
+    public function students(): BelongsToMany
     {
         return $this->belongsToMany(Student::class)
             ->withTimestamps()
