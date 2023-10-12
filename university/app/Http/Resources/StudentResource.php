@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Http\Resources\Collections\CourseCollection;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -21,7 +22,8 @@ class StudentResource extends JsonResource
             'phd_final_mark' => $this->phd_final_mark,
             'outside_prescribed_time' => $this->outside_prescribed_time,
             'degree' => new DegreeResource($this->degree),
-            'user' => new UserResource($this->user)
+            'user' => new UserResource($this->user),
+            'courses' => new CourseCollection($this->courses)
         ];
     }
 }
