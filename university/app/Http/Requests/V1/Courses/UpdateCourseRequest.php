@@ -26,7 +26,7 @@ class UpdateCourseRequest extends FormRequest
             'sector' => ['required', 'string', 'bail'],
             'starting_date' => ['required', 'date', 'bail'],
             'ending_date' => ['required', 'date', 'bail', 'after_or_equal:starting_date'],
-            'cfu' => ['required', 'number', 'bail'],
+            'cfu' => ['required', 'numeric', 'bail'],
             'professor' => [
                 'role' => ['required', 'string', 'in:researcher,associate,full'],
                 'subject' => ['required', 'string'],
