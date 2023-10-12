@@ -91,7 +91,7 @@ final class CourseService implements CourseServiceInterface
     {
         $course = Course::with('professor', 'professor.user')->find($courseId);
         if($course === null) {
-            throw new ResourceNotFoundException('Course ' . $courseId . ' not found.');
+            throw new ResourceNotFoundException('Course ' . $courseId . ' does not exist.');
         }
         return new CourseResource($course);
     }
