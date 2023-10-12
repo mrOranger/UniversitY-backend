@@ -54,4 +54,12 @@ class StudentController extends Controller
     {
         return $this->studentServiceInterface->delete($id);
     }
+
+    /**
+     * Attach the specified course to the specified user.
+     */
+    public function assignCourse (string $student, string $course)
+    {
+
+    }
 }
