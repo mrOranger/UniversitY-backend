@@ -12,4 +12,5 @@ interface StudentServiceInterface
     public function save (StudentRequest $studentRequest) : StudentResource;
     public function update (StudentRequest $studentRequest, string $id) : StudentResource;
     public function delete (string $id) : StudentResource;
+    public function assignCourse (string $studentId, string $courseId) : StudentResource;
 }

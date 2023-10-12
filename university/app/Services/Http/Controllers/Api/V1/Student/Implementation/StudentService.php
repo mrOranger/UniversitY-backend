@@ -6,6 +6,7 @@ use App\Exceptions\ResourceNotFoundException;
 use App\Http\Requests\V1\Students\StudentRequest;
 use App\Http\Resources\Collections\StudentCollection;
 use App\Http\Resources\StudentResource;
+use App\Models\Course;
 use App\Models\Degree;
 use App\Models\Student;
 use App\Models\User;
@@ -15,7 +16,7 @@ final class StudentService implements StudentServiceInterface
 {
     public final function getAll(): StudentCollection
     {
-        return new StudentCollection(Student::with(['degree', 'user'])->get());
+        return new StudentCollection(Student::with(['degree', 'user', 'courses'])->get());
     }
 
     public final function getById(string $id): StudentResource
@@ -105,6 +106,21 @@ final class StudentService implements StudentServiceInterface
             throw new ResourceNotFoundException('Student ' . $id . ' does not exist.');
         }
         $student->delete();
+        return new StudentResource($student);
+    }
+
+    public function assignCourse(string $studentId, string $courseId) : StudentResource
+    {
+        $student = Student::with(['degree', 'user', 'courses'])->first();
+        if($student === null) {
+            throw new ResourceNotFoundException('Student ' . $studentId . ' does not exist.');
+        }
+
+        $course = Course::find($courseId);
+        if ($course === null) {
+            throw new ResourceNotFoundException('Course ' . $courseId . ' does not exist.');
+        }
+        $student->courses()->attach($course);
         return new StudentResource($student);
     }
 }

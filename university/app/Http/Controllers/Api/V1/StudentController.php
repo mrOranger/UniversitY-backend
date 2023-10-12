@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Students\StudentRequest;
+use App\Models\Student;
 use App\Services\Http\Controllers\Api\V1\Student\StudentServiceInterface;
 use Illuminate\Http\Request;
 
@@ -58,8 +59,8 @@ class StudentController extends Controller
     /**
      * Attach the specified course to the specified user.
      */
-    public function assignCourse (string $student, string $course)
+    public function assignCourse (string $studentId, string $courseId)
     {
-
+        return $this->studentServiceInterface->assignCourse($studentId, $courseId);
     }
 }
