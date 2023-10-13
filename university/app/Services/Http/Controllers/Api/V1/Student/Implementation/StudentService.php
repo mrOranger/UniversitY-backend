@@ -59,6 +59,7 @@ final class StudentService implements StudentServiceInterface
         $student->degree()->associate($degree);
         $student->user()->associate($user);
         $student->save();
+
         return new StudentResource($student);
     }
 
@@ -96,6 +97,7 @@ final class StudentService implements StudentServiceInterface
         ]);
         $student->degree()->associate($degree);
         $student->user()->associate($user);
+
         return new StudentResource($student);
     }
 
@@ -106,6 +108,7 @@ final class StudentService implements StudentServiceInterface
             throw new ResourceNotFoundException('Student ' . $id . ' does not exist.');
         }
         $student->delete();
+
         return new StudentResource($student);
     }
 
@@ -121,6 +124,7 @@ final class StudentService implements StudentServiceInterface
             throw new ResourceNotFoundException('Course ' . $courseId . ' does not exist.');
         }
         $student->courses()->attach($course);
+
         return new StudentResource($student);
     }
 }
