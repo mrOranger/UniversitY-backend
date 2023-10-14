@@ -15,5 +15,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth:sanctum', 'role:admin,employee'])->group(function () {
     Route::resource('students', StudentController::class)->except([ 'create', 'edit' ]);
-    Route::patch('students/{student}/course/{course}', [StudentController::class, 'assignCourse'])->name('students.assign-course');
+    Route::prefix('students')
+        ->controller(StudentController::class)
+        ->name('students.')
+        ->group(function () {
+            Route::get('course/{course}', 'getStudentsByCourse')->name('get-students-by_course');
+            Route::patch('{student}/course/{course}', 'assignCourse')->name('assign-course');
+    });
 });
