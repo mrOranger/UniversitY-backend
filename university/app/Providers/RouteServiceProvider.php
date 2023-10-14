@@ -46,7 +46,7 @@ class RouteServiceProvider extends ServiceProvider
                     base_path('routes/students.php'),
                     base_path('routes/degrees.php'),
                     base_path('routes/courses.php'),
-                    base_path('routes/teachers.php')
+                    base_path('routes/teachers.php'),
                 ]);
 
             Route::middleware('api')

@@ -6,19 +6,17 @@ use App\Models\Degree;
 use App\Models\Student;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Symfony\Component\HttpFoundation\Response;
 use Tests\TestCase;
 
 class StudentControllerUpdateTest extends TestCase
 {
-
     use RefreshDatabase;
 
-    final public function test_update_student_wihtout_authentication_returns_unauthenticated () : void
+    final public function test_update_student_wihtout_authentication_returns_unauthenticated(): void
     {
         $route = route('students.update', [
-            'student' => 1
+            'student' => 1,
         ]);
         $response = $this->putJson($route, []);
 
@@ -26,11 +24,11 @@ class StudentControllerUpdateTest extends TestCase
         $response->assertJsonPath('message', 'Unauthenticated.');
     }
 
-    final public function test_update_student_as_student_return_unauthorized () : void
+    final public function test_update_student_as_student_return_unauthorized(): void
     {
         $student = User::factory()->create(['role' => 'student']);
         $route = route('students.update', [
-            'student' => 1
+            'student' => 1,
         ]);
         $response = $this
             ->actingAs($student)
@@ -40,11 +38,11 @@ class StudentControllerUpdateTest extends TestCase
         $response->assertJsonPath('message', 'Unauthorized.');
     }
 
-    final public function test_update_student_as_professor_returns_unauthorized () : void
+    final public function test_update_student_as_professor_returns_unauthorized(): void
     {
         $professor = User::factory()->create(['role' => 'professor']);
         $route = route('students.update', [
-            'student' => 1
+            'student' => 1,
         ]);
         $response = $this
             ->actingAs($professor)
@@ -54,14 +52,14 @@ class StudentControllerUpdateTest extends TestCase
         $response->assertJsonPath('message', 'Unauthorized.');
     }
 
-    public final function test_update_student_as_admin_with_bachelor_final_mark_not_numeric_returns_unprocessable_content () : void
+    final public function test_update_student_as_admin_with_bachelor_final_mark_not_numeric_returns_unprocessable_content(): void
     {
         $admin = User::factory()->create(['role' => 'admin']);
         $user = User::factory()->create();
         $degree = Degree::factory()->create([
             'name' => 'Computer Science',
             'code' => 'LM-101',
-            'course_type' => 'master'
+            'course_type' => 'master',
         ]);
         $student = Student::factory()->create([
             'bachelor_final_mark' => 89,
@@ -69,15 +67,15 @@ class StudentControllerUpdateTest extends TestCase
             'phd_final_mark' => null,
             'outside_prescribed_time' => true,
             'degree_id' => $degree->id,
-            'user_id' => $user->id
+            'user_id' => $user->id,
         ]);
         $route = route('students.update', [
-            'student' => $student->id
+            'student' => $student->id,
         ]);
 
         $response = $this
             ->actingAs($admin)
-            ->putJson($route,  [
+            ->putJson($route, [
                 'user' => [
                     'first_name' => 'Mario',
                     'last_name' => 'Rossi',
@@ -91,8 +89,8 @@ class StudentControllerUpdateTest extends TestCase
                 'degree' => [
                     'name' => 'Computer Science',
                     'code' => 'LM-101',
-                    'course_type' => 'master'
-                ]
+                    'course_type' => 'master',
+                ],
             ]);
 
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
@@ -100,14 +98,14 @@ class StudentControllerUpdateTest extends TestCase
         $response->assertJsonPath('errors.bachelor_final_mark.0', 'The bachelor final mark field must be a number.');
     }
 
-    public final function test_update_student_as_admin_with_bachelor_final_mark_less_than_66_returns_unprocessable_content () : void
+    final public function test_update_student_as_admin_with_bachelor_final_mark_less_than_66_returns_unprocessable_content(): void
     {
         $admin = User::factory()->create(['role' => 'admin']);
         $user = User::factory()->create();
         $degree = Degree::factory()->create([
             'name' => 'Computer Science',
             'code' => 'LM-101',
-            'course_type' => 'master'
+            'course_type' => 'master',
         ]);
         $student = Student::factory()->create([
             'bachelor_final_mark' => 89,
@@ -115,15 +113,15 @@ class StudentControllerUpdateTest extends TestCase
             'phd_final_mark' => null,
             'outside_prescribed_time' => true,
             'degree_id' => $degree->id,
-            'user_id' => $user->id
+            'user_id' => $user->id,
         ]);
         $route = route('students.update', [
-            'student' => $student->id
+            'student' => $student->id,
         ]);
 
         $response = $this
             ->actingAs($admin)
-            ->putJson($route,  [
+            ->putJson($route, [
                 'user' => [
                     'first_name' => 'Mario',
                     'last_name' => 'Rossi',
@@ -137,8 +135,8 @@ class StudentControllerUpdateTest extends TestCase
                 'degree' => [
                     'name' => 'Computer Science',
                     'code' => 'LM-101',
-                    'course_type' => 'master'
-                ]
+                    'course_type' => 'master',
+                ],
             ]);
 
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
@@ -146,14 +144,14 @@ class StudentControllerUpdateTest extends TestCase
         $response->assertJsonPath('errors.bachelor_final_mark.0', 'The bachelor final mark field must be at least 66.');
     }
 
-    public final function test_update_student_as_admin_with_bachelor_final_mark_greater_than_110_returns_unprocessable_content () : void
+    final public function test_update_student_as_admin_with_bachelor_final_mark_greater_than_110_returns_unprocessable_content(): void
     {
         $admin = User::factory()->create(['role' => 'admin']);
         $user = User::factory()->create();
         $degree = Degree::factory()->create([
             'name' => 'Computer Science',
             'code' => 'LM-101',
-            'course_type' => 'master'
+            'course_type' => 'master',
         ]);
         $student = Student::factory()->create([
             'bachelor_final_mark' => 89,
@@ -161,15 +159,15 @@ class StudentControllerUpdateTest extends TestCase
             'phd_final_mark' => null,
             'outside_prescribed_time' => true,
             'degree_id' => $degree->id,
-            'user_id' => $user->id
+            'user_id' => $user->id,
         ]);
         $route = route('students.update', [
-            'student' => $student->id
+            'student' => $student->id,
         ]);
 
         $response = $this
             ->actingAs($admin)
-            ->putJson($route,  [
+            ->putJson($route, [
                 'user' => [
                     'first_name' => 'Mario',
                     'last_name' => 'Rossi',
@@ -183,8 +181,8 @@ class StudentControllerUpdateTest extends TestCase
                 'degree' => [
                     'name' => 'Computer Science',
                     'code' => 'LM-18',
-                    'course_type' => 'master'
-                ]
+                    'course_type' => 'master',
+                ],
             ]);
 
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
@@ -192,14 +190,14 @@ class StudentControllerUpdateTest extends TestCase
         $response->assertJsonPath('errors.bachelor_final_mark.0', 'The bachelor final mark field must not be greater than 110.');
     }
 
-    public final function test_update_student_as_admin_with_master_final_mark_not_numeric_returns_unprocessable_content () : void
+    final public function test_update_student_as_admin_with_master_final_mark_not_numeric_returns_unprocessable_content(): void
     {
         $admin = User::factory()->create(['role' => 'admin']);
         $user = User::factory()->create();
         $degree = Degree::factory()->create([
             'name' => 'Computer Science',
             'code' => 'LM-101',
-            'course_type' => 'master'
+            'course_type' => 'master',
         ]);
         $student = Student::factory()->create([
             'bachelor_final_mark' => 89,
@@ -207,15 +205,15 @@ class StudentControllerUpdateTest extends TestCase
             'phd_final_mark' => null,
             'outside_prescribed_time' => true,
             'degree_id' => $degree->id,
-            'user_id' => $user->id
+            'user_id' => $user->id,
         ]);
         $route = route('students.update', [
-            'student' => $student->id
+            'student' => $student->id,
         ]);
 
         $response = $this
             ->actingAs($admin)
-            ->putJson($route,  [
+            ->putJson($route, [
                 'user' => [
                     'first_name' => 'Mario',
                     'last_name' => 'Rossi',
@@ -229,8 +227,8 @@ class StudentControllerUpdateTest extends TestCase
                 'degree' => [
                     'name' => 'Computer Science',
                     'code' => 'PH-18',
-                    'course_type' => 'phd'
-                ]
+                    'course_type' => 'phd',
+                ],
             ]);
 
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
@@ -238,14 +236,14 @@ class StudentControllerUpdateTest extends TestCase
         $response->assertJsonPath('errors.master_final_mark.0', 'The master final mark field must be a number.');
     }
 
-    public final function test_update_student_as_admin_with_master_final_mark_less_than_66_returns_unprocessable_content () : void
+    final public function test_update_student_as_admin_with_master_final_mark_less_than_66_returns_unprocessable_content(): void
     {
         $admin = User::factory()->create(['role' => 'admin']);
         $user = User::factory()->create();
         $degree = Degree::factory()->create([
             'name' => 'Computer Science',
             'code' => 'LM-101',
-            'course_type' => 'master'
+            'course_type' => 'master',
         ]);
         $student = Student::factory()->create([
             'bachelor_final_mark' => 89,
@@ -253,15 +251,15 @@ class StudentControllerUpdateTest extends TestCase
             'phd_final_mark' => null,
             'outside_prescribed_time' => true,
             'degree_id' => $degree->id,
-            'user_id' => $user->id
+            'user_id' => $user->id,
         ]);
         $route = route('students.update', [
-            'student' => $student->id
+            'student' => $student->id,
         ]);
 
         $response = $this
             ->actingAs($admin)
-            ->putJson($route,  [
+            ->putJson($route, [
                 'user' => [
                     'first_name' => 'Mario',
                     'last_name' => 'Rossi',
@@ -275,8 +273,8 @@ class StudentControllerUpdateTest extends TestCase
                 'degree' => [
                     'name' => 'Computer Science',
                     'code' => 'PH-18',
-                    'course_type' => 'phd'
-                ]
+                    'course_type' => 'phd',
+                ],
             ]);
 
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
@@ -284,14 +282,14 @@ class StudentControllerUpdateTest extends TestCase
         $response->assertJsonPath('errors.master_final_mark.0', 'The master final mark field must be at least 66.');
     }
 
-    public final function test_update_student_as_admin_with_master_final_mark_greater_than_110_returns_unprocessable_content () : void
+    final public function test_update_student_as_admin_with_master_final_mark_greater_than_110_returns_unprocessable_content(): void
     {
         $admin = User::factory()->create(['role' => 'admin']);
         $user = User::factory()->create();
         $degree = Degree::factory()->create([
             'name' => 'Computer Science',
             'code' => 'LM-101',
-            'course_type' => 'master'
+            'course_type' => 'master',
         ]);
         $student = Student::factory()->create([
             'bachelor_final_mark' => 89,
@@ -299,15 +297,15 @@ class StudentControllerUpdateTest extends TestCase
             'phd_final_mark' => null,
             'outside_prescribed_time' => true,
             'degree_id' => $degree->id,
-            'user_id' => $user->id
+            'user_id' => $user->id,
         ]);
         $route = route('students.update', [
-            'student' => $student->id
+            'student' => $student->id,
         ]);
 
         $response = $this
             ->actingAs($admin)
-            ->putJson($route,  [
+            ->putJson($route, [
                 'user' => [
                     'first_name' => 'Mario',
                     'last_name' => 'Rossi',
@@ -321,8 +319,8 @@ class StudentControllerUpdateTest extends TestCase
                 'degree' => [
                     'name' => 'Computer Science',
                     'code' => 'PH-18',
-                    'course_type' => 'phd'
-                ]
+                    'course_type' => 'phd',
+                ],
             ]);
 
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
@@ -330,14 +328,14 @@ class StudentControllerUpdateTest extends TestCase
         $response->assertJsonPath('errors.master_final_mark.0', 'The master final mark field must not be greater than 110.');
     }
 
-    public final function test_update_student_as_admin_with_phd_final_mark_not_numeric_returns_unprocessable_content () : void
+    final public function test_update_student_as_admin_with_phd_final_mark_not_numeric_returns_unprocessable_content(): void
     {
         $admin = User::factory()->create(['role' => 'admin']);
         $user = User::factory()->create();
         $degree = Degree::factory()->create([
             'name' => 'Computer Science',
             'code' => 'LM-101',
-            'course_type' => 'master'
+            'course_type' => 'master',
         ]);
         $student = Student::factory()->create([
             'bachelor_final_mark' => 89,
@@ -345,15 +343,15 @@ class StudentControllerUpdateTest extends TestCase
             'phd_final_mark' => null,
             'outside_prescribed_time' => true,
             'degree_id' => $degree->id,
-            'user_id' => $user->id
+            'user_id' => $user->id,
         ]);
         $route = route('students.update', [
-            'student' => $student->id
+            'student' => $student->id,
         ]);
 
         $response = $this
             ->actingAs($admin)
-            ->putJson($route,  [
+            ->putJson($route, [
                 'user' => [
                     'first_name' => 'Mario',
                     'last_name' => 'Rossi',
@@ -367,8 +365,8 @@ class StudentControllerUpdateTest extends TestCase
                 'degree' => [
                     'name' => 'Computer Science',
                     'code' => 'PH-18',
-                    'course_type' => 'phd'
-                ]
+                    'course_type' => 'phd',
+                ],
             ]);
 
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
@@ -376,14 +374,14 @@ class StudentControllerUpdateTest extends TestCase
         $response->assertJsonPath('errors.phd_final_mark.0', 'The phd final mark field must be a number.');
     }
 
-    public final function test_update_student_as_admin_with_phd_final_mark_less_than_66_returns_unprocessable_content () : void
+    final public function test_update_student_as_admin_with_phd_final_mark_less_than_66_returns_unprocessable_content(): void
     {
         $admin = User::factory()->create(['role' => 'admin']);
         $user = User::factory()->create();
         $degree = Degree::factory()->create([
             'name' => 'Computer Science',
             'code' => 'LM-101',
-            'course_type' => 'master'
+            'course_type' => 'master',
         ]);
         $student = Student::factory()->create([
             'bachelor_final_mark' => 89,
@@ -391,15 +389,15 @@ class StudentControllerUpdateTest extends TestCase
             'phd_final_mark' => null,
             'outside_prescribed_time' => true,
             'degree_id' => $degree->id,
-            'user_id' => $user->id
+            'user_id' => $user->id,
         ]);
         $route = route('students.update', [
-            'student' => $student->id
+            'student' => $student->id,
         ]);
 
         $response = $this
             ->actingAs($admin)
-            ->putJson($route,  [
+            ->putJson($route, [
                 'user' => [
                     'first_name' => 'Mario',
                     'last_name' => 'Rossi',
@@ -413,8 +411,8 @@ class StudentControllerUpdateTest extends TestCase
                 'degree' => [
                     'name' => 'Computer Science',
                     'code' => 'PH-18',
-                    'course_type' => 'phd'
-                ]
+                    'course_type' => 'phd',
+                ],
             ]);
 
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
@@ -422,14 +420,14 @@ class StudentControllerUpdateTest extends TestCase
         $response->assertJsonPath('errors.phd_final_mark.0', 'The phd final mark field must be at least 66.');
     }
 
-    public final function test_update_student_as_admin_with_phd_final_mark_greater_than_110_returns_unprocessable_content () : void
+    final public function test_update_student_as_admin_with_phd_final_mark_greater_than_110_returns_unprocessable_content(): void
     {
         $admin = User::factory()->create(['role' => 'admin']);
         $user = User::factory()->create();
         $degree = Degree::factory()->create([
             'name' => 'Computer Science',
             'code' => 'LM-101',
-            'course_type' => 'master'
+            'course_type' => 'master',
         ]);
         $student = Student::factory()->create([
             'bachelor_final_mark' => 89,
@@ -437,15 +435,15 @@ class StudentControllerUpdateTest extends TestCase
             'phd_final_mark' => null,
             'outside_prescribed_time' => true,
             'degree_id' => $degree->id,
-            'user_id' => $user->id
+            'user_id' => $user->id,
         ]);
         $route = route('students.update', [
-            'student' => $student->id
+            'student' => $student->id,
         ]);
 
         $response = $this
             ->actingAs($admin)
-            ->putJson($route,  [
+            ->putJson($route, [
                 'user' => [
                     'first_name' => 'Mario',
                     'last_name' => 'Rossi',
@@ -459,8 +457,8 @@ class StudentControllerUpdateTest extends TestCase
                 'degree' => [
                     'name' => 'Computer Science',
                     'code' => 'PH-18',
-                    'course_type' => 'phd'
-                ]
+                    'course_type' => 'phd',
+                ],
             ]);
 
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
@@ -468,14 +466,14 @@ class StudentControllerUpdateTest extends TestCase
         $response->assertJsonPath('errors.phd_final_mark.0', 'The phd final mark field must not be greater than 110.');
     }
 
-    public final function test_update_student_as_admin_without_outside_prescribed_time_returns_unprocessable_content () : void
+    final public function test_update_student_as_admin_without_outside_prescribed_time_returns_unprocessable_content(): void
     {
         $admin = User::factory()->create(['role' => 'admin']);
         $user = User::factory()->create();
         $degree = Degree::factory()->create([
             'name' => 'Computer Science',
             'code' => 'LM-101',
-            'course_type' => 'master'
+            'course_type' => 'master',
         ]);
         $student = Student::factory()->create([
             'bachelor_final_mark' => 89,
@@ -483,15 +481,15 @@ class StudentControllerUpdateTest extends TestCase
             'phd_final_mark' => null,
             'outside_prescribed_time' => true,
             'degree_id' => $degree->id,
-            'user_id' => $user->id
+            'user_id' => $user->id,
         ]);
         $route = route('students.update', [
-            'student' => $student->id
+            'student' => $student->id,
         ]);
 
         $response = $this
             ->actingAs($admin)
-            ->putJson($route,  [
+            ->putJson($route, [
                 'user' => [
                     'first_name' => 'Mario',
                     'last_name' => 'Rossi',
@@ -504,8 +502,8 @@ class StudentControllerUpdateTest extends TestCase
                 'degree' => [
                     'name' => 'Computer Science',
                     'code' => 'PH-18',
-                    'course_type' => 'phd'
-                ]
+                    'course_type' => 'phd',
+                ],
             ]);
 
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
@@ -513,14 +511,14 @@ class StudentControllerUpdateTest extends TestCase
         $response->assertJsonPath('errors.outside_prescribed_time.0', 'The outside prescribed time field is required.');
     }
 
-    public final function test_update_student_as_admin_with_not_boolean_outside_prescribed_time_returns_unprocessable_content () : void
+    final public function test_update_student_as_admin_with_not_boolean_outside_prescribed_time_returns_unprocessable_content(): void
     {
         $admin = User::factory()->create(['role' => 'admin']);
         $user = User::factory()->create();
         $degree = Degree::factory()->create([
             'name' => 'Computer Science',
             'code' => 'LM-101',
-            'course_type' => 'master'
+            'course_type' => 'master',
         ]);
         $student = Student::factory()->create([
             'bachelor_final_mark' => 89,
@@ -528,15 +526,15 @@ class StudentControllerUpdateTest extends TestCase
             'phd_final_mark' => null,
             'outside_prescribed_time' => true,
             'degree_id' => $degree->id,
-            'user_id' => $user->id
+            'user_id' => $user->id,
         ]);
         $route = route('students.update', [
-            'student' => $student->id
+            'student' => $student->id,
         ]);
 
         $response = $this
             ->actingAs($admin)
-            ->putJson($route,  [
+            ->putJson($route, [
                 'user' => [
                     'first_name' => 'Mario',
                     'last_name' => 'Rossi',
@@ -550,8 +548,8 @@ class StudentControllerUpdateTest extends TestCase
                 'degree' => [
                     'name' => 'Computer Science',
                     'code' => 'PH-18',
-                    'course_type' => 'phd'
-                ]
+                    'course_type' => 'phd',
+                ],
             ]);
 
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
@@ -559,21 +557,21 @@ class StudentControllerUpdateTest extends TestCase
         $response->assertJsonPath('errors.outside_prescribed_time.0', 'The outside prescribed time field must be true or false.');
     }
 
-    public final function test_update_student_as_admin_returns_not_found () : void
+    final public function test_update_student_as_admin_returns_not_found(): void
     {
         $admin = User::factory()->create(['role' => 'admin']);
         $degree = Degree::factory()->create([
             'name' => 'Computer Science',
             'code' => 'LM-101',
-            'course_type' => 'master'
+            'course_type' => 'master',
         ]);
         $route = route('students.update', [
-            'student' => 1
+            'student' => 1,
         ]);
 
         $response = $this
             ->actingAs($admin)
-            ->putJson($route,  [
+            ->putJson($route, [
                 'user' => [
                     'first_name' => 'Mario',
                     'last_name' => 'Rossi',
@@ -584,21 +582,21 @@ class StudentControllerUpdateTest extends TestCase
                 'master_final_mark' => 109,
                 'phd_final_mark' => 109,
                 'outside_prescribed_time' => true,
-                'degree' => $degree
+                'degree' => $degree,
             ]);
 
         $response->assertStatus(Response::HTTP_NOT_FOUND);
         $response->assertJsonPath('message', 'Student 1 does not exist.');
     }
 
-    public final function test_update_student_as_admin_returns_ok () : void
+    final public function test_update_student_as_admin_returns_ok(): void
     {
         $admin = User::factory()->create(['role' => 'admin']);
         $user = User::factory()->create();
         $degree = Degree::factory()->create([
             'name' => 'Computer Science',
             'code' => 'LM-101',
-            'course_type' => 'master'
+            'course_type' => 'master',
         ]);
         $student = Student::factory()->create([
             'bachelor_final_mark' => 89,
@@ -606,34 +604,34 @@ class StudentControllerUpdateTest extends TestCase
             'phd_final_mark' => null,
             'outside_prescribed_time' => true,
             'degree_id' => $degree->id,
-            'user_id' => $user->id
+            'user_id' => $user->id,
         ]);
         $route = route('students.update', [
-            'student' => $student->id
+            'student' => $student->id,
         ]);
 
         $response = $this
             ->actingAs($admin)
-            ->putJson($route,  [
+            ->putJson($route, [
                 'bachelor_final_mark' => 98,
                 'master_final_mark' => 109,
                 'phd_final_mark' => 109,
                 'outside_prescribed_time' => true,
                 'user' => $user,
-                'degree' => $degree
+                'degree' => $degree,
             ]);
 
         $response->assertStatus(Response::HTTP_OK);
     }
 
-    public final function test_update_student_as_employee_with_bachelor_final_mark_less_than_66_returns_unprocessable_content () : void
+    final public function test_update_student_as_employee_with_bachelor_final_mark_less_than_66_returns_unprocessable_content(): void
     {
         $employee = User::factory()->create(['role' => 'employee']);
         $user = User::factory()->create();
         $degree = Degree::factory()->create([
             'name' => 'Computer Science',
             'code' => 'LM-101',
-            'course_type' => 'master'
+            'course_type' => 'master',
         ]);
         $student = Student::factory()->create([
             'bachelor_final_mark' => 89,
@@ -641,15 +639,15 @@ class StudentControllerUpdateTest extends TestCase
             'phd_final_mark' => null,
             'outside_prescribed_time' => true,
             'degree_id' => $degree->id,
-            'user_id' => $user->id
+            'user_id' => $user->id,
         ]);
         $route = route('students.update', [
-            'student' => $student->id
+            'student' => $student->id,
         ]);
 
         $response = $this
             ->actingAs($employee)
-            ->putJson($route,  [
+            ->putJson($route, [
                 'user' => [
                     'first_name' => 'Mario',
                     'last_name' => 'Rossi',
@@ -663,8 +661,8 @@ class StudentControllerUpdateTest extends TestCase
                 'degree' => [
                     'name' => 'Computer Science',
                     'code' => 'LM-101',
-                    'course_type' => 'master'
-                ]
+                    'course_type' => 'master',
+                ],
             ]);
 
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
@@ -673,14 +671,14 @@ class StudentControllerUpdateTest extends TestCase
         $employee = User::factory()->create(['role' => 'employee']);
     }
 
-    public final function test_update_student_as_employee_with_bachelor_final_mark_greater_than_110_returns_unprocessable_content () : void
+    final public function test_update_student_as_employee_with_bachelor_final_mark_greater_than_110_returns_unprocessable_content(): void
     {
         $employee = User::factory()->create(['role' => 'employee']);
         $user = User::factory()->create();
         $degree = Degree::factory()->create([
             'name' => 'Computer Science',
             'code' => 'LM-101',
-            'course_type' => 'master'
+            'course_type' => 'master',
         ]);
         $student = Student::factory()->create([
             'bachelor_final_mark' => 89,
@@ -688,15 +686,15 @@ class StudentControllerUpdateTest extends TestCase
             'phd_final_mark' => null,
             'outside_prescribed_time' => true,
             'degree_id' => $degree->id,
-            'user_id' => $user->id
+            'user_id' => $user->id,
         ]);
         $route = route('students.update', [
-            'student' => $student->id
+            'student' => $student->id,
         ]);
 
         $response = $this
             ->actingAs($employee)
-            ->putJson($route,  [
+            ->putJson($route, [
                 'user' => [
                     'first_name' => 'Mario',
                     'last_name' => 'Rossi',
@@ -710,8 +708,8 @@ class StudentControllerUpdateTest extends TestCase
                 'degree' => [
                     'name' => 'Computer Science',
                     'code' => 'LM-18',
-                    'course_type' => 'master'
-                ]
+                    'course_type' => 'master',
+                ],
             ]);
 
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
@@ -719,14 +717,14 @@ class StudentControllerUpdateTest extends TestCase
         $response->assertJsonPath('errors.bachelor_final_mark.0', 'The bachelor final mark field must not be greater than 110.');
     }
 
-    public final function test_update_student_as_employee_with_master_final_mark_not_numeric_returns_unprocessable_content () : void
+    final public function test_update_student_as_employee_with_master_final_mark_not_numeric_returns_unprocessable_content(): void
     {
         $employee = User::factory()->create(['role' => 'employee']);
         $user = User::factory()->create();
         $degree = Degree::factory()->create([
             'name' => 'Computer Science',
             'code' => 'LM-101',
-            'course_type' => 'master'
+            'course_type' => 'master',
         ]);
         $student = Student::factory()->create([
             'bachelor_final_mark' => 89,
@@ -734,15 +732,15 @@ class StudentControllerUpdateTest extends TestCase
             'phd_final_mark' => null,
             'outside_prescribed_time' => true,
             'degree_id' => $degree->id,
-            'user_id' => $user->id
+            'user_id' => $user->id,
         ]);
         $route = route('students.update', [
-            'student' => $student->id
+            'student' => $student->id,
         ]);
 
         $response = $this
             ->actingAs($employee)
-            ->putJson($route,  [
+            ->putJson($route, [
                 'user' => [
                     'first_name' => 'Mario',
                     'last_name' => 'Rossi',
@@ -756,8 +754,8 @@ class StudentControllerUpdateTest extends TestCase
                 'degree' => [
                     'name' => 'Computer Science',
                     'code' => 'PH-18',
-                    'course_type' => 'phd'
-                ]
+                    'course_type' => 'phd',
+                ],
             ]);
 
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
@@ -765,14 +763,14 @@ class StudentControllerUpdateTest extends TestCase
         $response->assertJsonPath('errors.master_final_mark.0', 'The master final mark field must be a number.');
     }
 
-    public final function test_update_student_as_employee_with_master_final_mark_less_than_66_returns_unprocessable_content () : void
+    final public function test_update_student_as_employee_with_master_final_mark_less_than_66_returns_unprocessable_content(): void
     {
         $employee = User::factory()->create(['role' => 'employee']);
         $user = User::factory()->create();
         $degree = Degree::factory()->create([
             'name' => 'Computer Science',
             'code' => 'LM-101',
-            'course_type' => 'master'
+            'course_type' => 'master',
         ]);
         $student = Student::factory()->create([
             'bachelor_final_mark' => 89,
@@ -780,15 +778,15 @@ class StudentControllerUpdateTest extends TestCase
             'phd_final_mark' => null,
             'outside_prescribed_time' => true,
             'degree_id' => $degree->id,
-            'user_id' => $user->id
+            'user_id' => $user->id,
         ]);
         $route = route('students.update', [
-            'student' => $student->id
+            'student' => $student->id,
         ]);
 
         $response = $this
             ->actingAs($employee)
-            ->putJson($route,  [
+            ->putJson($route, [
                 'user' => [
                     'first_name' => 'Mario',
                     'last_name' => 'Rossi',
@@ -802,8 +800,8 @@ class StudentControllerUpdateTest extends TestCase
                 'degree' => [
                     'name' => 'Computer Science',
                     'code' => 'PH-18',
-                    'course_type' => 'phd'
-                ]
+                    'course_type' => 'phd',
+                ],
             ]);
 
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
@@ -811,14 +809,14 @@ class StudentControllerUpdateTest extends TestCase
         $response->assertJsonPath('errors.master_final_mark.0', 'The master final mark field must be at least 66.');
     }
 
-    public final function test_update_student_as_employee_with_master_final_mark_greater_than_110_returns_unprocessable_content () : void
+    final public function test_update_student_as_employee_with_master_final_mark_greater_than_110_returns_unprocessable_content(): void
     {
         $employee = User::factory()->create(['role' => 'employee']);
         $user = User::factory()->create();
         $degree = Degree::factory()->create([
             'name' => 'Computer Science',
             'code' => 'LM-101',
-            'course_type' => 'master'
+            'course_type' => 'master',
         ]);
         $student = Student::factory()->create([
             'bachelor_final_mark' => 89,
@@ -826,15 +824,15 @@ class StudentControllerUpdateTest extends TestCase
             'phd_final_mark' => null,
             'outside_prescribed_time' => true,
             'degree_id' => $degree->id,
-            'user_id' => $user->id
+            'user_id' => $user->id,
         ]);
         $route = route('students.update', [
-            'student' => $student->id
+            'student' => $student->id,
         ]);
 
         $response = $this
             ->actingAs($employee)
-            ->putJson($route,  [
+            ->putJson($route, [
                 'user' => [
                     'first_name' => 'Mario',
                     'last_name' => 'Rossi',
@@ -848,8 +846,8 @@ class StudentControllerUpdateTest extends TestCase
                 'degree' => [
                     'name' => 'Computer Science',
                     'code' => 'PH-18',
-                    'course_type' => 'phd'
-                ]
+                    'course_type' => 'phd',
+                ],
             ]);
 
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
@@ -857,14 +855,14 @@ class StudentControllerUpdateTest extends TestCase
         $response->assertJsonPath('errors.master_final_mark.0', 'The master final mark field must not be greater than 110.');
     }
 
-    public final function test_update_student_as_employee_with_phd_final_mark_not_numeric_returns_unprocessable_content () : void
+    final public function test_update_student_as_employee_with_phd_final_mark_not_numeric_returns_unprocessable_content(): void
     {
         $employee = User::factory()->create(['role' => 'employee']);
         $user = User::factory()->create();
         $degree = Degree::factory()->create([
             'name' => 'Computer Science',
             'code' => 'LM-101',
-            'course_type' => 'master'
+            'course_type' => 'master',
         ]);
         $student = Student::factory()->create([
             'bachelor_final_mark' => 89,
@@ -872,15 +870,15 @@ class StudentControllerUpdateTest extends TestCase
             'phd_final_mark' => null,
             'outside_prescribed_time' => true,
             'degree_id' => $degree->id,
-            'user_id' => $user->id
+            'user_id' => $user->id,
         ]);
         $route = route('students.update', [
-            'student' => $student->id
+            'student' => $student->id,
         ]);
 
         $response = $this
             ->actingAs($employee)
-            ->putJson($route,  [
+            ->putJson($route, [
                 'user' => [
                     'first_name' => 'Mario',
                     'last_name' => 'Rossi',
@@ -894,8 +892,8 @@ class StudentControllerUpdateTest extends TestCase
                 'degree' => [
                     'name' => 'Computer Science',
                     'code' => 'PH-18',
-                    'course_type' => 'phd'
-                ]
+                    'course_type' => 'phd',
+                ],
             ]);
 
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
@@ -903,14 +901,14 @@ class StudentControllerUpdateTest extends TestCase
         $response->assertJsonPath('errors.phd_final_mark.0', 'The phd final mark field must be a number.');
     }
 
-    public final function test_update_student_as_employee_with_phd_final_mark_less_than_66_returns_unprocessable_content () : void
+    final public function test_update_student_as_employee_with_phd_final_mark_less_than_66_returns_unprocessable_content(): void
     {
         $employee = User::factory()->create(['role' => 'employee']);
         $user = User::factory()->create();
         $degree = Degree::factory()->create([
             'name' => 'Computer Science',
             'code' => 'LM-101',
-            'course_type' => 'master'
+            'course_type' => 'master',
         ]);
         $student = Student::factory()->create([
             'bachelor_final_mark' => 89,
@@ -918,15 +916,15 @@ class StudentControllerUpdateTest extends TestCase
             'phd_final_mark' => null,
             'outside_prescribed_time' => true,
             'degree_id' => $degree->id,
-            'user_id' => $user->id
+            'user_id' => $user->id,
         ]);
         $route = route('students.update', [
-            'student' => $student->id
+            'student' => $student->id,
         ]);
 
         $response = $this
             ->actingAs($employee)
-            ->putJson($route,  [
+            ->putJson($route, [
                 'user' => [
                     'first_name' => 'Mario',
                     'last_name' => 'Rossi',
@@ -940,8 +938,8 @@ class StudentControllerUpdateTest extends TestCase
                 'degree' => [
                     'name' => 'Computer Science',
                     'code' => 'PH-18',
-                    'course_type' => 'phd'
-                ]
+                    'course_type' => 'phd',
+                ],
             ]);
 
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
@@ -949,14 +947,14 @@ class StudentControllerUpdateTest extends TestCase
         $response->assertJsonPath('errors.phd_final_mark.0', 'The phd final mark field must be at least 66.');
     }
 
-    public final function test_update_student_as_employee_with_phd_final_mark_greater_than_110_returns_unprocessable_content () : void
+    final public function test_update_student_as_employee_with_phd_final_mark_greater_than_110_returns_unprocessable_content(): void
     {
         $employee = User::factory()->create(['role' => 'employee']);
         $user = User::factory()->create();
         $degree = Degree::factory()->create([
             'name' => 'Computer Science',
             'code' => 'LM-101',
-            'course_type' => 'master'
+            'course_type' => 'master',
         ]);
         $student = Student::factory()->create([
             'bachelor_final_mark' => 89,
@@ -964,15 +962,15 @@ class StudentControllerUpdateTest extends TestCase
             'phd_final_mark' => null,
             'outside_prescribed_time' => true,
             'degree_id' => $degree->id,
-            'user_id' => $user->id
+            'user_id' => $user->id,
         ]);
         $route = route('students.update', [
-            'student' => $student->id
+            'student' => $student->id,
         ]);
 
         $response = $this
             ->actingAs($employee)
-            ->putJson($route,  [
+            ->putJson($route, [
                 'user' => [
                     'first_name' => 'Mario',
                     'last_name' => 'Rossi',
@@ -986,8 +984,8 @@ class StudentControllerUpdateTest extends TestCase
                 'degree' => [
                     'name' => 'Computer Science',
                     'code' => 'PH-18',
-                    'course_type' => 'phd'
-                ]
+                    'course_type' => 'phd',
+                ],
             ]);
 
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
@@ -995,14 +993,14 @@ class StudentControllerUpdateTest extends TestCase
         $response->assertJsonPath('errors.phd_final_mark.0', 'The phd final mark field must not be greater than 110.');
     }
 
-    public final function test_update_student_as_employee_without_outside_prescribed_time_returns_unprocessable_content () : void
+    final public function test_update_student_as_employee_without_outside_prescribed_time_returns_unprocessable_content(): void
     {
         $employee = User::factory()->create(['role' => 'employee']);
         $user = User::factory()->create();
         $degree = Degree::factory()->create([
             'name' => 'Computer Science',
             'code' => 'LM-101',
-            'course_type' => 'master'
+            'course_type' => 'master',
         ]);
         $student = Student::factory()->create([
             'bachelor_final_mark' => 89,
@@ -1010,15 +1008,15 @@ class StudentControllerUpdateTest extends TestCase
             'phd_final_mark' => null,
             'outside_prescribed_time' => true,
             'degree_id' => $degree->id,
-            'user_id' => $user->id
+            'user_id' => $user->id,
         ]);
         $route = route('students.update', [
-            'student' => $student->id
+            'student' => $student->id,
         ]);
 
         $response = $this
             ->actingAs($employee)
-            ->putJson($route,  [
+            ->putJson($route, [
                 'user' => [
                     'first_name' => 'Mario',
                     'last_name' => 'Rossi',
@@ -1031,8 +1029,8 @@ class StudentControllerUpdateTest extends TestCase
                 'degree' => [
                     'name' => 'Computer Science',
                     'code' => 'PH-18',
-                    'course_type' => 'phd'
-                ]
+                    'course_type' => 'phd',
+                ],
             ]);
 
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
@@ -1040,14 +1038,14 @@ class StudentControllerUpdateTest extends TestCase
         $response->assertJsonPath('errors.outside_prescribed_time.0', 'The outside prescribed time field is required.');
     }
 
-    public final function test_update_student_as_employee_with_not_boolean_outside_prescribed_time_returns_unprocessable_content () : void
+    final public function test_update_student_as_employee_with_not_boolean_outside_prescribed_time_returns_unprocessable_content(): void
     {
         $employee = User::factory()->create(['role' => 'admin']);
         $user = User::factory()->create();
         $degree = Degree::factory()->create([
             'name' => 'Computer Science',
             'code' => 'LM-101',
-            'course_type' => 'master'
+            'course_type' => 'master',
         ]);
         $student = Student::factory()->create([
             'bachelor_final_mark' => 89,
@@ -1055,15 +1053,15 @@ class StudentControllerUpdateTest extends TestCase
             'phd_final_mark' => null,
             'outside_prescribed_time' => true,
             'degree_id' => $degree->id,
-            'user_id' => $user->id
+            'user_id' => $user->id,
         ]);
         $route = route('students.update', [
-            'student' => $student->id
+            'student' => $student->id,
         ]);
 
         $response = $this
             ->actingAs($employee)
-            ->putJson($route,  [
+            ->putJson($route, [
                 'user' => [
                     'first_name' => 'Mario',
                     'last_name' => 'Rossi',
@@ -1077,8 +1075,8 @@ class StudentControllerUpdateTest extends TestCase
                 'degree' => [
                     'name' => 'Computer Science',
                     'code' => 'PH-18',
-                    'course_type' => 'phd'
-                ]
+                    'course_type' => 'phd',
+                ],
             ]);
 
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
@@ -1086,21 +1084,21 @@ class StudentControllerUpdateTest extends TestCase
         $response->assertJsonPath('errors.outside_prescribed_time.0', 'The outside prescribed time field must be true or false.');
     }
 
-    public final function test_update_student_as_employee_returns_not_found () : void
+    final public function test_update_student_as_employee_returns_not_found(): void
     {
         $employee = User::factory()->create(['role' => 'employee']);
         $degree = Degree::factory()->create([
             'name' => 'Computer Science',
             'code' => 'LM-101',
-            'course_type' => 'master'
+            'course_type' => 'master',
         ]);
         $route = route('students.update', [
-            'student' => 1
+            'student' => 1,
         ]);
 
         $response = $this
             ->actingAs($employee)
-            ->putJson($route,  [
+            ->putJson($route, [
                 'user' => [
                     'first_name' => 'Mario',
                     'last_name' => 'Rossi',
@@ -1111,20 +1109,20 @@ class StudentControllerUpdateTest extends TestCase
                 'master_final_mark' => 109,
                 'phd_final_mark' => 109,
                 'outside_prescribed_time' => true,
-                'degree' => $degree
+                'degree' => $degree,
             ]);
 
         $response->assertStatus(Response::HTTP_NOT_FOUND);
         $response->assertJsonPath('message', 'Student 1 does not exist.');
     }
 
-    public final function test_update_student_as_employee_returns_ok () : void
+    final public function test_update_student_as_employee_returns_ok(): void
     {
         $employee = User::factory()->create(['role' => 'employee']);
         $degree = Degree::factory()->create([
             'name' => 'Computer Science',
             'code' => 'LM-101',
-            'course_type' => 'master'
+            'course_type' => 'master',
         ]);
         $user = User::factory()->create();
         $student = Student::factory()->create([
@@ -1133,21 +1131,21 @@ class StudentControllerUpdateTest extends TestCase
             'phd_final_mark' => null,
             'outside_prescribed_time' => true,
             'degree_id' => $degree->id,
-            'user_id' => $user->id
+            'user_id' => $user->id,
         ]);
         $route = route('students.update', [
-            'student' => $student->id
+            'student' => $student->id,
         ]);
 
         $response = $this
             ->actingAs($employee)
-            ->putJson($route,  [
+            ->putJson($route, [
                 'bachelor_final_mark' => 98,
                 'master_final_mark' => 109,
                 'phd_final_mark' => 109,
                 'outside_prescribed_time' => true,
                 'degree' => $degree,
-                'user' => $user
+                'user' => $user,
             ]);
 
         $response->assertStatus(Response::HTTP_OK);

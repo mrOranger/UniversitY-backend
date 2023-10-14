@@ -16,7 +16,7 @@ class StudentControllerDeleteTest extends TestCase
     final public function test_delete_user_by_id_without_authentication_returns_unauthenticated(): void
     {
         $route = route('students.destroy', [
-            'student' => 1
+            'student' => 1,
         ]);
 
         $response = $this->deleteJson($route);
@@ -24,11 +24,12 @@ class StudentControllerDeleteTest extends TestCase
         $response->assertStatus(Response::HTTP_UNAUTHORIZED);
         $response->assertJsonPath('message', 'Unauthenticated.');
     }
+
     final public function test_delete_student_by_id_as_student_returns_unauthorized(): void
     {
         $student = User::factory()->create(['role' => 'student']);
         $route = route('students.destroy', [
-            'student' => 1
+            'student' => 1,
         ]);
 
         $response = $this
@@ -38,11 +39,12 @@ class StudentControllerDeleteTest extends TestCase
         $response->assertStatus(Response::HTTP_FORBIDDEN);
         $response->assertJsonPath('message', 'Unauthorized.');
     }
+
     final public function test_delete_student_by_id_as_professor_returns_unauthorized(): void
     {
         $professor = User::factory()->create(['role' => 'professor']);
         $route = route('students.destroy', [
-            'student' => 1
+            'student' => 1,
         ]);
 
         $response = $this
@@ -52,11 +54,12 @@ class StudentControllerDeleteTest extends TestCase
         $response->assertStatus(Response::HTTP_FORBIDDEN);
         $response->assertJsonPath('message', 'Unauthorized.');
     }
+
     final public function test_delete_student_by_id_as_admin_returns_not_found(): void
     {
         $admin = User::factory()->create(['role' => 'admin']);
         $route = route('students.destroy', [
-            'student' => 1
+            'student' => 1,
         ]);
 
         $response = $this
@@ -66,6 +69,7 @@ class StudentControllerDeleteTest extends TestCase
         $response->assertStatus(Response::HTTP_NOT_FOUND);
         $response->assertJsonPath('message', 'Student 1 does not exist.');
     }
+
     final public function test_delete_student_by_id_as_admin_returns_ok(): void
     {
         $degree = Degree::factory()->create();
@@ -74,7 +78,7 @@ class StudentControllerDeleteTest extends TestCase
         $degree = Degree::factory()->create([
             'name' => 'Computer Science',
             'code' => 'LM-101',
-            'course_type' => 'master'
+            'course_type' => 'master',
         ]);
         $student = Student::factory()->create([
             'bachelor_final_mark' => 89,
@@ -82,10 +86,10 @@ class StudentControllerDeleteTest extends TestCase
             'phd_final_mark' => null,
             'outside_prescribed_time' => true,
             'degree_id' => $degree->id,
-            'user_id' => $user->id
+            'user_id' => $user->id,
         ]);
         $route = route('students.destroy', [
-            'student' => $student->id
+            'student' => $student->id,
         ]);
 
         $response = $this
@@ -110,7 +114,7 @@ class StudentControllerDeleteTest extends TestCase
     {
         $employee = User::factory()->create(['role' => 'employee']);
         $route = route('students.destroy', [
-            'student' => 1
+            'student' => 1,
         ]);
 
         $response = $this
@@ -120,6 +124,7 @@ class StudentControllerDeleteTest extends TestCase
         $response->assertStatus(Response::HTTP_NOT_FOUND);
         $response->assertJsonPath('message', 'Student 1 does not exist.');
     }
+
     final public function test_delete_student_by_id_as_employee_returns_ok(): void
     {
         $employee = User::factory()->create(['role' => 'employee']);
@@ -127,7 +132,7 @@ class StudentControllerDeleteTest extends TestCase
         $degree = Degree::factory()->create([
             'name' => 'Computer Science',
             'code' => 'LM-101',
-            'course_type' => 'master'
+            'course_type' => 'master',
         ]);
         $student = Student::factory()->create([
             'bachelor_final_mark' => 89,
@@ -135,10 +140,10 @@ class StudentControllerDeleteTest extends TestCase
             'phd_final_mark' => null,
             'outside_prescribed_time' => true,
             'degree_id' => $degree->id,
-            'user_id' => $user->id
+            'user_id' => $user->id,
         ]);
         $route = route('students.destroy', [
-            'student' => $student->id
+            'student' => $student->id,
         ]);
 
         $response = $this

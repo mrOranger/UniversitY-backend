@@ -14,12 +14,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::middleware(['auth:sanctum', 'role:admin,employee'])->group(function () {
-    Route::resource('students', StudentController::class)->except([ 'create', 'edit' ]);
+    Route::resource('students', StudentController::class)->except(['create', 'edit']);
     Route::prefix('students')
         ->controller(StudentController::class)
         ->name('students.')
         ->group(function () {
             Route::get('course/{course}', 'getStudentsByCourse')->name('get-students-by-course');
             Route::patch('{student}/course/{course}', 'assignCourse')->name('assign-course');
-    });
+        });
 });

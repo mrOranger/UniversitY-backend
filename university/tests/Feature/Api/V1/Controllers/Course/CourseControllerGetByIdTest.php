@@ -5,7 +5,6 @@ namespace Tests\Feature\Api\V1\Controllers\Course;
 use App\Models\Course;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Collection;
 use Symfony\Component\HttpFoundation\Response;
 use Tests\TestCase;
@@ -15,6 +14,7 @@ class CourseControllerGetByIdTest extends TestCase
     use RefreshDatabase;
 
     private Collection $roles;
+
     private string $route;
 
     public function setUp(): void
@@ -23,10 +23,10 @@ class CourseControllerGetByIdTest extends TestCase
         $this->roles = collect(['admin', 'employee', 'professor']);
     }
 
-    public final function test_get_course_by_id_without_authentication_returns_unauthenticated(): void
+    final public function test_get_course_by_id_without_authentication_returns_unauthenticated(): void
     {
         $this->route = route('courses.show', [
-            'course' => 1
+            'course' => 1,
         ]);
 
         $response = $this->getJson($this->route);
@@ -35,10 +35,10 @@ class CourseControllerGetByIdTest extends TestCase
         $response->assertJsonPath('message', 'Unauthenticated.');
     }
 
-    public final function test_get_course_by_id_returns_unauthorized(): void
+    final public function test_get_course_by_id_returns_unauthorized(): void
     {
         $this->route = route('courses.show', [
-            'course' => 1
+            'course' => 1,
         ]);
 
         $response = $this
@@ -49,10 +49,10 @@ class CourseControllerGetByIdTest extends TestCase
         $response->assertJsonPath('message', 'Unauthorized.');
     }
 
-    public final function test_get_course_by_id_returns_not_found(): void
+    final public function test_get_course_by_id_returns_not_found(): void
     {
         $this->route = route('courses.show', [
-            'course' => 1
+            'course' => 1,
         ]);
 
         $response = $this
@@ -63,11 +63,11 @@ class CourseControllerGetByIdTest extends TestCase
         $response->assertJsonPath('message', 'Course 1 does not exist.');
     }
 
-    public final function test_get_course_by_id_returns_ok(): void
+    final public function test_get_course_by_id_returns_ok(): void
     {
         $course = Course::factory()->create();
         $this->route = route('courses.show', [
-            'course' => $course->id
+            'course' => $course->id,
         ]);
 
         $response = $this

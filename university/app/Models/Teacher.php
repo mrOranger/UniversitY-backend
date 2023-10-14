@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -16,7 +15,7 @@ class Teacher extends Model
     protected $fillable = [
         'user_id',
         'role',
-        'subject'
+        'subject',
     ];
 
     /**
@@ -31,12 +30,12 @@ class Teacher extends Model
         'deleted_at',
     ];
 
-    public function user () : BelongsTo
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
-    public function courses () : HasMany
+    public function courses(): HasMany
     {
         return $this->hasMany(Course::class);
     }

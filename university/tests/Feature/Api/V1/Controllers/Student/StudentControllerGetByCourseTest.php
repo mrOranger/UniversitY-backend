@@ -7,7 +7,6 @@ use App\Models\Degree;
 use App\Models\Student;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Collection;
 use Symfony\Component\HttpFoundation\Response;
 use Tests\TestCase;
@@ -17,6 +16,7 @@ class StudentControllerGetByCourseTest extends TestCase
     use RefreshDatabase;
 
     private string $route;
+
     private Collection $roles;
 
     public function setUp(): void
@@ -24,11 +24,11 @@ class StudentControllerGetByCourseTest extends TestCase
         parent::setUp();
         $this->roles = collect(['employee', 'admin']);
         $this->route = route('students.get-students-by-course', [
-            'course' => 1
+            'course' => 1,
         ]);
     }
 
-    public final function test_get_all_students_by_course_without_authentication_returns_unauthenticated(): void
+    final public function test_get_all_students_by_course_without_authentication_returns_unauthenticated(): void
     {
         $response = $this->getJson($this->route);
 
@@ -36,7 +36,7 @@ class StudentControllerGetByCourseTest extends TestCase
         $response->assertJsonPath('message', 'Unauthenticated.');
     }
 
-    public final function test_get_all_students_by_course_as_student_returns_unauthorized(): void
+    final public function test_get_all_students_by_course_as_student_returns_unauthorized(): void
     {
         $student = User::factory()->create(['role' => 'student']);
 
@@ -48,7 +48,7 @@ class StudentControllerGetByCourseTest extends TestCase
         $response->assertJsonPath('message', 'Unauthorized.');
     }
 
-    public final function test_get_all_students_by_course_as_professor_returns_unauthorized(): void
+    final public function test_get_all_students_by_course_as_professor_returns_unauthorized(): void
     {
         $professor = User::factory()->create(['role' => 'professor']);
 
@@ -60,11 +60,11 @@ class StudentControllerGetByCourseTest extends TestCase
         $response->assertJsonPath('message', 'Unauthorized.');
     }
 
-    public final function test_get_all_students_by_course_returns_not_found(): void
+    final public function test_get_all_students_by_course_returns_not_found(): void
     {
         $admin = User::factory()->create(['role' => $this->roles->random()]);
         $this->route = route('students.get-students-by-course', [
-            'course' => 1
+            'course' => 1,
         ]);
 
         $response = $this
@@ -75,12 +75,12 @@ class StudentControllerGetByCourseTest extends TestCase
         $response->assertJsonPath('message', 'Course 1 does not exist.');
     }
 
-    public final function test_get_all_students_by_course_returns_empty_response(): void
+    final public function test_get_all_students_by_course_returns_empty_response(): void
     {
         $admin = User::factory()->create(['role' => $this->roles->random()]);
         $course = Course::factory()->create();
         $this->route = route('students.get-students-by-course', [
-            'course' => $course->id
+            'course' => $course->id,
         ]);
 
         $response = $this
@@ -92,19 +92,19 @@ class StudentControllerGetByCourseTest extends TestCase
         $response->assertJsonPath('data', []);
     }
 
-    public final function test_get_all_students_by_course_returns_one_student(): void
+    final public function test_get_all_students_by_course_returns_one_student(): void
     {
         $course = Course::factory()->create();
         $degree = Degree::factory()->create();
         $user = User::factory()->create();
         $student = Student::factory()->create([
             'degree_id' => $degree->id,
-            'user_id' => $user->id
+            'user_id' => $user->id,
         ]);
         $admin = User::factory()->create(['role' => $this->roles->random()]);
         $student->courses()->attach($course);
         $this->route = route('students.get-students-by-course', [
-            'course' => $course->id
+            'course' => $course->id,
         ]);
 
         $response = $this
@@ -128,14 +128,14 @@ class StudentControllerGetByCourseTest extends TestCase
         $response->assertJsonPath('data.0.user.email', $user->email);
     }
 
-    public final function test_get_all_students_by_course_returns_many_students(): void
+    final public function test_get_all_students_by_course_returns_many_students(): void
     {
         $course = Course::factory()->create();
         $degree = Degree::factory()->create();
         $user = User::factory()->create();
         $students = Student::factory(100)->create([
             'degree_id' => $degree->id,
-            'user_id' => $user->id
+            'user_id' => $user->id,
         ]);
         $admin = User::factory()->create(['role' => $this->roles->random()]);
         $students->each(function (Student $student) use ($course) {
@@ -143,7 +143,7 @@ class StudentControllerGetByCourseTest extends TestCase
         });
 
         $this->route = route('students.get-students-by-course', [
-            'course' => $course->id
+            'course' => $course->id,
         ]);
 
         $response = $this
@@ -153,19 +153,19 @@ class StudentControllerGetByCourseTest extends TestCase
         $response->assertStatus(Response::HTTP_OK);
         $response->assertJsonCount(100, 'data');
         $students->each(function (Student $student, int $index) use ($response) {
-            $response->assertJsonPath('data.' . $index . '.id', $student->id);
-            $response->assertJsonPath('data.' . $index . '.bachelor_final_mark', $student->bachelor_final_mark);
-            $response->assertJsonPath('data.' . $index . '.master_final_mark', $student->master_final_mark);
-            $response->assertJsonPath('data.' . $index . '.phd_final_mark', $student->phd_final_mark);
-            $response->assertJsonPath('data.' . $index . '.outside_prescribed_time', $student->outside_prescribed_time);
-            $response->assertJsonPath('data.' . $index . '.degree.id', $student->degree->id);
-            $response->assertJsonPath('data.' . $index . '.degree.name', $student->degree->name);
-            $response->assertJsonPath('data.' . $index . '.degree.code', $student->degree->code);
-            $response->assertJsonPath('data.' . $index . '.degree.course_type', $student->degree->course_type);
-            $response->assertJsonPath('data.' . $index . '.user.first_name', $student->user->first_name);
-            $response->assertJsonPath('data.' . $index . '.user.last_name', $student->user->last_name);
-            $response->assertJsonPath('data.' . $index . '.user.birth_date', $student->user->birth_date);
-            $response->assertJsonPath('data.' . $index . '.user.email', $student->user->email);
+            $response->assertJsonPath('data.'.$index.'.id', $student->id);
+            $response->assertJsonPath('data.'.$index.'.bachelor_final_mark', $student->bachelor_final_mark);
+            $response->assertJsonPath('data.'.$index.'.master_final_mark', $student->master_final_mark);
+            $response->assertJsonPath('data.'.$index.'.phd_final_mark', $student->phd_final_mark);
+            $response->assertJsonPath('data.'.$index.'.outside_prescribed_time', $student->outside_prescribed_time);
+            $response->assertJsonPath('data.'.$index.'.degree.id', $student->degree->id);
+            $response->assertJsonPath('data.'.$index.'.degree.name', $student->degree->name);
+            $response->assertJsonPath('data.'.$index.'.degree.code', $student->degree->code);
+            $response->assertJsonPath('data.'.$index.'.degree.course_type', $student->degree->course_type);
+            $response->assertJsonPath('data.'.$index.'.user.first_name', $student->user->first_name);
+            $response->assertJsonPath('data.'.$index.'.user.last_name', $student->user->last_name);
+            $response->assertJsonPath('data.'.$index.'.user.birth_date', $student->user->birth_date);
+            $response->assertJsonPath('data.'.$index.'.user.email', $student->user->email);
         });
     }
 }

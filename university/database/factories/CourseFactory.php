@@ -23,7 +23,7 @@ class CourseFactory extends Factory
             'starting_date' => $this->faker->date(),
             'ending_date' => $this->faker->date(),
             'cfu' => $this->faker->randomNumber(1),
-            'professor_id' => Teacher::factory()->create()->id
+            'professor_id' => Teacher::factory()->create()->id,
         ];
     }
 }

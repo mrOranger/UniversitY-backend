@@ -20,7 +20,7 @@ class TeacherFactory extends Factory
         return [
             'role' => $this->faker->randomElement(['reseracher', 'associate', 'full']),
             'subject' => $this->faker->text(20),
-            'user_id' => User::factory()->create()->id
+            'user_id' => User::factory()->create()->id,
         ];
     }
 }

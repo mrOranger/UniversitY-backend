@@ -24,7 +24,7 @@ class StudentFactory extends Factory
             'phd_final_mark' => $this->faker->numberBetween(66, 110),
             'outside_prescribed_time' => $this->faker->boolean(),
             'degree_id' => Degree::factory()->create()->id,
-            'user_id' => User::factory()->create()->id
+            'user_id' => User::factory()->create()->id,
         ];
     }
 }

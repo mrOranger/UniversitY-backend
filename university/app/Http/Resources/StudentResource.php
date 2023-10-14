@@ -23,7 +23,7 @@ class StudentResource extends JsonResource
             'outside_prescribed_time' => $this->outside_prescribed_time,
             'degree' => new DegreeResource($this->degree),
             'user' => new UserResource($this->user),
-            'courses' => new CourseCollection($this->courses)
+            'courses' => new CourseCollection($this->courses),
         ];
     }
 }

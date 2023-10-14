@@ -12,7 +12,9 @@ use Tests\TestCase;
 class CourseControllerDeleteTest extends TestCase
 {
     use RefreshDatabase;
+
     private Collection $roles;
+
     private string $route;
 
     public function setUp(): void
@@ -24,7 +26,7 @@ class CourseControllerDeleteTest extends TestCase
     final public function test_delete_course_by_id_without_authentication_returns_unauthenticated(): void
     {
         $this->route = route('courses.destroy', [
-            'course' => 1
+            'course' => 1,
         ]);
 
         $response = $this->deleteJson($this->route);
@@ -32,10 +34,11 @@ class CourseControllerDeleteTest extends TestCase
         $response->assertStatus(Response::HTTP_UNAUTHORIZED);
         $response->assertJsonPath('message', 'Unauthenticated.');
     }
+
     final public function test_delete_course_by_id_as_student_returns_unauthorized(): void
     {
         $this->route = route('courses.destroy', [
-            'course' => 1
+            'course' => 1,
         ]);
 
         $response = $this
@@ -49,7 +52,7 @@ class CourseControllerDeleteTest extends TestCase
     final public function test_delete_course_by_id_returns_not_found(): void
     {
         $this->route = route('courses.destroy', [
-            'course' => 1
+            'course' => 1,
         ]);
 
         $response = $this
@@ -64,7 +67,7 @@ class CourseControllerDeleteTest extends TestCase
     {
         $course = Course::factory()->create();
         $this->route = route('courses.destroy', [
-            'course' => $course->id
+            'course' => $course->id,
         ]);
 
         $response = $this

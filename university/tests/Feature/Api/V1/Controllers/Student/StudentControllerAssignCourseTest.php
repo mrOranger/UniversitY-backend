@@ -16,17 +16,17 @@ class StudentControllerAssignCourseTest extends TestCase
 
     private Collection $roles;
 
-    public function setUp() : void
+    public function setUp(): void
     {
         parent::setUp();
         $this->roles = collect(['admin', 'employee']);
     }
 
-    public final function test_assign_student_to_course_returns_unauthenticated () : void
+    final public function test_assign_student_to_course_returns_unauthenticated(): void
     {
         $route = route('students.assign-course', [
             'course' => 1,
-            'student' => 1
+            'student' => 1,
         ]);
 
         $response = $this->patchJson($route);
@@ -35,12 +35,12 @@ class StudentControllerAssignCourseTest extends TestCase
         $response->assertJsonPath('message', 'Unauthenticated.');
     }
 
-    public final function test_assign_student_to_course_as_student_returns_unauthorized () : void
+    final public function test_assign_student_to_course_as_student_returns_unauthorized(): void
     {
         $user = User::factory()->create(['role' => 'student']);
         $route = route('students.assign-course', [
             'course' => 1,
-            'student' => 1
+            'student' => 1,
         ]);
 
         $response = $this
@@ -51,12 +51,12 @@ class StudentControllerAssignCourseTest extends TestCase
         $response->assertJsonPath('message', 'Unauthorized.');
     }
 
-    public final function test_assign_student_to_course_as_professor_returns_unauthorized () : void
+    final public function test_assign_student_to_course_as_professor_returns_unauthorized(): void
     {
         $user = User::factory()->create(['role' => 'professor']);
         $route = route('students.assign-course', [
             'course' => 1,
-            'student' => 1
+            'student' => 1,
         ]);
 
         $response = $this
@@ -67,13 +67,12 @@ class StudentControllerAssignCourseTest extends TestCase
         $response->assertJsonPath('message', 'Unauthorized.');
     }
 
-
-    public final function test_assign_not_existing_student_to_not_existing_course_returns_not_found () : void
+    final public function test_assign_not_existing_student_to_not_existing_course_returns_not_found(): void
     {
         $user = User::factory()->create(['role' => $this->roles->random()]);
         $route = route('students.assign-course', [
             'course' => 1,
-            'student' => 1
+            'student' => 1,
         ]);
 
         $response = $this
@@ -84,13 +83,13 @@ class StudentControllerAssignCourseTest extends TestCase
         $response->assertJsonPath('message', 'Student 1 does not exist.');
     }
 
-    public final function test_assign_not_existing_student_to_course_returns_not_found () : void
+    final public function test_assign_not_existing_student_to_course_returns_not_found(): void
     {
         $user = User::factory()->create(['role' => $this->roles->random()]);
         $course = Course::factory()->create();
         $route = route('students.assign-course', [
             'course' => $course->id,
-            'student' => 1
+            'student' => 1,
         ]);
 
         $response = $this
@@ -101,13 +100,13 @@ class StudentControllerAssignCourseTest extends TestCase
         $response->assertJsonPath('message', 'Student 1 does not exist.');
     }
 
-    public final function test_assign_student_to_not_existing_course_returns_not_found () : void
+    final public function test_assign_student_to_not_existing_course_returns_not_found(): void
     {
         $user = User::factory()->create(['role' => $this->roles->random()]);
         $student = Student::factory()->create();
         $route = route('students.assign-course', [
             'course' => 1,
-            'student' => $student->id
+            'student' => $student->id,
         ]);
 
         $response = $this
@@ -118,14 +117,14 @@ class StudentControllerAssignCourseTest extends TestCase
         $response->assertJsonPath('message', 'Course 1 does not exist.');
     }
 
-    public final function test_assign_student_to_course_returns_ok () : void
+    final public function test_assign_student_to_course_returns_ok(): void
     {
         $user = User::factory()->create(['role' => $this->roles->random()]);
         $student = Student::factory()->create();
         $course = Course::factory()->create();
         $route = route('students.assign-course', [
             'course' => $course->id,
-            'student' => $student->id
+            'student' => $student->id,
         ]);
 
         $response = $this
@@ -148,12 +147,12 @@ class StudentControllerAssignCourseTest extends TestCase
         $response->assertJsonPath('data.user.birth_date', $student->user->birth_date);
         $response->assertJsonPath('data.user.email', $student->user->email);
         $student->courses()->each(function (Course $course, int $index) use ($response) {
-            $response->assertJsonPath('data.courses.' . $index . '.id', $course->id);
-            $response->assertJsonPath('data.courses.' . $index . '.name', $course->name);
-            $response->assertJsonPath('data.courses.' . $index . '.sector', $course->sector);
-            $response->assertJsonPath('data.courses.' . $index . '.starting_date', $course->starting_date);
-            $response->assertJsonPath('data.courses.' . $index . '.ending_date', $course->ending_date);
-            $response->assertJsonPath('data.courses.' . $index . '.cfu', $course->cfu);
+            $response->assertJsonPath('data.courses.'.$index.'.id', $course->id);
+            $response->assertJsonPath('data.courses.'.$index.'.name', $course->name);
+            $response->assertJsonPath('data.courses.'.$index.'.sector', $course->sector);
+            $response->assertJsonPath('data.courses.'.$index.'.starting_date', $course->starting_date);
+            $response->assertJsonPath('data.courses.'.$index.'.ending_date', $course->ending_date);
+            $response->assertJsonPath('data.courses.'.$index.'.cfu', $course->cfu);
         });
     }
 }

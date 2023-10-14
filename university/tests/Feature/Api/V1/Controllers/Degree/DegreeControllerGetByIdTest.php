@@ -11,12 +11,15 @@ use Tests\TestCase;
 class DegreeControllerGetByIdTest extends TestCase
 {
     use RefreshDatabase;
+
     private string $test_url;
+
     public function setUp(): void
     {
         parent::setUp();
         $this->test_url = 'api/v1/degrees/';
     }
+
     final public function test_get_degree_by_id_without_authentication_returns_unauthenticated(): void
     {
         $degree = Degree::factory()->create();
@@ -26,6 +29,7 @@ class DegreeControllerGetByIdTest extends TestCase
         $response->assertStatus(Response::HTTP_UNAUTHORIZED);
         $response->assertJsonPath('message', 'Unauthenticated.');
     }
+
     final public function test_get_degree_by_id_as_student_returns_unauthorized(): void
     {
         $degree = Degree::factory()->create();
@@ -38,6 +42,7 @@ class DegreeControllerGetByIdTest extends TestCase
         $response->assertStatus(Response::HTTP_FORBIDDEN);
         $response->assertJsonPath('message', 'Unauthorized.');
     }
+
     final public function test_get_degree_by_id_as_professor_returns_unauthorized(): void
     {
         $degree = Degree::factory()->create();
@@ -50,6 +55,7 @@ class DegreeControllerGetByIdTest extends TestCase
         $response->assertStatus(Response::HTTP_FORBIDDEN);
         $response->assertJsonPath('message', 'Unauthorized.');
     }
+
     final public function test_get_degree_by_id_as_admin_returns_not_found(): void
     {
         $admin = User::factory()->create(['role' => 'admin']);
@@ -61,6 +67,7 @@ class DegreeControllerGetByIdTest extends TestCase
         $response->assertStatus(Response::HTTP_NOT_FOUND);
         $response->assertJsonPath('message', 'Degree 0 does not exist.');
     }
+
     final public function test_get_degree_by_id_as_admin_returns_ok(): void
     {
         $degree = Degree::factory()->create();
@@ -76,6 +83,7 @@ class DegreeControllerGetByIdTest extends TestCase
         $response->assertJsonPath('data.code', $degree->code);
         $response->assertJsonPath('data.course_type', $degree->course_type);
     }
+
     final public function test_get_degree_by_id_as_employee_returns_not_found(): void
     {
         $employee = User::factory()->create(['role' => 'employee']);
@@ -87,6 +95,7 @@ class DegreeControllerGetByIdTest extends TestCase
         $response->assertStatus(Response::HTTP_NOT_FOUND);
         $response->assertJsonPath('message', 'Degree 0 does not exist.');
     }
+
     final public function test_get_degree_by_id_as_employee_returns_ok(): void
     {
         $degree = Degree::factory()->create();
