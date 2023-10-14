@@ -63,4 +63,9 @@ class StudentController extends Controller
     {
         return $this->studentServiceInterface->assignCourse($studentId, $courseId);
     }
+
+    public function getStudentsByCourse (string $courseId)
+    {
+        return $this->studentServiceInterface->getStudentsByCourse($courseId);
+    }
 }

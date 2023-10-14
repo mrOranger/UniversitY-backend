@@ -95,6 +95,7 @@ final class StudentService implements StudentServiceInterface
             'degree_id' => $degree->id,
             'user_id' => $user->id
         ]);
+
         $student->degree()->associate($degree);
         $student->user()->associate($user);
 
@@ -103,7 +104,7 @@ final class StudentService implements StudentServiceInterface
 
     public final function delete (string $id) : StudentResource
     {
-        $student = Student::with(['degree', 'user'])->first();
+        $student = Student::with(['degree', 'user', 'courses'])->first();
         if($student === null) {
             throw new ResourceNotFoundException('Student ' . $id . ' does not exist.');
         }
@@ -127,5 +128,20 @@ final class StudentService implements StudentServiceInterface
         $student->courses()->attach($course);
 
         return new StudentResource(Student::with(['degree', 'user', 'courses'])->find($studentId));
+    }
+
+    public function getStudentsByCourse (string $courseId) : StudentCollection
+    {
+        $course = Course::find($courseId);
+
+        if ($course === null) {
+            throw new ResourceNotFoundException('Course ' . $courseId . ' does not exist.');
+        }
+
+        $students = Student::with(['degree', 'user'])->whereHas('courses', function ($query) use ($courseId) {
+            $query->where('id', '=', $courseId);
+        })->get();
+
+        return new StudentCollection($students);
     }
 }
