@@ -19,7 +19,7 @@ Route::middleware(['auth:sanctum', 'role:admin,employee'])->group(function () {
         ->controller(StudentController::class)
         ->name('students.')
         ->group(function () {
-            Route::get('course/{course}', 'getStudentsByCourse')->name('get-students-by_course');
+            Route::get('course/{course}', 'getStudentsByCourse')->name('get-students-by-course');
             Route::patch('{student}/course/{course}', 'assignCourse')->name('assign-course');
     });
 });
