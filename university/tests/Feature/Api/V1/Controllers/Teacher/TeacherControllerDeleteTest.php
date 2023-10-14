@@ -12,6 +12,7 @@ use Tests\TestCase;
 class TeacherControllerDeleteTest extends TestCase
 {
     use RefreshDatabase;
+
     private Collection $roles;
 
     public function setUp(): void
@@ -19,10 +20,11 @@ class TeacherControllerDeleteTest extends TestCase
         parent::setUp();
         $this->roles = collect(['professor', 'admin', 'employee']);
     }
+
     final public function test_delete_teacher_by_id_without_authentication_returns_unauthenticated(): void
     {
         $route = route('teachers.destroy', [
-            'teacher' => 1
+            'teacher' => 1,
         ]);
 
         $response = $this->deleteJson($route);
@@ -30,11 +32,12 @@ class TeacherControllerDeleteTest extends TestCase
         $response->assertStatus(Response::HTTP_UNAUTHORIZED);
         $response->assertJsonPath('message', 'Unauthenticated.');
     }
+
     final public function test_delete_teacher_by_id_returns_unauthorized(): void
     {
         $student = User::factory()->create(['role' => 'student']);
         $route = route('teachers.destroy', [
-            'teacher' => 1
+            'teacher' => 1,
         ]);
 
         $response = $this
@@ -49,7 +52,7 @@ class TeacherControllerDeleteTest extends TestCase
     {
         $user = User::factory()->create(['role' => $this->roles->random()]);
         $route = route('teachers.destroy', [
-            'teacher' => 1
+            'teacher' => 1,
         ]);
 
         $response = $this
@@ -63,11 +66,11 @@ class TeacherControllerDeleteTest extends TestCase
     final public function test_delete_teacher_by_id_returns_ok(): void
     {
         $teacher = Teacher::factory()->create([
-            'user_id' => User::factory()->create(['role' => $this->roles->random()])->id
+            'user_id' => User::factory()->create(['role' => $this->roles->random()])->id,
         ]);
         $user = User::factory()->create(['role' => $this->roles->random()]);
         $route = route('teachers.destroy', [
-            'teacher' => $teacher->id
+            'teacher' => $teacher->id,
         ]);
 
         $response = $this

@@ -18,7 +18,7 @@ class TeacherResource extends JsonResource
             'id' => $this->id,
             'role' => $this->role,
             'subject' => $this->subject,
-            'user' => new UserResource($this->user)
+            'user' => new UserResource($this->user),
         ];
     }
 }

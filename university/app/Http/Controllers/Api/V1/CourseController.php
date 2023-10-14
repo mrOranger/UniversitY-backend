@@ -27,7 +27,7 @@ class CourseController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param string $id id of the Course to show.
+     * @param  string  $id id of the Course to show.
      */
     public function show(string $id)
     {
@@ -36,8 +36,6 @@ class CourseController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     *
-     * @param
      */
     public function store(StoreCourseRequest $request)
     {

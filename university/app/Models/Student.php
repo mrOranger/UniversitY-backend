@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Student extends Model
 {
@@ -17,7 +18,7 @@ class Student extends Model
         'outside_prescribed_time',
         'user',
         'degree',
-        'degree_id'
+        'degree_id',
     ];
 
     /**
@@ -29,19 +30,27 @@ class Student extends Model
         'updated_at',
         'created_at',
         'deleted_at',
+        'pivot',
     ];
 
     protected $casts = [
-        'outside_prescribed_time' => 'boolean'
+        'outside_prescribed_time' => 'boolean',
     ];
 
-    public function degree () : BelongsTo
+    public function degree(): BelongsTo
     {
         return $this->belongsTo(Degree::class);
     }
 
-    public function user () : BelongsTo
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function courses(): BelongsToMany
+    {
+        return $this->belongsToMany(Course::class)
+            ->withTimestamps()
+            ->whereNull('course_student.deleted_at');
     }
 }

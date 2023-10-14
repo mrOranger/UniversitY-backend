@@ -16,6 +16,7 @@ final class DegreeService implements DegreeServiceInterface
     {
         return new DegreeCollection(Degree::all());
     }
+
     final public function getById(string $id): DegreeResource
     {
         $degree = Degree::find($id);
@@ -25,6 +26,7 @@ final class DegreeService implements DegreeServiceInterface
 
         return new DegreeResource($degree);
     }
+
     final public function save(DegreeRequest $degreeRequest): DegreeResource
     {
         $degree = new Degree($degreeRequest->toArray());
@@ -32,22 +34,26 @@ final class DegreeService implements DegreeServiceInterface
 
         return new DegreeResource($degree);
     }
-    final public function update(UpdateDegreeRequest $degreeRequest, string $id) : DegreeResource
+
+    final public function update(UpdateDegreeRequest $degreeRequest, string $id): DegreeResource
     {
         $degree = Degree::find($id);
-        if($degree === null) {
-            throw new ResourceNotFoundException('Degree ' . $id . ' does not exist.');
+        if ($degree === null) {
+            throw new ResourceNotFoundException('Degree '.$id.' does not exist.');
         }
         $degree->update($degreeRequest->toArray());
+
         return new DegreeResource($degree);
     }
-    final public function deleteById(string $id) : DegreeResource
+
+    final public function deleteById(string $id): DegreeResource
     {
         $degree = Degree::find($id);
-        if($degree === null) {
-            throw new ResourceNotFoundException('Degree ' . $id . ' does not exist.');
+        if ($degree === null) {
+            throw new ResourceNotFoundException('Degree '.$id.' does not exist.');
         }
         $degree->delete();
+
         return new DegreeResource($degree);
     }
 }
