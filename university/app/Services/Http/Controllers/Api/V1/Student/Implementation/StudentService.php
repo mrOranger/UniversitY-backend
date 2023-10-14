@@ -21,11 +21,11 @@ final class StudentService implements StudentServiceInterface
 
     public final function getById(string $id): StudentResource
     {
-        $student = Student::find($id);
+        $student = Student::with(['degree', 'user', 'courses'])->find($id);
         if ($student === null) {
             throw new ResourceNotFoundException('Student ' . $id . ' does not exist.');
         }
-        return new StudentResource($student->with(['degree', 'user'])->first());
+        return new StudentResource($student);
     }
 
     public final function save(StudentRequest $studentRequest): StudentResource
@@ -114,7 +114,7 @@ final class StudentService implements StudentServiceInterface
 
     public function assignCourse(string $studentId, string $courseId) : StudentResource
     {
-        $student = Student::with(['degree', 'user', 'courses'])->first();
+        $student = Student::find($studentId);
         if($student === null) {
             throw new ResourceNotFoundException('Student ' . $studentId . ' does not exist.');
         }
@@ -123,8 +123,9 @@ final class StudentService implements StudentServiceInterface
         if ($course === null) {
             throw new ResourceNotFoundException('Course ' . $courseId . ' does not exist.');
         }
+
         $student->courses()->attach($course);
 
-        return new StudentResource($student);
+        return new StudentResource(Student::with(['degree', 'user', 'courses'])->find($studentId));
     }
 }
