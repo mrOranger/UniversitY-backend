@@ -23,7 +23,7 @@ class StudentFactory extends Factory
             'master_final_mark' => $this->faker->numberBetween(66, 110),
             'phd_final_mark' => $this->faker->numberBetween(66, 110),
             'outside_prescribed_time' => $this->faker->boolean(),
-            'degree_id' => Degree::all()->random()->id,
+            'degree_id' => Degree::factory()->create()->id,
             'user_id' => User::factory()->create()->id
         ];
     }
