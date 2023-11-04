@@ -25,7 +25,7 @@ class RegisterRequest extends FormRequest
         return [
             'first_name' => ['bail', 'required', 'string'],
             'last_name' => ['bail', 'required', 'string'],
-            'email' => ['bail', 'email', 'required'],
+            'email' => ['bail', 'email', 'required', 'unique:users,email'],
             'birth_date' => ['bail', 'required', 'date'],
             'password' => ['bail', 'string', 'required', Password::min(8)->letters()->mixedCase()->numbers()->symbols()->uncompromised()],
             'password_confirmation' => ['bail', 'string', 'required', 'same:password'],
