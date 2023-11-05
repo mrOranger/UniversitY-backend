@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Events\UserSignup;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -48,6 +49,10 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
+    ];
+
+    protected $dispatchesEvents = [
+        'created' => UserSignup::class
     ];
 
     public function student(): HasOne

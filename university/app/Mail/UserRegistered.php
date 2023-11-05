@@ -13,7 +13,7 @@ class UserRegistered extends Mailable
 {
     use Queueable, SerializesModels;
 
-    private User $user;
+    public User $user;
 
     /**
      * Create a new message instance.
