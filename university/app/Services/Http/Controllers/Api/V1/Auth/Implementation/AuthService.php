@@ -14,6 +14,7 @@ use App\Services\Http\Controllers\Api\V1\Auth\AuthServiceInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
 use Symfony\Component\HttpFoundation\Response as SynfonyResponse;
 
 final class AuthService implements AuthServiceInterface
@@ -45,7 +46,15 @@ final class AuthService implements AuthServiceInterface
     public function register(RegisterRequest $registerRequest): Response
     {
         $validatedRequest = $registerRequest->validated();
-        $user = User::create($validatedRequest);
+        $user = User::create([
+            'first_name' => $validatedRequest['first_name'],
+            'last_name' => $validatedRequest['last_name'],
+            'birth_date' => $validatedRequest['birth_date'],
+            'email' => $validatedRequest['email'],
+            'password' => Hash::make($validatedRequest['password']),
+            'role' => $validatedRequest['role'],
+            'verification_code' => Str::random(30)
+        ]);
 
         return new RegisterResponse('Register successfull.', SynfonyResponse::HTTP_OK, $user);
     }
