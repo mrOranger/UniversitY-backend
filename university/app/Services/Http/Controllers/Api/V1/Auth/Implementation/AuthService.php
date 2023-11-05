@@ -8,10 +8,12 @@ use App\Http\Responses\V1\Auth\LoginResponse;
 use App\Http\Responses\V1\Auth\RegisterResponse;
 use App\Http\Responses\V1\InfoResponse;
 use App\Http\Responses\V1\Response;
+use App\Mail\UserRegistered;
 use App\Models\User;
 use App\Services\Http\Controllers\Api\V1\Auth\AuthServiceInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Symfony\Component\HttpFoundation\Response as SynfonyResponse;
 
 final class AuthService implements AuthServiceInterface
@@ -52,6 +54,8 @@ final class AuthService implements AuthServiceInterface
             'role' => $validatedRequest['role'],
         ]);
         $user->save();
+
+        Mail::to($user)->send(new UserRegistered($user));
 
         return new RegisterResponse('Register successfull.', SynfonyResponse::HTTP_OK, $user);
     }
