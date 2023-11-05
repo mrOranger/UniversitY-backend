@@ -40,7 +40,7 @@ class UserRegistered extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'email.user-registered',
+            markdown: 'email.user-registered',
         );
     }
 
