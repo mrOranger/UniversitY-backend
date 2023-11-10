@@ -66,10 +66,6 @@ final class AuthService implements AuthServiceInterface
         $validatedRequest = $confirmAccountRequest->validated();
         $user= User::find($validatedRequest['user_id']);
 
-        if ($user == null) {
-            throw new ResourceNotFoundException('Not existing user.');
-        }
-
         $confirmationCode = $user->confirm;
 
         if ($confirmationCode == null) {
@@ -80,6 +76,6 @@ final class AuthService implements AuthServiceInterface
             return new InfoResponse('Account confirmed successfully.', SynfonyResponse::HTTP_OK);
         }
 
-        return new InfoResponse('Invalid confirmation code.', SynfonyResponse::HTTP_UNAUTHORIZED);
+        throw new ResourceConflictException('Invalid confirmation code.');
     }
 }
