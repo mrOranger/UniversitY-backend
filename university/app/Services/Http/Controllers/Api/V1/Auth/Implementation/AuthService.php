@@ -2,19 +2,21 @@
 
 namespace App\Services\Http\Controllers\Api\V1\Auth\Implementation;
 
+use App\Exceptions\ResourceConflictException;
+use App\Exceptions\ResourceNotFoundException;
+use App\Http\Requests\V1\Auth\ConfirmAccountRequest;
 use App\Http\Requests\V1\Auth\LoginRequest;
 use App\Http\Requests\V1\Auth\RegisterRequest;
 use App\Http\Responses\V1\Auth\LoginResponse;
 use App\Http\Responses\V1\Auth\RegisterResponse;
 use App\Http\Responses\V1\InfoResponse;
 use App\Http\Responses\V1\Response;
-use App\Mail\UserRegistered;
 use App\Models\User;
 use App\Services\Http\Controllers\Api\V1\Auth\AuthServiceInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
+use Illuminate\Validation\UnauthorizedException;
 use Symfony\Component\HttpFoundation\Response as SynfonyResponse;
 
 final class AuthService implements AuthServiceInterface
@@ -57,5 +59,27 @@ final class AuthService implements AuthServiceInterface
         ]);
 
         return new RegisterResponse('Register successfull.', SynfonyResponse::HTTP_OK, $user);
+    }
+
+    public function confirmAccount(ConfirmAccountRequest $confirmAccountRequest) : Response
+    {
+        $validatedRequest = $confirmAccountRequest->validated();
+        $user= User::find($validatedRequest['user_id']);
+
+        if ($user == null) {
+            throw new ResourceNotFoundException('Not existing user.');
+        }
+
+        $confirmationCode = $user->confirm;
+
+        if ($confirmationCode == null) {
+            throw new ResourceConflictException('Account already confirmed.');
+        }
+
+        if ($confirmationCode == $validatedRequest['confirmation_code']) {
+            return new InfoResponse('Account confirmed successfully.', SynfonyResponse::HTTP_OK);
+        }
+
+        return new InfoResponse('Invalid confirmation code.', SynfonyResponse::HTTP_UNAUTHORIZED);
     }
 }
