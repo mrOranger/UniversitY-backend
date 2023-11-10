@@ -4,6 +4,7 @@ namespace App\Listeners;
 
 use App\Events\UserSignup;
 use App\Mail\UserRegistered;
+use App\Models\User;
 use Illuminate\Support\Facades\Mail;
 
 class UserSignupNotification
@@ -13,6 +14,10 @@ class UserSignupNotification
      */
     public function handle(UserSignup $event): void
     {
-        Mail::to($event->user)->send(new UserRegistered($event->user));
+        $randomUuid = fake('it_IT')->uuid();
+        $event->user->update([
+            'confirmation' => $randomUuid
+        ]);
+        Mail::to($event->user)->send(new UserRegistered($event->user, $randomUuid));
     }
 }
