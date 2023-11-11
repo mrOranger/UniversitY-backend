@@ -31,7 +31,7 @@ class DegreeControllerSaveTest extends TestCase
 
     final public function test_save_degree_as_student_returns_unauthorized(): void
     {
-        $student = User::factory()->create(['role' => 'student']);
+        $student = User::factory()->createQuietly(['role' => 'student']);
 
         $response = $this
             ->actingAs($student)
@@ -43,7 +43,7 @@ class DegreeControllerSaveTest extends TestCase
 
     final public function test_save_degree_as_professor_returns_unauthorized(): void
     {
-        $professor = User::factory()->create(['role' => 'professor']);
+        $professor = User::factory()->createQuietly(['role' => 'professor']);
 
         $response = $this
             ->actingAs($professor)
@@ -55,7 +55,7 @@ class DegreeControllerSaveTest extends TestCase
 
     final public function test_save_degree_as_admin_returns_name_required(): void
     {
-        $admin = User::factory()->create(['role' => 'admin']);
+        $admin = User::factory()->createQuietly(['role' => 'admin']);
 
         $response = $this
             ->actingAs($admin)
@@ -69,7 +69,7 @@ class DegreeControllerSaveTest extends TestCase
 
     final public function test_save_degree_as_admin_returns_name_string_required(): void
     {
-        $admin = User::factory()->create(['role' => 'admin']);
+        $admin = User::factory()->createQuietly(['role' => 'admin']);
 
         $response = $this
             ->actingAs($admin)
@@ -85,7 +85,7 @@ class DegreeControllerSaveTest extends TestCase
 
     final public function test_save_degree_as_admin_returns_name_max_length(): void
     {
-        $admin = User::factory()->create(['role' => 'admin']);
+        $admin = User::factory()->createQuietly(['role' => 'admin']);
 
         $response = $this
             ->actingAs($admin)
@@ -101,8 +101,8 @@ class DegreeControllerSaveTest extends TestCase
 
     final public function test_save_degree_as_admin_returns_name_already_exists(): void
     {
-        Degree::factory()->create(['name' => 'Computer Science']);
-        $admin = User::factory()->create(['role' => 'admin']);
+        Degree::factory()->createQuietly(['name' => 'Computer Science']);
+        $admin = User::factory()->createQuietly(['role' => 'admin']);
 
         $response = $this
             ->actingAs($admin)
@@ -118,7 +118,7 @@ class DegreeControllerSaveTest extends TestCase
 
     final public function test_save_degree_as_admin_returns_code_required(): void
     {
-        $admin = User::factory()->create(['role' => 'admin']);
+        $admin = User::factory()->createQuietly(['role' => 'admin']);
 
         $response = $this
             ->actingAs($admin)
@@ -133,7 +133,7 @@ class DegreeControllerSaveTest extends TestCase
 
     final public function test_save_degree_as_admin_returns_code_string_required(): void
     {
-        $admin = User::factory()->create(['role' => 'admin']);
+        $admin = User::factory()->createQuietly(['role' => 'admin']);
 
         $response = $this
             ->actingAs($admin)
@@ -149,7 +149,7 @@ class DegreeControllerSaveTest extends TestCase
 
     final public function test_save_degree_as_admin_returns_code_max_length(): void
     {
-        $admin = User::factory()->create(['role' => 'admin']);
+        $admin = User::factory()->createQuietly(['role' => 'admin']);
 
         $response = $this
             ->actingAs($admin)
@@ -165,7 +165,7 @@ class DegreeControllerSaveTest extends TestCase
 
     final public function test_save_degree_as_admin_returns_course_type_required(): void
     {
-        $admin = User::factory()->create(['role' => 'admin']);
+        $admin = User::factory()->createQuietly(['role' => 'admin']);
 
         $response = $this
             ->actingAs($admin)
@@ -180,7 +180,7 @@ class DegreeControllerSaveTest extends TestCase
 
     final public function test_save_degree_as_admin_returns_course_type_string_required(): void
     {
-        $admin = User::factory()->create(['role' => 'admin']);
+        $admin = User::factory()->createQuietly(['role' => 'admin']);
 
         $response = $this
             ->actingAs($admin)
@@ -196,7 +196,7 @@ class DegreeControllerSaveTest extends TestCase
 
     final public function test_save_degree_as_admin_returns_course_type_not_valid(): void
     {
-        $admin = User::factory()->create(['role' => 'admin']);
+        $admin = User::factory()->createQuietly(['role' => 'admin']);
 
         $response = $this
             ->actingAs($admin)
@@ -212,7 +212,7 @@ class DegreeControllerSaveTest extends TestCase
 
     final public function test_save_degree_as_admin_returns_ok(): void
     {
-        $admin = User::factory()->create(['role' => 'admin']);
+        $admin = User::factory()->createQuietly(['role' => 'admin']);
 
         $response = $this
             ->actingAs($admin)
@@ -230,7 +230,7 @@ class DegreeControllerSaveTest extends TestCase
 
     final public function test_save_degree_as_employee_returns_name_required(): void
     {
-        $employee = User::factory()->create(['role' => 'employee']);
+        $employee = User::factory()->createQuietly(['role' => 'employee']);
 
         $response = $this
             ->actingAs($employee)
@@ -244,7 +244,7 @@ class DegreeControllerSaveTest extends TestCase
 
     final public function test_save_degree_as_employee_returns_name_string_required(): void
     {
-        $employee = User::factory()->create(['role' => 'employee']);
+        $employee = User::factory()->createQuietly(['role' => 'employee']);
 
         $response = $this
             ->actingAs($employee)
@@ -260,7 +260,7 @@ class DegreeControllerSaveTest extends TestCase
 
     final public function test_save_degree_as_employee_returns_name_max_length(): void
     {
-        $employee = User::factory()->create(['role' => 'employee']);
+        $employee = User::factory()->createQuietly(['role' => 'employee']);
 
         $response = $this
             ->actingAs($employee)
@@ -276,8 +276,8 @@ class DegreeControllerSaveTest extends TestCase
 
     final public function test_save_degree_as_employee_returns_name_already_exists(): void
     {
-        Degree::factory()->create(['name' => 'Computer Science']);
-        $employee = User::factory()->create(['role' => 'employee']);
+        Degree::factory()->createQuietly(['name' => 'Computer Science']);
+        $employee = User::factory()->createQuietly(['role' => 'employee']);
 
         $response = $this
             ->actingAs($employee)
@@ -293,7 +293,7 @@ class DegreeControllerSaveTest extends TestCase
 
     final public function test_save_degree_as_employee_returns_code_required(): void
     {
-        $employee = User::factory()->create(['role' => 'employee']);
+        $employee = User::factory()->createQuietly(['role' => 'employee']);
 
         $response = $this
             ->actingAs($employee)
@@ -308,7 +308,7 @@ class DegreeControllerSaveTest extends TestCase
 
     final public function test_save_degree_as_employee_returns_code_string_required(): void
     {
-        $employee = User::factory()->create(['role' => 'employee']);
+        $employee = User::factory()->createQuietly(['role' => 'employee']);
 
         $response = $this
             ->actingAs($employee)
@@ -324,7 +324,7 @@ class DegreeControllerSaveTest extends TestCase
 
     final public function test_save_degree_as_employee_returns_code_max_length(): void
     {
-        $employee = User::factory()->create(['role' => 'employee']);
+        $employee = User::factory()->createQuietly(['role' => 'employee']);
 
         $response = $this
             ->actingAs($employee)
@@ -340,7 +340,7 @@ class DegreeControllerSaveTest extends TestCase
 
     final public function test_save_degree_as_employee_returns_course_type_required(): void
     {
-        $employee = User::factory()->create(['role' => 'employee']);
+        $employee = User::factory()->createQuietly(['role' => 'employee']);
 
         $response = $this
             ->actingAs($employee)
@@ -355,7 +355,7 @@ class DegreeControllerSaveTest extends TestCase
 
     final public function test_save_degree_as_employee_returns_course_type_string_required(): void
     {
-        $employee = User::factory()->create(['role' => 'employee']);
+        $employee = User::factory()->createQuietly(['role' => 'employee']);
 
         $response = $this
             ->actingAs($employee)
@@ -371,7 +371,7 @@ class DegreeControllerSaveTest extends TestCase
 
     final public function test_save_degree_as_employee_returns_course_type_not_valid(): void
     {
-        $employee = User::factory()->create(['role' => 'employee']);
+        $employee = User::factory()->createQuietly(['role' => 'employee']);
 
         $response = $this
             ->actingAs($employee)
@@ -387,7 +387,7 @@ class DegreeControllerSaveTest extends TestCase
 
     final public function test_save_degree_as_employee_returns_ok(): void
     {
-        $employee = User::factory()->create(['role' => 'employee']);
+        $employee = User::factory()->createQuietly(['role' => 'employee']);
 
         $response = $this
             ->actingAs($employee)

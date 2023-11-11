@@ -31,7 +31,7 @@ class TeacherControllerSaveTest extends TestCase
 
     final public function test_save_teacher_returns_unauthorized(): void
     {
-        $user = User::factory()->create(['role' => 'student']);
+        $user = User::factory()->createQuietly(['role' => 'student']);
         $route = route('teachers.store');
 
         $response = $this
@@ -44,7 +44,7 @@ class TeacherControllerSaveTest extends TestCase
 
     final public function test_save_teacher_without_role_returns_unprocessable_content(): void
     {
-        $user = User::factory()->create(['role' => $this->roles->random()]);
+        $user = User::factory()->createQuietly(['role' => $this->roles->random()]);
         $route = route('teachers.store');
 
         $response = $this
@@ -66,7 +66,7 @@ class TeacherControllerSaveTest extends TestCase
 
     final public function test_save_teacher_with_role_not_string_returns_unprocessable_content(): void
     {
-        $user = User::factory()->create(['role' => $this->roles->random()]);
+        $user = User::factory()->createQuietly(['role' => $this->roles->random()]);
         $route = route('teachers.store');
 
         $response = $this
@@ -89,7 +89,7 @@ class TeacherControllerSaveTest extends TestCase
 
     final public function test_save_teacher_with_role_invalid_returns_unprocessable_content(): void
     {
-        $user = User::factory()->create(['role' => $this->roles->random()]);
+        $user = User::factory()->createQuietly(['role' => $this->roles->random()]);
         $route = route('teachers.store');
 
         $response = $this
@@ -112,7 +112,7 @@ class TeacherControllerSaveTest extends TestCase
 
     final public function test_save_teacher_without_subject_returns_unprocessable_content(): void
     {
-        $user = User::factory()->create(['role' => $this->roles->random()]);
+        $user = User::factory()->createQuietly(['role' => $this->roles->random()]);
         $route = route('teachers.store');
 
         $response = $this
@@ -134,7 +134,7 @@ class TeacherControllerSaveTest extends TestCase
 
     final public function test_save_teacher_with_subject_not_string_returns_unprocessable_content(): void
     {
-        $user = User::factory()->create(['role' => $this->roles->random()]);
+        $user = User::factory()->createQuietly(['role' => $this->roles->random()]);
         $route = route('teachers.store');
 
         $response = $this
@@ -157,7 +157,7 @@ class TeacherControllerSaveTest extends TestCase
 
     final public function test_save_teacher_returns_not_found(): void
     {
-        $user = User::factory()->create(['role' => $this->roles->random()]);
+        $user = User::factory()->createQuietly(['role' => $this->roles->random()]);
         $route = route('teachers.store');
 
         $response = $this
@@ -177,10 +177,10 @@ class TeacherControllerSaveTest extends TestCase
         $response->assertJsonPath('message', 'Associated user does not exists.');
     }
 
-    final public function test_save_teacher_returns_created(): void
+    final public function test_save_teacher_returns_createQuietlyd(): void
     {
-        $user = User::factory()->create(['role' => $this->roles->random()]);
-        User::factory()->create([
+        $user = User::factory()->createQuietly(['role' => $this->roles->random()]);
+        User::factory()->createQuietly([
             'first_name' => 'Mario',
             'last_name' => 'Rossi',
             'birth_date' => '01/01/2000',

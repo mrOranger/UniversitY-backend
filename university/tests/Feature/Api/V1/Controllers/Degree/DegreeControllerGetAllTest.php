@@ -30,7 +30,7 @@ class DegreeControllerGetAllTest extends TestCase
 
     public function test_get_all_degrees_as_student_returns_unauthorized(): void
     {
-        $student = User::factory()->create(['role' => 'student']);
+        $student = User::factory()->createQuietly(['role' => 'student']);
 
         $response = $this
             ->actingAs($student)
@@ -42,7 +42,7 @@ class DegreeControllerGetAllTest extends TestCase
 
     public function test_get_all_degrees_as_professor_returns_unauthorized(): void
     {
-        $professor = User::factory()->create(['role' => 'professor']);
+        $professor = User::factory()->createQuietly(['role' => 'professor']);
 
         $response = $this
             ->actingAs($professor)
@@ -54,7 +54,7 @@ class DegreeControllerGetAllTest extends TestCase
 
     public function test_get_all_degrees_as_admin_returns_empty_response(): void
     {
-        $admin = User::factory()->create(['role' => 'admin']);
+        $admin = User::factory()->createQuietly(['role' => 'admin']);
 
         $response = $this
             ->actingAs($admin)
@@ -66,8 +66,8 @@ class DegreeControllerGetAllTest extends TestCase
 
     public function test_get_all_degrees_as_admin_returns_one_course(): void
     {
-        $admin = User::factory()->create(['role' => 'admin']);
-        $degree = Degree::factory()->create();
+        $admin = User::factory()->createQuietly(['role' => 'admin']);
+        $degree = Degree::factory()->createQuietly();
 
         $response = $this
             ->actingAs($admin)
@@ -83,8 +83,8 @@ class DegreeControllerGetAllTest extends TestCase
 
     public function test_get_all_degrees_as_admin_returns_many_degrees(): void
     {
-        $admin = User::factory()->create(['role' => 'admin']);
-        $degrees = Degree::factory(100)->create();
+        $admin = User::factory()->createQuietly(['role' => 'admin']);
+        $degrees = Degree::factory(100)->createQuietly();
 
         $response = $this
             ->actingAs($admin)
@@ -102,7 +102,7 @@ class DegreeControllerGetAllTest extends TestCase
 
     public function test_get_all_degrees_as_employee_returns_empty_response(): void
     {
-        $employee = User::factory()->create(['role' => 'employee']);
+        $employee = User::factory()->createQuietly(['role' => 'employee']);
 
         $response = $this
             ->actingAs($employee)
@@ -114,8 +114,8 @@ class DegreeControllerGetAllTest extends TestCase
 
     public function test_get_all_degrees_as_employee_returns_one_course(): void
     {
-        $employee = User::factory()->create(['role' => 'employee']);
-        $degree = Degree::factory()->create();
+        $employee = User::factory()->createQuietly(['role' => 'employee']);
+        $degree = Degree::factory()->createQuietly();
 
         $response = $this
             ->actingAs($employee)
@@ -131,8 +131,8 @@ class DegreeControllerGetAllTest extends TestCase
 
     public function test_get_all_degrees_as_employee_returns_many_degrees(): void
     {
-        $employee = User::factory()->create(['role' => 'employee']);
-        $degrees = Degree::factory(100)->create();
+        $employee = User::factory()->createQuietly(['role' => 'employee']);
+        $degrees = Degree::factory(100)->createQuietly();
 
         $response = $this
             ->actingAs($employee)

@@ -42,7 +42,7 @@ class CourseControllerDeleteTest extends TestCase
         ]);
 
         $response = $this
-            ->actingAs(User::factory()->create(['role' => 'student']))
+            ->actingAs(User::factory()->createQuietly(['role' => 'student']))
             ->deleteJson($this->route);
 
         $response->assertStatus(Response::HTTP_FORBIDDEN);
@@ -56,7 +56,7 @@ class CourseControllerDeleteTest extends TestCase
         ]);
 
         $response = $this
-            ->actingAs(User::factory()->create(['role' => $this->roles->random()]))
+            ->actingAs(User::factory()->createQuietly(['role' => $this->roles->random()]))
             ->deleteJson($this->route);
 
         $response->assertStatus(Response::HTTP_NOT_FOUND);
@@ -65,13 +65,13 @@ class CourseControllerDeleteTest extends TestCase
 
     final public function test_delete_course_by_id_returns_ok(): void
     {
-        $course = Course::factory()->create();
+        $course = Course::factory()->createQuietly();
         $this->route = route('courses.destroy', [
             'course' => $course->id,
         ]);
 
         $response = $this
-            ->actingAs(User::factory()->create(['role' => $this->roles->random()]))
+            ->actingAs(User::factory()->createQuietly(['role' => $this->roles->random()]))
             ->deleteJson($this->route);
 
         $response->assertStatus(Response::HTTP_OK);

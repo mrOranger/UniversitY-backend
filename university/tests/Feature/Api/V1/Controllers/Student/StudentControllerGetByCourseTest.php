@@ -38,7 +38,7 @@ class StudentControllerGetByCourseTest extends TestCase
 
     final public function test_get_all_students_by_course_as_student_returns_unauthorized(): void
     {
-        $student = User::factory()->create(['role' => 'student']);
+        $student = User::factory()->createQuietly(['role' => 'student']);
 
         $response = $this
             ->actingAs($student)
@@ -50,7 +50,7 @@ class StudentControllerGetByCourseTest extends TestCase
 
     final public function test_get_all_students_by_course_as_professor_returns_unauthorized(): void
     {
-        $professor = User::factory()->create(['role' => 'professor']);
+        $professor = User::factory()->createQuietly(['role' => 'professor']);
 
         $response = $this
             ->actingAs($professor)
@@ -62,7 +62,7 @@ class StudentControllerGetByCourseTest extends TestCase
 
     final public function test_get_all_students_by_course_returns_not_found(): void
     {
-        $admin = User::factory()->create(['role' => $this->roles->random()]);
+        $admin = User::factory()->createQuietly(['role' => $this->roles->random()]);
         $this->route = route('students.get-students-by-course', [
             'course' => 1,
         ]);
@@ -77,8 +77,8 @@ class StudentControllerGetByCourseTest extends TestCase
 
     final public function test_get_all_students_by_course_returns_empty_response(): void
     {
-        $admin = User::factory()->create(['role' => $this->roles->random()]);
-        $course = Course::factory()->create();
+        $admin = User::factory()->createQuietly(['role' => $this->roles->random()]);
+        $course = Course::factory()->createQuietly();
         $this->route = route('students.get-students-by-course', [
             'course' => $course->id,
         ]);
@@ -94,14 +94,14 @@ class StudentControllerGetByCourseTest extends TestCase
 
     final public function test_get_all_students_by_course_returns_one_student(): void
     {
-        $course = Course::factory()->create();
-        $degree = Degree::factory()->create();
-        $user = User::factory()->create();
-        $student = Student::factory()->create([
+        $course = Course::factory()->createQuietly();
+        $degree = Degree::factory()->createQuietly();
+        $user = User::factory()->createQuietly();
+        $student = Student::factory()->createQuietly([
             'degree_id' => $degree->id,
             'user_id' => $user->id,
         ]);
-        $admin = User::factory()->create(['role' => $this->roles->random()]);
+        $admin = User::factory()->createQuietly(['role' => $this->roles->random()]);
         $student->courses()->attach($course);
         $this->route = route('students.get-students-by-course', [
             'course' => $course->id,
@@ -130,14 +130,14 @@ class StudentControllerGetByCourseTest extends TestCase
 
     final public function test_get_all_students_by_course_returns_many_students(): void
     {
-        $course = Course::factory()->create();
-        $degree = Degree::factory()->create();
-        $user = User::factory()->create();
-        $students = Student::factory(100)->create([
+        $course = Course::factory()->createQuietly();
+        $degree = Degree::factory()->createQuietly();
+        $user = User::factory()->createQuietly();
+        $students = Student::factory(100)->createQuietly([
             'degree_id' => $degree->id,
             'user_id' => $user->id,
         ]);
-        $admin = User::factory()->create(['role' => $this->roles->random()]);
+        $admin = User::factory()->createQuietly(['role' => $this->roles->random()]);
         $students->each(function (Student $student) use ($course) {
             $student->courses()->attach($course);
         });
