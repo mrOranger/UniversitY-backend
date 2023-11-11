@@ -196,15 +196,4 @@ return [
     |
     */
     'token_expires_at' => env('TOKEN_EXPIRES_AT', 24 * 60),
-
-    /*
-    |--------------------------------------------------------------------------
-    | Token confirmation key
-    |--------------------------------------------------------------------------
-    |
-    | This value indicates the token used to encrypt the confirmation
-    | information for users.
-    |
-    */
-    'token_confirmation' => env('TOKEN_CONFIRMATION', null),
 ];
