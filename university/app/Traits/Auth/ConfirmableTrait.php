@@ -1,19 +1,19 @@
 <?php
 
 namespace App\Traits\Auth;
-use App\Models\User;
+
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Crypt;
 
 trait ConfirmableTrait
 {
-    final public function generateConfirmToken (User $user) : string
+    final public function generateConfirmToken (string $userId) : string
     {
         $confirmationInfo = [
-            'user_id' => $user->id,
-            'created_at' => Carbon::now()
+            'user_id' => $userId,
+            'created_at' => Carbon::today()
         ];
 
-        return Crypt::encrypt($confirmationInfo, env('app.token_confirmation'));
+        return Crypt::encrypt($confirmationInfo);
     }
 }
