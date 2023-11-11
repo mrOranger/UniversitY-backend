@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('login', [AuthController::class, 'login']);
 Route::post('register', [AuthController::class, 'register']);
-Route::patch('confirm/user/{user_id}/code/{confirmation_code}', [AuthController::class, 'confirmAccount']);
+Route::patch('confirm/user/{user_id}/code/{confirmation_code}', [AuthController::class, 'confirmAccount'])->name('auth.confirmation');
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('logout', [AuthController::class, 'logout']);
