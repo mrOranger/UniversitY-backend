@@ -19,7 +19,7 @@
             has been completed successfully. The next step is to put the following code in the last's
             step form.
         </p>
-        <p style="text-align: center;">{{ $uuid }}.</p>
+        <p style="text-align: center;">{{ $confirmationCode }}.</p>
         <p>
             Best Regards,
         </p>

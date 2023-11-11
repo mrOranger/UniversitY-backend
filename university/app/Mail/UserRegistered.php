@@ -14,15 +14,15 @@ class UserRegistered extends Mailable
     use Queueable, SerializesModels;
 
     public User $user;
-    public string $uuid;
+    public string $confirmationCode;
 
     /**
      * Create a new message instance.
      */
-    public function __construct(User $user, string $uuid)
+    public function __construct(User $user)
     {
         $this->user = $user;
-        $this->uuid = $uuid;
+        $this->confirmationCode = $user->confirmation;
     }
 
     /**
