@@ -20,8 +20,6 @@ use Symfony\Component\HttpFoundation\Response as SynfonyResponse;
 
 final class AuthService implements AuthServiceInterface
 {
-    use ConfirmableTrait;
-
     public function login(LoginRequest $loginRequest): Response
     {
         $validatedData = $loginRequest->validated();
@@ -57,10 +55,6 @@ final class AuthService implements AuthServiceInterface
             'email' => $validatedRequest['email'],
             'password' => Hash::make($validatedRequest['password']),
             'role' => $validatedRequest['role'],
-        ]);
-
-        $user->update([
-            'confirmation' => $this->generateConfirmToken($user->id)
         ]);
 
         return new RegisterResponse('Register successfull.', SynfonyResponse::HTTP_OK, $user);
