@@ -17,7 +17,7 @@ class CheckUserConfirmationJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    private User $user;
+    public User $user;
 
     /**
      * Create a new job instance.
