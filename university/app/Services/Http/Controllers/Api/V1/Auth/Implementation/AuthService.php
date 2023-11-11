@@ -48,6 +48,7 @@ final class AuthService implements AuthServiceInterface
     public function register(RegisterRequest $registerRequest): Response
     {
         $validatedRequest = $registerRequest->validated();
+
         $user = User::create([
             'first_name' => $validatedRequest['first_name'],
             'last_name' => $validatedRequest['last_name'],
@@ -55,7 +56,7 @@ final class AuthService implements AuthServiceInterface
             'email' => $validatedRequest['email'],
             'password' => Hash::make($validatedRequest['password']),
             'role' => $validatedRequest['role'],
-            'verification_code' => Str::random(30)
+            'confirmation' => Str::random(30)
         ]);
 
         return new RegisterResponse('Register successfull.', SynfonyResponse::HTTP_OK, $user);
@@ -73,6 +74,7 @@ final class AuthService implements AuthServiceInterface
         }
 
         if ($confirmationCode == $validatedRequest['confirmation_code']) {
+            $user->update(['confirmation' => null]);
             return new InfoResponse('Account confirmed successfully.', SynfonyResponse::HTTP_OK);
         }
 
