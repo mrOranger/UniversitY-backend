@@ -66,10 +66,10 @@ final class AuthService implements AuthServiceInterface
         $user= User::find($userId);
 
         if ($user == null) {
-            throw new ResourceNotFoundException('Unknown user');
+            throw new ResourceNotFoundException('Unknown user.');
         }
 
-        $userConfirmationCode = $user->confirm;
+        $userConfirmationCode = $user->confirmation;
 
         if ($userConfirmationCode == null) {
             throw new ResourceConflictException('Account already confirmed.');
