@@ -16,5 +16,5 @@ interface AuthServiceInterface
 
     public function register(RegisterRequest $registerRequest): Response;
 
-    public function confirmAccount(ConfirmAccountRequest $confirmAccountRequest) : Response;
+    public function confirmAccount(string $userId, string $confirmationCode) : Response;
 }

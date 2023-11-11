@@ -34,8 +34,8 @@ class AuthController extends Controller
         return $this->authenticationService->register($registerRequest);
     }
 
-    final public function confirmAccount (ConfirmAccountRequest $confirmAccountRequest) : Response
+    final public function confirmAccount (string $userId, string $confirmationCode) : Response
     {
-        return $this->authenticationService->confirmAccount($confirmAccountRequest);
+        return $this->authenticationService->confirmAccount($userId, $confirmationCode);
     }
 }

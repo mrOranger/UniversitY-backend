@@ -16,7 +16,6 @@ use App\Services\Http\Controllers\Api\V1\Auth\AuthServiceInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
-use Illuminate\Validation\UnauthorizedException;
 use Symfony\Component\HttpFoundation\Response as SynfonyResponse;
 
 final class AuthService implements AuthServiceInterface
@@ -62,18 +61,21 @@ final class AuthService implements AuthServiceInterface
         return new RegisterResponse('Register successfull.', SynfonyResponse::HTTP_OK, $user);
     }
 
-    public function confirmAccount(ConfirmAccountRequest $confirmAccountRequest) : Response
+    public function confirmAccount(string $userId, string $confirmationCode) : Response
     {
-        $validatedRequest = $confirmAccountRequest->validated();
-        $user= User::find($validatedRequest['user_id']);
+        $user= User::find($userId);
 
-        $confirmationCode = $user->confirm;
+        if ($user == null) {
+            throw new ResourceNotFoundException('Unknown user');
+        }
 
-        if ($confirmationCode == null) {
+        $userConfirmationCode = $user->confirm;
+
+        if ($userConfirmationCode == null) {
             throw new ResourceConflictException('Account already confirmed.');
         }
 
-        if ($confirmationCode == $validatedRequest['confirmation_code']) {
+        if ($confirmationCode == $userConfirmationCode) {
             $user->update(['confirmation' => null]);
             return new InfoResponse('Account confirmed successfully.', SynfonyResponse::HTTP_OK);
         }
