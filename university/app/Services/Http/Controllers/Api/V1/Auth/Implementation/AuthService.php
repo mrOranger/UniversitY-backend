@@ -4,7 +4,6 @@ namespace App\Services\Http\Controllers\Api\V1\Auth\Implementation;
 
 use App\Exceptions\ResourceConflictException;
 use App\Exceptions\ResourceNotFoundException;
-use App\Http\Requests\V1\Auth\ConfirmAccountRequest;
 use App\Http\Requests\V1\Auth\LoginRequest;
 use App\Http\Requests\V1\Auth\RegisterRequest;
 use App\Http\Responses\V1\Auth\LoginResponse;
@@ -13,6 +12,7 @@ use App\Http\Responses\V1\InfoResponse;
 use App\Http\Responses\V1\Response;
 use App\Models\User;
 use App\Services\Http\Controllers\Api\V1\Auth\AuthServiceInterface;
+use App\Traits\Auth\ConfirmableTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -20,6 +20,8 @@ use Symfony\Component\HttpFoundation\Response as SynfonyResponse;
 
 final class AuthService implements AuthServiceInterface
 {
+    use ConfirmableTrait;
+
     public function login(LoginRequest $loginRequest): Response
     {
         $validatedData = $loginRequest->validated();
@@ -55,7 +57,10 @@ final class AuthService implements AuthServiceInterface
             'email' => $validatedRequest['email'],
             'password' => Hash::make($validatedRequest['password']),
             'role' => $validatedRequest['role'],
-            'confirmation' => Str::random(30)
+        ]);
+
+        $user->update([
+            'confirmation' => $this->generateConfirmToken($user->id)
         ]);
 
         return new RegisterResponse('Register successfull.', SynfonyResponse::HTTP_OK, $user);
