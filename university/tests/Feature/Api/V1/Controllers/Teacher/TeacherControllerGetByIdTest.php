@@ -26,8 +26,8 @@ class TeacherControllerGetByIdTest extends TestCase
 
     final public function test_get_teacher_by_id_without_authentication_returns_unauthenticated(): void
     {
-        $teacher = Teacher::factory()->create([
-            'user_id' => User::factory()->create(['role' => $this->roles->random()])->id,
+        $teacher = Teacher::factory()->createQuietly([
+            'user_id' => User::factory()->createQuietly(['role' => $this->roles->random()])->id,
         ]);
 
         $response = $this->getJson($this->test_url.$teacher->id);
@@ -38,10 +38,10 @@ class TeacherControllerGetByIdTest extends TestCase
 
     final public function test_get_teacher_by_id_returns_unauthorized(): void
     {
-        $teacher = Teacher::factory()->create([
-            'user_id' => User::factory()->create(['role' => $this->roles->random()])->id,
+        $teacher = Teacher::factory()->createQuietly([
+            'user_id' => User::factory()->createQuietly(['role' => $this->roles->random()])->id,
         ]);
-        $student = User::factory()->create(['role' => 'student']);
+        $student = User::factory()->createQuietly(['role' => 'student']);
 
         $response = $this
             ->actingAs($student)
@@ -53,7 +53,7 @@ class TeacherControllerGetByIdTest extends TestCase
 
     final public function test_get_teacher_by_id_as_admin_returns_not_found(): void
     {
-        $user = User::factory()->create(['role' => $this->roles->random()]);
+        $user = User::factory()->createQuietly(['role' => $this->roles->random()]);
 
         $response = $this
             ->actingAs($user)
@@ -65,10 +65,10 @@ class TeacherControllerGetByIdTest extends TestCase
 
     final public function test_get_teacher_by_id_as_admin_returns_ok(): void
     {
-        $teacher = Teacher::factory()->create([
-            'user_id' => User::factory()->create(['role' => $this->roles->random()])->id,
+        $teacher = Teacher::factory()->createQuietly([
+            'user_id' => User::factory()->createQuietly(['role' => $this->roles->random()])->id,
         ]);
-        $user = User::factory()->create(['role' => $this->roles->random()]);
+        $user = User::factory()->createQuietly(['role' => $this->roles->random()]);
 
         $response = $this
             ->actingAs($user)

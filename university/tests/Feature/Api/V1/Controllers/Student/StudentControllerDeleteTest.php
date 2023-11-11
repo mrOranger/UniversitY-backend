@@ -27,7 +27,7 @@ class StudentControllerDeleteTest extends TestCase
 
     final public function test_delete_student_by_id_as_student_returns_unauthorized(): void
     {
-        $student = User::factory()->create(['role' => 'student']);
+        $student = User::factory()->createQuietly(['role' => 'student']);
         $route = route('students.destroy', [
             'student' => 1,
         ]);
@@ -42,7 +42,7 @@ class StudentControllerDeleteTest extends TestCase
 
     final public function test_delete_student_by_id_as_professor_returns_unauthorized(): void
     {
-        $professor = User::factory()->create(['role' => 'professor']);
+        $professor = User::factory()->createQuietly(['role' => 'professor']);
         $route = route('students.destroy', [
             'student' => 1,
         ]);
@@ -57,7 +57,7 @@ class StudentControllerDeleteTest extends TestCase
 
     final public function test_delete_student_by_id_as_admin_returns_not_found(): void
     {
-        $admin = User::factory()->create(['role' => 'admin']);
+        $admin = User::factory()->createQuietly(['role' => 'admin']);
         $route = route('students.destroy', [
             'student' => 1,
         ]);
@@ -72,15 +72,15 @@ class StudentControllerDeleteTest extends TestCase
 
     final public function test_delete_student_by_id_as_admin_returns_ok(): void
     {
-        $degree = Degree::factory()->create();
-        $admin = User::factory()->create(['role' => 'admin']);
-        $user = User::factory()->create();
-        $degree = Degree::factory()->create([
+        $degree = Degree::factory()->createQuietly();
+        $admin = User::factory()->createQuietly(['role' => 'admin']);
+        $user = User::factory()->createQuietly();
+        $degree = Degree::factory()->createQuietly([
             'name' => 'Computer Science',
             'code' => 'LM-101',
             'course_type' => 'master',
         ]);
-        $student = Student::factory()->create([
+        $student = Student::factory()->createQuietly([
             'bachelor_final_mark' => 89,
             'master_final_mark' => null,
             'phd_final_mark' => null,
@@ -112,7 +112,7 @@ class StudentControllerDeleteTest extends TestCase
 
     final public function test_delete_student_by_id_as_employee_returns_not_found(): void
     {
-        $employee = User::factory()->create(['role' => 'employee']);
+        $employee = User::factory()->createQuietly(['role' => 'employee']);
         $route = route('students.destroy', [
             'student' => 1,
         ]);
@@ -127,14 +127,14 @@ class StudentControllerDeleteTest extends TestCase
 
     final public function test_delete_student_by_id_as_employee_returns_ok(): void
     {
-        $employee = User::factory()->create(['role' => 'employee']);
-        $user = User::factory()->create();
-        $degree = Degree::factory()->create([
+        $employee = User::factory()->createQuietly(['role' => 'employee']);
+        $user = User::factory()->createQuietly();
+        $degree = Degree::factory()->createQuietly([
             'name' => 'Computer Science',
             'code' => 'LM-101',
             'course_type' => 'master',
         ]);
-        $student = Student::factory()->create([
+        $student = Student::factory()->createQuietly([
             'bachelor_final_mark' => 89,
             'master_final_mark' => null,
             'phd_final_mark' => null,

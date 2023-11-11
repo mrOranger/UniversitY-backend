@@ -22,7 +22,7 @@ class AuthControllerLoginTest extends TestCase
 
     final public function test_login_without_email_and_password_returns_unprocessable_content(): void
     {
-        $user = User::factory()->create();
+        $user = User::factory()->createQuietly();
 
         $response = $this->postJson($this->test_url);
 
@@ -33,7 +33,7 @@ class AuthControllerLoginTest extends TestCase
 
     final public function test_login_without_email_returns_unprocessable_content(): void
     {
-        $user = User::factory()->create();
+        $user = User::factory()->createQuietly();
 
         $response = $this->postJson($this->test_url, [
             'password' => $user->password,
@@ -45,7 +45,7 @@ class AuthControllerLoginTest extends TestCase
 
     final public function test_login_without_password_returns_unprocessable_content(): void
     {
-        $user = User::factory()->create();
+        $user = User::factory()->createQuietly();
 
         $response = $this->postJson($this->test_url, [
             'email' => $user->email,
@@ -57,7 +57,7 @@ class AuthControllerLoginTest extends TestCase
 
     final public function test_login_with_not_valid_email_returns_unprocessable_content(): void
     {
-        $user = User::factory()->create([
+        $user = User::factory()->createQuietly([
             'password' => 'ThisIsAValidPassword1!',
         ]);
 
@@ -72,7 +72,7 @@ class AuthControllerLoginTest extends TestCase
 
     final public function test_login_with_unknown_email_returns_unprocessable_content(): void
     {
-        $user = User::factory()->create([
+        $user = User::factory()->createQuietly([
             'password' => 'ThisIsAValidPassword1!',
         ]);
 
@@ -87,7 +87,7 @@ class AuthControllerLoginTest extends TestCase
 
     final public function test_login_with_not_valid_password_min_length_returns_unprocessable_content(): void
     {
-        $user = User::factory()->create();
+        $user = User::factory()->createQuietly();
 
         $response = $this->postJson($this->test_url, [
             'email' => $user->email,
@@ -100,7 +100,7 @@ class AuthControllerLoginTest extends TestCase
 
     final public function test_login_with_not_valid_password_letters_returns_unprocessable_content(): void
     {
-        $user = User::factory()->create();
+        $user = User::factory()->createQuietly();
 
         $response = $this->postJson($this->test_url, [
             'email' => $user->email,
@@ -113,7 +113,7 @@ class AuthControllerLoginTest extends TestCase
 
     final public function test_login_with_not_valid_password_numbers_returns_unprocessable_content(): void
     {
-        $user = User::factory()->create();
+        $user = User::factory()->createQuietly();
 
         $response = $this->postJson($this->test_url, [
             'email' => $user->email,
@@ -126,7 +126,7 @@ class AuthControllerLoginTest extends TestCase
 
     final public function test_login_with_not_valid_password_symbols_returns_unprocessable_content(): void
     {
-        $user = User::factory()->create();
+        $user = User::factory()->createQuietly();
 
         $response = $this->postJson($this->test_url, [
             'email' => $user->email,
@@ -139,7 +139,7 @@ class AuthControllerLoginTest extends TestCase
 
     final public function test_login_with_invalid_password_matching_returns_unauthorized(): void
     {
-        $user = User::factory()->create();
+        $user = User::factory()->createQuietly();
 
         $response = $this->postJson($this->test_url, [
             'email' => $user->email,
@@ -152,7 +152,7 @@ class AuthControllerLoginTest extends TestCase
 
     final public function test_login_with_valid_credentials_returns_okay(): void
     {
-        $user = User::factory()->create([
+        $user = User::factory()->createQuietly([
             'password' => Hash::make('ThisIsAValidPassword1!'),
         ]);
 

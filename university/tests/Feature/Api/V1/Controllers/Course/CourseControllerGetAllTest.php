@@ -35,7 +35,7 @@ class CourseControllerGetAllTest extends TestCase
     final public function test_get_all_courses_as_student_returns_unauthorized(): void
     {
         $response = $this
-            ->actingAs(User::factory()->create(['role' => 'student']))
+            ->actingAs(User::factory()->createQuietly(['role' => 'student']))
             ->getJson($this->route);
 
         $response->assertStatus(Response::HTTP_FORBIDDEN);
@@ -45,7 +45,7 @@ class CourseControllerGetAllTest extends TestCase
     final public function test_get_all_courses_returns_empty_response(): void
     {
         $response = $this
-            ->actingAs(User::factory()->create(['role' => $this->roles->random()]))
+            ->actingAs(User::factory()->createQuietly(['role' => $this->roles->random()]))
             ->getJson($this->route);
 
         $response->assertStatus(Response::HTTP_OK);
@@ -54,10 +54,10 @@ class CourseControllerGetAllTest extends TestCase
 
     final public function test_get_all_courses_returns_one_course(): void
     {
-        $course = Course::factory()->create();
+        $course = Course::factory()->createQuietly();
 
         $response = $this
-            ->actingAs(User::factory()->create(['role' => $this->roles->random()]))
+            ->actingAs(User::factory()->createQuietly(['role' => $this->roles->random()]))
             ->getJson($this->route);
 
         $response->assertStatus(Response::HTTP_OK);
@@ -79,10 +79,10 @@ class CourseControllerGetAllTest extends TestCase
 
     final public function test_get_all_courses_many_courses(): void
     {
-        $courses = Course::factory(100)->create();
+        $courses = Course::factory(100)->createQuietly();
 
         $response = $this
-            ->actingAs(User::factory()->create(['role' => $this->roles->random()]))
+            ->actingAs(User::factory()->createQuietly(['role' => $this->roles->random()]))
             ->getJson($this->route);
 
         $response->assertJsonCount(100, 'data');

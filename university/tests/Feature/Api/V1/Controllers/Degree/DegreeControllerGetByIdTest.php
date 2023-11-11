@@ -22,7 +22,7 @@ class DegreeControllerGetByIdTest extends TestCase
 
     final public function test_get_degree_by_id_without_authentication_returns_unauthenticated(): void
     {
-        $degree = Degree::factory()->create();
+        $degree = Degree::factory()->createQuietly();
 
         $response = $this->getJson($this->test_url.$degree->id);
 
@@ -32,8 +32,8 @@ class DegreeControllerGetByIdTest extends TestCase
 
     final public function test_get_degree_by_id_as_student_returns_unauthorized(): void
     {
-        $degree = Degree::factory()->create();
-        $student = User::factory()->create(['role' => 'student']);
+        $degree = Degree::factory()->createQuietly();
+        $student = User::factory()->createQuietly(['role' => 'student']);
 
         $response = $this
             ->actingAs($student)
@@ -45,8 +45,8 @@ class DegreeControllerGetByIdTest extends TestCase
 
     final public function test_get_degree_by_id_as_professor_returns_unauthorized(): void
     {
-        $degree = Degree::factory()->create();
-        $professor = User::factory()->create(['role' => 'professor']);
+        $degree = Degree::factory()->createQuietly();
+        $professor = User::factory()->createQuietly(['role' => 'professor']);
 
         $response = $this
             ->actingAs($professor)
@@ -58,7 +58,7 @@ class DegreeControllerGetByIdTest extends TestCase
 
     final public function test_get_degree_by_id_as_admin_returns_not_found(): void
     {
-        $admin = User::factory()->create(['role' => 'admin']);
+        $admin = User::factory()->createQuietly(['role' => 'admin']);
 
         $response = $this
             ->actingAs($admin)
@@ -70,8 +70,8 @@ class DegreeControllerGetByIdTest extends TestCase
 
     final public function test_get_degree_by_id_as_admin_returns_ok(): void
     {
-        $degree = Degree::factory()->create();
-        $admin = User::factory()->create(['role' => 'admin']);
+        $degree = Degree::factory()->createQuietly();
+        $admin = User::factory()->createQuietly(['role' => 'admin']);
 
         $response = $this
             ->actingAs($admin)
@@ -86,7 +86,7 @@ class DegreeControllerGetByIdTest extends TestCase
 
     final public function test_get_degree_by_id_as_employee_returns_not_found(): void
     {
-        $employee = User::factory()->create(['role' => 'employee']);
+        $employee = User::factory()->createQuietly(['role' => 'employee']);
 
         $response = $this
             ->actingAs($employee)
@@ -98,8 +98,8 @@ class DegreeControllerGetByIdTest extends TestCase
 
     final public function test_get_degree_by_id_as_employee_returns_ok(): void
     {
-        $degree = Degree::factory()->create();
-        $employee = User::factory()->create(['role' => 'employee']);
+        $degree = Degree::factory()->createQuietly();
+        $employee = User::factory()->createQuietly(['role' => 'employee']);
 
         $response = $this
             ->actingAs($employee)

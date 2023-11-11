@@ -34,7 +34,7 @@ class TeacherControllerGetAllTest extends TestCase
 
     final public function test_get_all_teachers_as_student_returns_unauthorized(): void
     {
-        $student = User::factory()->create(['role' => 'student']);
+        $student = User::factory()->createQuietly(['role' => 'student']);
 
         $response = $this
             ->actingAs($student)
@@ -46,7 +46,7 @@ class TeacherControllerGetAllTest extends TestCase
 
     final public function test_get_all_teachers_returns_empty_response(): void
     {
-        $user = User::factory()->create(['role' => $this->roles->random()]);
+        $user = User::factory()->createQuietly(['role' => $this->roles->random()]);
 
         $response = $this
             ->actingAs($user)
@@ -59,10 +59,10 @@ class TeacherControllerGetAllTest extends TestCase
 
     final public function test_get_all_teachers_returns_one_teacher(): void
     {
-        $teacher = Teacher::factory()->create([
-            'user_id' => User::factory()->create(['role' => 'professor'])->id,
+        $teacher = Teacher::factory()->createQuietly([
+            'user_id' => User::factory()->createQuietly(['role' => 'professor'])->id,
         ]);
-        $user = User::factory()->create(['role' => $this->roles->random()]);
+        $user = User::factory()->createQuietly(['role' => $this->roles->random()]);
 
         $response = $this
             ->actingAs($user)
@@ -82,10 +82,10 @@ class TeacherControllerGetAllTest extends TestCase
 
     final public function test_get_all_teachers_many_teachers(): void
     {
-        $teachers = Teacher::factory(100)->create([
-            'user_id' => User::factory()->create(['role' => 'professor'])->id,
+        $teachers = Teacher::factory(100)->createQuietly([
+            'user_id' => User::factory()->createQuietly(['role' => 'professor'])->id,
         ]);
-        $user = User::factory()->create(['role' => $this->roles->random()]);
+        $user = User::factory()->createQuietly(['role' => $this->roles->random()]);
 
         $response = $this
             ->actingAs($user)

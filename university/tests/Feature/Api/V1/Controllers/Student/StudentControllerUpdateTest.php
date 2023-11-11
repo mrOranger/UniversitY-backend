@@ -26,7 +26,7 @@ class StudentControllerUpdateTest extends TestCase
 
     final public function test_update_student_as_student_return_unauthorized(): void
     {
-        $student = User::factory()->create(['role' => 'student']);
+        $student = User::factory()->createQuietly(['role' => 'student']);
         $route = route('students.update', [
             'student' => 1,
         ]);
@@ -40,7 +40,7 @@ class StudentControllerUpdateTest extends TestCase
 
     final public function test_update_student_as_professor_returns_unauthorized(): void
     {
-        $professor = User::factory()->create(['role' => 'professor']);
+        $professor = User::factory()->createQuietly(['role' => 'professor']);
         $route = route('students.update', [
             'student' => 1,
         ]);
@@ -54,14 +54,14 @@ class StudentControllerUpdateTest extends TestCase
 
     final public function test_update_student_as_admin_with_bachelor_final_mark_not_numeric_returns_unprocessable_content(): void
     {
-        $admin = User::factory()->create(['role' => 'admin']);
-        $user = User::factory()->create();
-        $degree = Degree::factory()->create([
+        $admin = User::factory()->createQuietly(['role' => 'admin']);
+        $user = User::factory()->createQuietly();
+        $degree = Degree::factory()->createQuietly([
             'name' => 'Computer Science',
             'code' => 'LM-101',
             'course_type' => 'master',
         ]);
-        $student = Student::factory()->create([
+        $student = Student::factory()->createQuietly([
             'bachelor_final_mark' => 89,
             'master_final_mark' => null,
             'phd_final_mark' => null,
@@ -100,14 +100,14 @@ class StudentControllerUpdateTest extends TestCase
 
     final public function test_update_student_as_admin_with_bachelor_final_mark_less_than_66_returns_unprocessable_content(): void
     {
-        $admin = User::factory()->create(['role' => 'admin']);
-        $user = User::factory()->create();
-        $degree = Degree::factory()->create([
+        $admin = User::factory()->createQuietly(['role' => 'admin']);
+        $user = User::factory()->createQuietly();
+        $degree = Degree::factory()->createQuietly([
             'name' => 'Computer Science',
             'code' => 'LM-101',
             'course_type' => 'master',
         ]);
-        $student = Student::factory()->create([
+        $student = Student::factory()->createQuietly([
             'bachelor_final_mark' => 89,
             'master_final_mark' => null,
             'phd_final_mark' => null,
@@ -146,14 +146,14 @@ class StudentControllerUpdateTest extends TestCase
 
     final public function test_update_student_as_admin_with_bachelor_final_mark_greater_than_110_returns_unprocessable_content(): void
     {
-        $admin = User::factory()->create(['role' => 'admin']);
-        $user = User::factory()->create();
-        $degree = Degree::factory()->create([
+        $admin = User::factory()->createQuietly(['role' => 'admin']);
+        $user = User::factory()->createQuietly();
+        $degree = Degree::factory()->createQuietly([
             'name' => 'Computer Science',
             'code' => 'LM-101',
             'course_type' => 'master',
         ]);
-        $student = Student::factory()->create([
+        $student = Student::factory()->createQuietly([
             'bachelor_final_mark' => 89,
             'master_final_mark' => null,
             'phd_final_mark' => null,
@@ -192,14 +192,14 @@ class StudentControllerUpdateTest extends TestCase
 
     final public function test_update_student_as_admin_with_master_final_mark_not_numeric_returns_unprocessable_content(): void
     {
-        $admin = User::factory()->create(['role' => 'admin']);
-        $user = User::factory()->create();
-        $degree = Degree::factory()->create([
+        $admin = User::factory()->createQuietly(['role' => 'admin']);
+        $user = User::factory()->createQuietly();
+        $degree = Degree::factory()->createQuietly([
             'name' => 'Computer Science',
             'code' => 'LM-101',
             'course_type' => 'master',
         ]);
-        $student = Student::factory()->create([
+        $student = Student::factory()->createQuietly([
             'bachelor_final_mark' => 89,
             'master_final_mark' => null,
             'phd_final_mark' => null,
@@ -238,14 +238,14 @@ class StudentControllerUpdateTest extends TestCase
 
     final public function test_update_student_as_admin_with_master_final_mark_less_than_66_returns_unprocessable_content(): void
     {
-        $admin = User::factory()->create(['role' => 'admin']);
-        $user = User::factory()->create();
-        $degree = Degree::factory()->create([
+        $admin = User::factory()->createQuietly(['role' => 'admin']);
+        $user = User::factory()->createQuietly();
+        $degree = Degree::factory()->createQuietly([
             'name' => 'Computer Science',
             'code' => 'LM-101',
             'course_type' => 'master',
         ]);
-        $student = Student::factory()->create([
+        $student = Student::factory()->createQuietly([
             'bachelor_final_mark' => 89,
             'master_final_mark' => null,
             'phd_final_mark' => null,
@@ -284,14 +284,14 @@ class StudentControllerUpdateTest extends TestCase
 
     final public function test_update_student_as_admin_with_master_final_mark_greater_than_110_returns_unprocessable_content(): void
     {
-        $admin = User::factory()->create(['role' => 'admin']);
-        $user = User::factory()->create();
-        $degree = Degree::factory()->create([
+        $admin = User::factory()->createQuietly(['role' => 'admin']);
+        $user = User::factory()->createQuietly();
+        $degree = Degree::factory()->createQuietly([
             'name' => 'Computer Science',
             'code' => 'LM-101',
             'course_type' => 'master',
         ]);
-        $student = Student::factory()->create([
+        $student = Student::factory()->createQuietly([
             'bachelor_final_mark' => 89,
             'master_final_mark' => null,
             'phd_final_mark' => null,
@@ -330,14 +330,14 @@ class StudentControllerUpdateTest extends TestCase
 
     final public function test_update_student_as_admin_with_phd_final_mark_not_numeric_returns_unprocessable_content(): void
     {
-        $admin = User::factory()->create(['role' => 'admin']);
-        $user = User::factory()->create();
-        $degree = Degree::factory()->create([
+        $admin = User::factory()->createQuietly(['role' => 'admin']);
+        $user = User::factory()->createQuietly();
+        $degree = Degree::factory()->createQuietly([
             'name' => 'Computer Science',
             'code' => 'LM-101',
             'course_type' => 'master',
         ]);
-        $student = Student::factory()->create([
+        $student = Student::factory()->createQuietly([
             'bachelor_final_mark' => 89,
             'master_final_mark' => null,
             'phd_final_mark' => null,
@@ -376,14 +376,14 @@ class StudentControllerUpdateTest extends TestCase
 
     final public function test_update_student_as_admin_with_phd_final_mark_less_than_66_returns_unprocessable_content(): void
     {
-        $admin = User::factory()->create(['role' => 'admin']);
-        $user = User::factory()->create();
-        $degree = Degree::factory()->create([
+        $admin = User::factory()->createQuietly(['role' => 'admin']);
+        $user = User::factory()->createQuietly();
+        $degree = Degree::factory()->createQuietly([
             'name' => 'Computer Science',
             'code' => 'LM-101',
             'course_type' => 'master',
         ]);
-        $student = Student::factory()->create([
+        $student = Student::factory()->createQuietly([
             'bachelor_final_mark' => 89,
             'master_final_mark' => null,
             'phd_final_mark' => null,
@@ -422,14 +422,14 @@ class StudentControllerUpdateTest extends TestCase
 
     final public function test_update_student_as_admin_with_phd_final_mark_greater_than_110_returns_unprocessable_content(): void
     {
-        $admin = User::factory()->create(['role' => 'admin']);
-        $user = User::factory()->create();
-        $degree = Degree::factory()->create([
+        $admin = User::factory()->createQuietly(['role' => 'admin']);
+        $user = User::factory()->createQuietly();
+        $degree = Degree::factory()->createQuietly([
             'name' => 'Computer Science',
             'code' => 'LM-101',
             'course_type' => 'master',
         ]);
-        $student = Student::factory()->create([
+        $student = Student::factory()->createQuietly([
             'bachelor_final_mark' => 89,
             'master_final_mark' => null,
             'phd_final_mark' => null,
@@ -468,14 +468,14 @@ class StudentControllerUpdateTest extends TestCase
 
     final public function test_update_student_as_admin_without_outside_prescribed_time_returns_unprocessable_content(): void
     {
-        $admin = User::factory()->create(['role' => 'admin']);
-        $user = User::factory()->create();
-        $degree = Degree::factory()->create([
+        $admin = User::factory()->createQuietly(['role' => 'admin']);
+        $user = User::factory()->createQuietly();
+        $degree = Degree::factory()->createQuietly([
             'name' => 'Computer Science',
             'code' => 'LM-101',
             'course_type' => 'master',
         ]);
-        $student = Student::factory()->create([
+        $student = Student::factory()->createQuietly([
             'bachelor_final_mark' => 89,
             'master_final_mark' => null,
             'phd_final_mark' => null,
@@ -513,14 +513,14 @@ class StudentControllerUpdateTest extends TestCase
 
     final public function test_update_student_as_admin_with_not_boolean_outside_prescribed_time_returns_unprocessable_content(): void
     {
-        $admin = User::factory()->create(['role' => 'admin']);
-        $user = User::factory()->create();
-        $degree = Degree::factory()->create([
+        $admin = User::factory()->createQuietly(['role' => 'admin']);
+        $user = User::factory()->createQuietly();
+        $degree = Degree::factory()->createQuietly([
             'name' => 'Computer Science',
             'code' => 'LM-101',
             'course_type' => 'master',
         ]);
-        $student = Student::factory()->create([
+        $student = Student::factory()->createQuietly([
             'bachelor_final_mark' => 89,
             'master_final_mark' => null,
             'phd_final_mark' => null,
@@ -559,8 +559,8 @@ class StudentControllerUpdateTest extends TestCase
 
     final public function test_update_student_as_admin_returns_not_found(): void
     {
-        $admin = User::factory()->create(['role' => 'admin']);
-        $degree = Degree::factory()->create([
+        $admin = User::factory()->createQuietly(['role' => 'admin']);
+        $degree = Degree::factory()->createQuietly([
             'name' => 'Computer Science',
             'code' => 'LM-101',
             'course_type' => 'master',
@@ -591,14 +591,14 @@ class StudentControllerUpdateTest extends TestCase
 
     final public function test_update_student_as_admin_returns_ok(): void
     {
-        $admin = User::factory()->create(['role' => 'admin']);
-        $user = User::factory()->create();
-        $degree = Degree::factory()->create([
+        $admin = User::factory()->createQuietly(['role' => 'admin']);
+        $user = User::factory()->createQuietly();
+        $degree = Degree::factory()->createQuietly([
             'name' => 'Computer Science',
             'code' => 'LM-101',
             'course_type' => 'master',
         ]);
-        $student = Student::factory()->create([
+        $student = Student::factory()->createQuietly([
             'bachelor_final_mark' => 89,
             'master_final_mark' => null,
             'phd_final_mark' => null,
@@ -626,14 +626,14 @@ class StudentControllerUpdateTest extends TestCase
 
     final public function test_update_student_as_employee_with_bachelor_final_mark_less_than_66_returns_unprocessable_content(): void
     {
-        $employee = User::factory()->create(['role' => 'employee']);
-        $user = User::factory()->create();
-        $degree = Degree::factory()->create([
+        $employee = User::factory()->createQuietly(['role' => 'employee']);
+        $user = User::factory()->createQuietly();
+        $degree = Degree::factory()->createQuietly([
             'name' => 'Computer Science',
             'code' => 'LM-101',
             'course_type' => 'master',
         ]);
-        $student = Student::factory()->create([
+        $student = Student::factory()->createQuietly([
             'bachelor_final_mark' => 89,
             'master_final_mark' => null,
             'phd_final_mark' => null,
@@ -668,19 +668,19 @@ class StudentControllerUpdateTest extends TestCase
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
         $response->assertJsonPath('message', 'The bachelor final mark field must be at least 66.');
         $response->assertJsonPath('errors.bachelor_final_mark.0', 'The bachelor final mark field must be at least 66.');
-        $employee = User::factory()->create(['role' => 'employee']);
+        $employee = User::factory()->createQuietly(['role' => 'employee']);
     }
 
     final public function test_update_student_as_employee_with_bachelor_final_mark_greater_than_110_returns_unprocessable_content(): void
     {
-        $employee = User::factory()->create(['role' => 'employee']);
-        $user = User::factory()->create();
-        $degree = Degree::factory()->create([
+        $employee = User::factory()->createQuietly(['role' => 'employee']);
+        $user = User::factory()->createQuietly();
+        $degree = Degree::factory()->createQuietly([
             'name' => 'Computer Science',
             'code' => 'LM-101',
             'course_type' => 'master',
         ]);
-        $student = Student::factory()->create([
+        $student = Student::factory()->createQuietly([
             'bachelor_final_mark' => 89,
             'master_final_mark' => null,
             'phd_final_mark' => null,
@@ -719,14 +719,14 @@ class StudentControllerUpdateTest extends TestCase
 
     final public function test_update_student_as_employee_with_master_final_mark_not_numeric_returns_unprocessable_content(): void
     {
-        $employee = User::factory()->create(['role' => 'employee']);
-        $user = User::factory()->create();
-        $degree = Degree::factory()->create([
+        $employee = User::factory()->createQuietly(['role' => 'employee']);
+        $user = User::factory()->createQuietly();
+        $degree = Degree::factory()->createQuietly([
             'name' => 'Computer Science',
             'code' => 'LM-101',
             'course_type' => 'master',
         ]);
-        $student = Student::factory()->create([
+        $student = Student::factory()->createQuietly([
             'bachelor_final_mark' => 89,
             'master_final_mark' => null,
             'phd_final_mark' => null,
@@ -765,14 +765,14 @@ class StudentControllerUpdateTest extends TestCase
 
     final public function test_update_student_as_employee_with_master_final_mark_less_than_66_returns_unprocessable_content(): void
     {
-        $employee = User::factory()->create(['role' => 'employee']);
-        $user = User::factory()->create();
-        $degree = Degree::factory()->create([
+        $employee = User::factory()->createQuietly(['role' => 'employee']);
+        $user = User::factory()->createQuietly();
+        $degree = Degree::factory()->createQuietly([
             'name' => 'Computer Science',
             'code' => 'LM-101',
             'course_type' => 'master',
         ]);
-        $student = Student::factory()->create([
+        $student = Student::factory()->createQuietly([
             'bachelor_final_mark' => 89,
             'master_final_mark' => null,
             'phd_final_mark' => null,
@@ -811,14 +811,14 @@ class StudentControllerUpdateTest extends TestCase
 
     final public function test_update_student_as_employee_with_master_final_mark_greater_than_110_returns_unprocessable_content(): void
     {
-        $employee = User::factory()->create(['role' => 'employee']);
-        $user = User::factory()->create();
-        $degree = Degree::factory()->create([
+        $employee = User::factory()->createQuietly(['role' => 'employee']);
+        $user = User::factory()->createQuietly();
+        $degree = Degree::factory()->createQuietly([
             'name' => 'Computer Science',
             'code' => 'LM-101',
             'course_type' => 'master',
         ]);
-        $student = Student::factory()->create([
+        $student = Student::factory()->createQuietly([
             'bachelor_final_mark' => 89,
             'master_final_mark' => null,
             'phd_final_mark' => null,
@@ -857,14 +857,14 @@ class StudentControllerUpdateTest extends TestCase
 
     final public function test_update_student_as_employee_with_phd_final_mark_not_numeric_returns_unprocessable_content(): void
     {
-        $employee = User::factory()->create(['role' => 'employee']);
-        $user = User::factory()->create();
-        $degree = Degree::factory()->create([
+        $employee = User::factory()->createQuietly(['role' => 'employee']);
+        $user = User::factory()->createQuietly();
+        $degree = Degree::factory()->createQuietly([
             'name' => 'Computer Science',
             'code' => 'LM-101',
             'course_type' => 'master',
         ]);
-        $student = Student::factory()->create([
+        $student = Student::factory()->createQuietly([
             'bachelor_final_mark' => 89,
             'master_final_mark' => null,
             'phd_final_mark' => null,
@@ -903,14 +903,14 @@ class StudentControllerUpdateTest extends TestCase
 
     final public function test_update_student_as_employee_with_phd_final_mark_less_than_66_returns_unprocessable_content(): void
     {
-        $employee = User::factory()->create(['role' => 'employee']);
-        $user = User::factory()->create();
-        $degree = Degree::factory()->create([
+        $employee = User::factory()->createQuietly(['role' => 'employee']);
+        $user = User::factory()->createQuietly();
+        $degree = Degree::factory()->createQuietly([
             'name' => 'Computer Science',
             'code' => 'LM-101',
             'course_type' => 'master',
         ]);
-        $student = Student::factory()->create([
+        $student = Student::factory()->createQuietly([
             'bachelor_final_mark' => 89,
             'master_final_mark' => null,
             'phd_final_mark' => null,
@@ -949,14 +949,14 @@ class StudentControllerUpdateTest extends TestCase
 
     final public function test_update_student_as_employee_with_phd_final_mark_greater_than_110_returns_unprocessable_content(): void
     {
-        $employee = User::factory()->create(['role' => 'employee']);
-        $user = User::factory()->create();
-        $degree = Degree::factory()->create([
+        $employee = User::factory()->createQuietly(['role' => 'employee']);
+        $user = User::factory()->createQuietly();
+        $degree = Degree::factory()->createQuietly([
             'name' => 'Computer Science',
             'code' => 'LM-101',
             'course_type' => 'master',
         ]);
-        $student = Student::factory()->create([
+        $student = Student::factory()->createQuietly([
             'bachelor_final_mark' => 89,
             'master_final_mark' => null,
             'phd_final_mark' => null,
@@ -995,14 +995,14 @@ class StudentControllerUpdateTest extends TestCase
 
     final public function test_update_student_as_employee_without_outside_prescribed_time_returns_unprocessable_content(): void
     {
-        $employee = User::factory()->create(['role' => 'employee']);
-        $user = User::factory()->create();
-        $degree = Degree::factory()->create([
+        $employee = User::factory()->createQuietly(['role' => 'employee']);
+        $user = User::factory()->createQuietly();
+        $degree = Degree::factory()->createQuietly([
             'name' => 'Computer Science',
             'code' => 'LM-101',
             'course_type' => 'master',
         ]);
-        $student = Student::factory()->create([
+        $student = Student::factory()->createQuietly([
             'bachelor_final_mark' => 89,
             'master_final_mark' => null,
             'phd_final_mark' => null,
@@ -1040,14 +1040,14 @@ class StudentControllerUpdateTest extends TestCase
 
     final public function test_update_student_as_employee_with_not_boolean_outside_prescribed_time_returns_unprocessable_content(): void
     {
-        $employee = User::factory()->create(['role' => 'admin']);
-        $user = User::factory()->create();
-        $degree = Degree::factory()->create([
+        $employee = User::factory()->createQuietly(['role' => 'admin']);
+        $user = User::factory()->createQuietly();
+        $degree = Degree::factory()->createQuietly([
             'name' => 'Computer Science',
             'code' => 'LM-101',
             'course_type' => 'master',
         ]);
-        $student = Student::factory()->create([
+        $student = Student::factory()->createQuietly([
             'bachelor_final_mark' => 89,
             'master_final_mark' => null,
             'phd_final_mark' => null,
@@ -1086,8 +1086,8 @@ class StudentControllerUpdateTest extends TestCase
 
     final public function test_update_student_as_employee_returns_not_found(): void
     {
-        $employee = User::factory()->create(['role' => 'employee']);
-        $degree = Degree::factory()->create([
+        $employee = User::factory()->createQuietly(['role' => 'employee']);
+        $degree = Degree::factory()->createQuietly([
             'name' => 'Computer Science',
             'code' => 'LM-101',
             'course_type' => 'master',
@@ -1118,14 +1118,14 @@ class StudentControllerUpdateTest extends TestCase
 
     final public function test_update_student_as_employee_returns_ok(): void
     {
-        $employee = User::factory()->create(['role' => 'employee']);
-        $degree = Degree::factory()->create([
+        $employee = User::factory()->createQuietly(['role' => 'employee']);
+        $degree = Degree::factory()->createQuietly([
             'name' => 'Computer Science',
             'code' => 'LM-101',
             'course_type' => 'master',
         ]);
-        $user = User::factory()->create();
-        $student = Student::factory()->create([
+        $user = User::factory()->createQuietly();
+        $student = Student::factory()->createQuietly([
             'bachelor_final_mark' => 89,
             'master_final_mark' => null,
             'phd_final_mark' => null,

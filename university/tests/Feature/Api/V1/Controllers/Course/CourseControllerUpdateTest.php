@@ -22,7 +22,7 @@ class CourseControllerUpdateTest extends TestCase
     {
         parent::setUp();
         $this->roles = collect(['professor', 'admin', 'employee']);
-        $course = Course::factory()->create();
+        $course = Course::factory()->createQuietly();
         $this->route = route('courses.update', [
             'course' => $course->id,
         ]);
@@ -56,7 +56,7 @@ class CourseControllerUpdateTest extends TestCase
     final public function test_update_course_returns_unauthorized(): void
     {
         $response = $this
-            ->actingAs(User::factory()->create(['role' => 'student']))
+            ->actingAs(User::factory()->createQuietly(['role' => 'student']))
             ->putJson($this->route, [
                 'name' => 'Algorithms & Data Structures',
                 'sector' => 'INF-01',
@@ -82,7 +82,7 @@ class CourseControllerUpdateTest extends TestCase
     final public function test_update_course_without_name_returns_unprocessable_content(): void
     {
         $response = $this
-            ->actingAs(User::factory()->create(['role' => $this->roles->random()]))
+            ->actingAs(User::factory()->createQuietly(['role' => $this->roles->random()]))
             ->putJson($this->route, [
                 'sector' => 'INF-01',
                 'starting_date' => '01/09/2023',
@@ -108,7 +108,7 @@ class CourseControllerUpdateTest extends TestCase
     final public function test_update_course_with_name_not_string_returns_unprocessable_content(): void
     {
         $response = $this
-            ->actingAs(User::factory()->create(['role' => $this->roles->random()]))
+            ->actingAs(User::factory()->createQuietly(['role' => $this->roles->random()]))
             ->putJson($this->route, [
                 'name' => 123,
                 'sector' => 'INF-01',
@@ -135,7 +135,7 @@ class CourseControllerUpdateTest extends TestCase
     final public function test_update_course_without_sector_returns_unprocessable_content(): void
     {
         $response = $this
-            ->actingAs(User::factory()->create(['role' => $this->roles->random()]))
+            ->actingAs(User::factory()->createQuietly(['role' => $this->roles->random()]))
             ->putJson($this->route, [
                 'name' => 'Computer Science',
                 'starting_date' => '01/09/2023',
@@ -161,7 +161,7 @@ class CourseControllerUpdateTest extends TestCase
     final public function test_update_course_with_sector_not_string_returns_unprocessable_content(): void
     {
         $response = $this
-            ->actingAs(User::factory()->create(['role' => $this->roles->random()]))
+            ->actingAs(User::factory()->createQuietly(['role' => $this->roles->random()]))
             ->putJson($this->route, [
                 'name' => 'Computer Science',
                 'sector' => 123,
@@ -188,7 +188,7 @@ class CourseControllerUpdateTest extends TestCase
     final public function test_update_course_without_starting_date_returns_unprocessable_content(): void
     {
         $response = $this
-            ->actingAs(User::factory()->create(['role' => $this->roles->random()]))
+            ->actingAs(User::factory()->createQuietly(['role' => $this->roles->random()]))
             ->putJson($this->route, [
                 'name' => 'Computer Science',
                 'sector' => 'INF-01',
@@ -214,7 +214,7 @@ class CourseControllerUpdateTest extends TestCase
     final public function test_update_course_with_starting_date_invalid_returns_unprocessable_content(): void
     {
         $response = $this
-            ->actingAs(User::factory()->create(['role' => $this->roles->random()]))
+            ->actingAs(User::factory()->createQuietly(['role' => $this->roles->random()]))
             ->putJson($this->route, [
                 'name' => 'Computer Science',
                 'sector' => 'INF-01',
@@ -241,7 +241,7 @@ class CourseControllerUpdateTest extends TestCase
     final public function test_update_course_without_ending_date_returns_unprocessable_content(): void
     {
         $response = $this
-            ->actingAs(User::factory()->create(['role' => $this->roles->random()]))
+            ->actingAs(User::factory()->createQuietly(['role' => $this->roles->random()]))
             ->putJson($this->route, [
                 'name' => 'Computer Science',
                 'sector' => 'INF-01',
@@ -267,7 +267,7 @@ class CourseControllerUpdateTest extends TestCase
     final public function test_update_course_with_ending_date_invalid_returns_unprocessable_content(): void
     {
         $response = $this
-            ->actingAs(User::factory()->create(['role' => $this->roles->random()]))
+            ->actingAs(User::factory()->createQuietly(['role' => $this->roles->random()]))
             ->putJson($this->route, [
                 'name' => 'Computer Science',
                 'sector' => 'INF-01',
@@ -294,7 +294,7 @@ class CourseControllerUpdateTest extends TestCase
     final public function test_update_course_with_ending_date_before_starting_date_returns_unprocessable_content(): void
     {
         $response = $this
-            ->actingAs(User::factory()->create(['role' => $this->roles->random()]))
+            ->actingAs(User::factory()->createQuietly(['role' => $this->roles->random()]))
             ->putJson($this->route, [
                 'name' => 'Computer Science',
                 'sector' => 'INF-01',
@@ -321,7 +321,7 @@ class CourseControllerUpdateTest extends TestCase
     final public function test_update_course_without_cfu_returns_unprocessable_content(): void
     {
         $response = $this
-            ->actingAs(User::factory()->create(['role' => $this->roles->random()]))
+            ->actingAs(User::factory()->createQuietly(['role' => $this->roles->random()]))
             ->putJson($this->route, [
                 'name' => 'Computer Science',
                 'sector' => 'INF-01',
@@ -347,7 +347,7 @@ class CourseControllerUpdateTest extends TestCase
     final public function test_update_course_with_cfu_invalid_returns_unprocessable_content(): void
     {
         $response = $this
-            ->actingAs(User::factory()->create(['role' => $this->roles->random()]))
+            ->actingAs(User::factory()->createQuietly(['role' => $this->roles->random()]))
             ->putJson($this->route, [
                 'name' => 'Computer Science',
                 'sector' => 'INF-01',
@@ -374,7 +374,7 @@ class CourseControllerUpdateTest extends TestCase
     final public function test_update_course_with_not_existing_professor_returns_not_found(): void
     {
         $response = $this
-            ->actingAs(User::factory()->create(['role' => $this->roles->random()]))
+            ->actingAs(User::factory()->createQuietly(['role' => $this->roles->random()]))
             ->putJson($this->route, [
                 'name' => 'Algorithms & Data Structures',
                 'sector' => 'INF-01',
@@ -399,20 +399,20 @@ class CourseControllerUpdateTest extends TestCase
 
     final public function test_update_course_returns_ok(): void
     {
-        $user = User::factory()->create([
+        $user = User::factory()->createQuietly([
             'first_name' => 'Mario',
             'last_name' => 'Rossi',
             'birth_date' => '01/01/2000',
             'email' => 'mario.rossi@gmail.com',
         ]);
-        $teacher = Teacher::factory()->create([
+        $teacher = Teacher::factory()->createQuietly([
             'user_id' => $user->id,
             'role' => 'full',
             'subject' => 'Computer Science',
         ]);
 
         $response = $this
-            ->actingAs(User::factory()->create(['role' => $this->roles->random()]))
+            ->actingAs(User::factory()->createQuietly(['role' => $this->roles->random()]))
             ->putJson($this->route, [
                 'name' => 'Algorithms & Data Structures',
                 'sector' => 'INF-01',

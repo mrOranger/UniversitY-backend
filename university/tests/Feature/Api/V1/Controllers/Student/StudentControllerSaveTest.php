@@ -31,7 +31,7 @@ class StudentControllerSaveTest extends TestCase
 
     final public function test_save_student_as_student_returns_unauthorized(): void
     {
-        $student = User::factory()->create(['role' => 'student']);
+        $student = User::factory()->createQuietly(['role' => 'student']);
         $route = route('students.store');
         $response = $this
             ->actingAs($student)
@@ -43,7 +43,7 @@ class StudentControllerSaveTest extends TestCase
 
     final public function test_save_student_as_professor_returns_unauthorized(): void
     {
-        $professor = User::factory()->create(['role' => 'professor']);
+        $professor = User::factory()->createQuietly(['role' => 'professor']);
         $route = route('students.store');
         $response = $this
             ->actingAs($professor)
@@ -55,7 +55,7 @@ class StudentControllerSaveTest extends TestCase
 
     final public function test_save_student_as_admin_with_bachelor_final_mark_not_numeric_returns_unprocessable_content(): void
     {
-        $admin = User::factory()->create(['role' => 'admin']);
+        $admin = User::factory()->createQuietly(['role' => 'admin']);
         $route = route('students.store');
 
         $response = $this
@@ -85,7 +85,7 @@ class StudentControllerSaveTest extends TestCase
 
     final public function test_save_student_as_admin_with_bachelor_final_mark_less_than_66_returns_unprocessable_content(): void
     {
-        $admin = User::factory()->create(['role' => 'admin']);
+        $admin = User::factory()->createQuietly(['role' => 'admin']);
         $route = route('students.store');
 
         $response = $this
@@ -115,7 +115,7 @@ class StudentControllerSaveTest extends TestCase
 
     final public function test_save_student_as_admin_with_bachelor_final_mark_greater_than_110_returns_unprocessable_content(): void
     {
-        $admin = User::factory()->create(['role' => 'admin']);
+        $admin = User::factory()->createQuietly(['role' => 'admin']);
         $route = route('students.store');
 
         $response = $this
@@ -145,7 +145,7 @@ class StudentControllerSaveTest extends TestCase
 
     final public function test_save_student_as_admin_with_master_final_mark_not_numeric_returns_unprocessable_content(): void
     {
-        $admin = User::factory()->create(['role' => 'admin']);
+        $admin = User::factory()->createQuietly(['role' => 'admin']);
         $route = route('students.store');
 
         $response = $this
@@ -175,7 +175,7 @@ class StudentControllerSaveTest extends TestCase
 
     final public function test_save_student_as_admin_with_master_final_mark_less_than_66_returns_unprocessable_content(): void
     {
-        $admin = User::factory()->create(['role' => 'admin']);
+        $admin = User::factory()->createQuietly(['role' => 'admin']);
         $route = route('students.store');
 
         $response = $this
@@ -205,7 +205,7 @@ class StudentControllerSaveTest extends TestCase
 
     final public function test_save_student_as_admin_with_master_final_mark_greater_than_110_returns_unprocessable_content(): void
     {
-        $admin = User::factory()->create(['role' => 'admin']);
+        $admin = User::factory()->createQuietly(['role' => 'admin']);
         $route = route('students.store');
 
         $response = $this
@@ -235,7 +235,7 @@ class StudentControllerSaveTest extends TestCase
 
     final public function test_save_student_as_admin_with_phd_final_mark_not_numeric_returns_unprocessable_content(): void
     {
-        $admin = User::factory()->create(['role' => 'admin']);
+        $admin = User::factory()->createQuietly(['role' => 'admin']);
         $route = route('students.store');
 
         $response = $this
@@ -265,7 +265,7 @@ class StudentControllerSaveTest extends TestCase
 
     final public function test_save_student_as_admin_with_phd_final_mark_less_than_66_returns_unprocessable_content(): void
     {
-        $admin = User::factory()->create(['role' => 'admin']);
+        $admin = User::factory()->createQuietly(['role' => 'admin']);
         $route = route('students.store');
 
         $response = $this
@@ -295,7 +295,7 @@ class StudentControllerSaveTest extends TestCase
 
     final public function test_save_student_as_admin_with_phd_final_mark_greater_than_110_returns_unprocessable_content(): void
     {
-        $admin = User::factory()->create(['role' => 'admin']);
+        $admin = User::factory()->createQuietly(['role' => 'admin']);
         $route = route('students.store');
 
         $response = $this
@@ -325,7 +325,7 @@ class StudentControllerSaveTest extends TestCase
 
     final public function test_save_student_as_admin_without_outside_prescribed_time_returns_unprocessable_content(): void
     {
-        $admin = User::factory()->create(['role' => 'admin']);
+        $admin = User::factory()->createQuietly(['role' => 'admin']);
         $route = route('students.store');
 
         $response = $this
@@ -354,7 +354,7 @@ class StudentControllerSaveTest extends TestCase
 
     final public function test_save_student_as_admin_with_not_boolean_outside_prescribed_time_returns_unprocessable_content(): void
     {
-        $admin = User::factory()->create(['role' => 'admin']);
+        $admin = User::factory()->createQuietly(['role' => 'admin']);
         $route = route('students.store');
 
         $response = $this
@@ -384,8 +384,8 @@ class StudentControllerSaveTest extends TestCase
 
     final public function test_save_student_as_admin_returns_not_found(): void
     {
-        $admin = User::factory()->create(['role' => 'admin']);
-        $degree = Degree::factory()->create([
+        $admin = User::factory()->createQuietly(['role' => 'admin']);
+        $degree = Degree::factory()->createQuietly([
             'name' => 'Computer Science',
             'code' => 'PH-18',
             'course_type' => 'phd',
@@ -412,11 +412,11 @@ class StudentControllerSaveTest extends TestCase
         $response->assertJsonPath('message', 'Associated user does not exists.');
     }
 
-    final public function test_save_student_as_admin_returns_created(): void
+    final public function test_save_student_as_admin_returns_createQuietlyd(): void
     {
-        $admin = User::factory()->create(['role' => 'admin']);
-        $user = User::factory()->create();
-        $degree = Degree::factory()->create([
+        $admin = User::factory()->createQuietly(['role' => 'admin']);
+        $user = User::factory()->createQuietly();
+        $degree = Degree::factory()->createQuietly([
             'name' => 'Computer Science',
             'code' => 'PH-18',
             'course_type' => 'phd',
@@ -444,7 +444,7 @@ class StudentControllerSaveTest extends TestCase
 
     final public function test_save_student_as_employee_with_bachelor_final_mark_less_than_66_returns_unprocessable_content(): void
     {
-        $employee = User::factory()->create(['role' => 'employee']);
+        $employee = User::factory()->createQuietly(['role' => 'employee']);
         $route = route('students.store');
 
         $response = $this
@@ -472,7 +472,7 @@ class StudentControllerSaveTest extends TestCase
 
     final public function test_save_student_as_employee_with_bachelor_final_mark_greater_than_110_returns_unprocessable_content(): void
     {
-        $employee = User::factory()->create(['role' => 'employee']);
+        $employee = User::factory()->createQuietly(['role' => 'employee']);
         $route = route('students.store');
 
         $response = $this
@@ -502,7 +502,7 @@ class StudentControllerSaveTest extends TestCase
 
     final public function test_save_student_as_employee_with_master_final_mark_not_numeric_returns_unprocessable_content(): void
     {
-        $employee = User::factory()->create(['role' => 'employee']);
+        $employee = User::factory()->createQuietly(['role' => 'employee']);
         $route = route('students.store');
 
         $response = $this
@@ -532,7 +532,7 @@ class StudentControllerSaveTest extends TestCase
 
     final public function test_save_student_as_employee_with_master_final_mark_less_than_66_returns_unprocessable_content(): void
     {
-        $employee = User::factory()->create(['role' => 'employee']);
+        $employee = User::factory()->createQuietly(['role' => 'employee']);
         $route = route('students.store');
 
         $response = $this
@@ -562,7 +562,7 @@ class StudentControllerSaveTest extends TestCase
 
     final public function test_save_student_as_employee_with_master_final_mark_greater_than_110_returns_unprocessable_content(): void
     {
-        $employee = User::factory()->create(['role' => 'employee']);
+        $employee = User::factory()->createQuietly(['role' => 'employee']);
         $route = route('students.store');
 
         $response = $this
@@ -592,7 +592,7 @@ class StudentControllerSaveTest extends TestCase
 
     final public function test_save_student_as_employee_with_phd_final_mark_not_numeric_returns_unprocessable_content(): void
     {
-        $employee = User::factory()->create(['role' => 'employee']);
+        $employee = User::factory()->createQuietly(['role' => 'employee']);
         $route = route('students.store');
 
         $response = $this
@@ -622,7 +622,7 @@ class StudentControllerSaveTest extends TestCase
 
     final public function test_save_student_as_employee_with_phd_final_mark_less_than_66_returns_unprocessable_content(): void
     {
-        $employee = User::factory()->create(['role' => 'employee']);
+        $employee = User::factory()->createQuietly(['role' => 'employee']);
         $route = route('students.store');
 
         $response = $this
@@ -652,7 +652,7 @@ class StudentControllerSaveTest extends TestCase
 
     final public function test_save_student_as_employee_with_phd_final_mark_greater_than_110_returns_unprocessable_content(): void
     {
-        $employee = User::factory()->create(['role' => 'employee']);
+        $employee = User::factory()->createQuietly(['role' => 'employee']);
         $route = route('students.store');
 
         $response = $this
@@ -682,7 +682,7 @@ class StudentControllerSaveTest extends TestCase
 
     final public function test_save_student_as_employee_without_outside_prescribed_time_returns_unprocessable_content(): void
     {
-        $employee = User::factory()->create(['role' => 'employee']);
+        $employee = User::factory()->createQuietly(['role' => 'employee']);
         $route = route('students.store');
 
         $response = $this
@@ -711,7 +711,7 @@ class StudentControllerSaveTest extends TestCase
 
     final public function test_save_student_as_employee_with_not_boolean_outside_prescribed_time_returns_unprocessable_content(): void
     {
-        $employee = User::factory()->create(['role' => 'admin']);
+        $employee = User::factory()->createQuietly(['role' => 'admin']);
         $route = route('students.store');
 
         $response = $this
@@ -741,8 +741,8 @@ class StudentControllerSaveTest extends TestCase
 
     final public function test_save_student_as_employee_returns_not_found(): void
     {
-        $employee = User::factory()->create(['role' => 'employee']);
-        $degree = Degree::factory()->create([
+        $employee = User::factory()->createQuietly(['role' => 'employee']);
+        $degree = Degree::factory()->createQuietly([
             'name' => 'Computer Science',
             'code' => 'PH-18',
             'course_type' => 'phd',
@@ -769,11 +769,11 @@ class StudentControllerSaveTest extends TestCase
         $response->assertJsonPath('message', 'Associated user does not exists.');
     }
 
-    final public function test_save_student_as_employee_returns_created(): void
+    final public function test_save_student_as_employee_returns_createQuietlyd(): void
     {
-        $employee = User::factory()->create(['role' => 'employee']);
-        $user = User::factory()->create();
-        $degree = Degree::factory()->create([
+        $employee = User::factory()->createQuietly(['role' => 'employee']);
+        $user = User::factory()->createQuietly();
+        $degree = Degree::factory()->createQuietly([
             'name' => 'Computer Science',
             'code' => 'PH-18',
             'course_type' => 'phd',

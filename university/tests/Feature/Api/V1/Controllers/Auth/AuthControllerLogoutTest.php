@@ -29,7 +29,7 @@ class AuthControllerLogoutTest extends TestCase
 
     final public function test_logout_for_authenticated_user_returns_ok(): void
     {
-        $user = User::factory()->create();
+        $user = User::factory()->createQuietly();
 
         $response = $this->actingAs($user)->getJson($this->test_url);
 

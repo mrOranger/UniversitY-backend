@@ -31,7 +31,7 @@ class StudentControllerGetAllTest extends TestCase
 
     final public function test_get_all_students_as_student_returns_unauthorized(): void
     {
-        $student = User::factory()->create(['role' => 'student']);
+        $student = User::factory()->createQuietly(['role' => 'student']);
 
         $response = $this
             ->actingAs($student)
@@ -43,7 +43,7 @@ class StudentControllerGetAllTest extends TestCase
 
     final public function test_get_all_students_as_professor_returns_unauthorized(): void
     {
-        $professor = User::factory()->create(['role' => 'professor']);
+        $professor = User::factory()->createQuietly(['role' => 'professor']);
 
         $response = $this
             ->actingAs($professor)
@@ -55,7 +55,7 @@ class StudentControllerGetAllTest extends TestCase
 
     final public function test_get_all_students_as_admin_returns_empty_response(): void
     {
-        $admin = User::factory()->create(['role' => 'admin']);
+        $admin = User::factory()->createQuietly(['role' => 'admin']);
 
         $response = $this
             ->actingAs($admin)
@@ -68,13 +68,13 @@ class StudentControllerGetAllTest extends TestCase
 
     final public function test_get_all_students_ad_admin_returns_one_student(): void
     {
-        $degree = Degree::factory()->create();
-        $user = User::factory()->create();
-        $student = Student::factory()->create([
+        $degree = Degree::factory()->createQuietly();
+        $user = User::factory()->createQuietly();
+        $student = Student::factory()->createQuietly([
             'degree_id' => $degree->id,
             'user_id' => $user->id,
         ]);
-        $admin = User::factory()->create(['role' => 'admin']);
+        $admin = User::factory()->createQuietly(['role' => 'admin']);
 
         $response = $this
             ->actingAs($admin)
@@ -99,13 +99,13 @@ class StudentControllerGetAllTest extends TestCase
 
     final public function test_get_all_students_ad_admin_returns_many_students(): void
     {
-        $degree = Degree::factory()->create();
-        $user = User::factory()->create();
-        $students = Student::factory(100)->create([
+        $degree = Degree::factory()->createQuietly();
+        $user = User::factory()->createQuietly();
+        $students = Student::factory(100)->createQuietly([
             'degree_id' => $degree->id,
             'user_id' => $user->id,
         ]);
-        $admin = User::factory()->create(['role' => 'admin']);
+        $admin = User::factory()->createQuietly(['role' => 'admin']);
 
         $response = $this
             ->actingAs($admin)
@@ -132,7 +132,7 @@ class StudentControllerGetAllTest extends TestCase
 
     final public function test_get_all_students_as_employee_returns_empty_response(): void
     {
-        $employee = User::factory()->create(['role' => 'employee']);
+        $employee = User::factory()->createQuietly(['role' => 'employee']);
 
         $response = $this
             ->actingAs($employee)
@@ -145,13 +145,13 @@ class StudentControllerGetAllTest extends TestCase
 
     final public function test_get_all_students_ad_employee_returns_one_student(): void
     {
-        $degree = Degree::factory()->create();
-        $user = User::factory()->create();
-        $student = Student::factory()->create([
+        $degree = Degree::factory()->createQuietly();
+        $user = User::factory()->createQuietly();
+        $student = Student::factory()->createQuietly([
             'degree_id' => $degree->id,
             'user_id' => $user->id,
         ]);
-        $employee = User::factory()->create(['role' => 'employee']);
+        $employee = User::factory()->createQuietly(['role' => 'employee']);
 
         $response = $this
             ->actingAs($employee)
@@ -177,13 +177,13 @@ class StudentControllerGetAllTest extends TestCase
 
     final public function test_get_all_students_ad_employee_returns_many_students(): void
     {
-        $degree = Degree::factory()->create();
-        $user = User::factory()->create();
-        $students = Student::factory(100)->create([
+        $degree = Degree::factory()->createQuietly();
+        $user = User::factory()->createQuietly();
+        $students = Student::factory(100)->createQuietly([
             'degree_id' => $degree->id,
             'user_id' => $user->id,
         ]);
-        $employee = User::factory()->create(['role' => 'employee']);
+        $employee = User::factory()->createQuietly(['role' => 'employee']);
 
         $response = $this
             ->actingAs($employee)

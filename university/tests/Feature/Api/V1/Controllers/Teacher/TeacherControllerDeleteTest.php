@@ -35,7 +35,7 @@ class TeacherControllerDeleteTest extends TestCase
 
     final public function test_delete_teacher_by_id_returns_unauthorized(): void
     {
-        $student = User::factory()->create(['role' => 'student']);
+        $student = User::factory()->createQuietly(['role' => 'student']);
         $route = route('teachers.destroy', [
             'teacher' => 1,
         ]);
@@ -50,7 +50,7 @@ class TeacherControllerDeleteTest extends TestCase
 
     final public function test_delete_teacher_by_id_returns_not_found(): void
     {
-        $user = User::factory()->create(['role' => $this->roles->random()]);
+        $user = User::factory()->createQuietly(['role' => $this->roles->random()]);
         $route = route('teachers.destroy', [
             'teacher' => 1,
         ]);
@@ -65,10 +65,10 @@ class TeacherControllerDeleteTest extends TestCase
 
     final public function test_delete_teacher_by_id_returns_ok(): void
     {
-        $teacher = Teacher::factory()->create([
-            'user_id' => User::factory()->create(['role' => $this->roles->random()])->id,
+        $teacher = Teacher::factory()->createQuietly([
+            'user_id' => User::factory()->createQuietly(['role' => $this->roles->random()])->id,
         ]);
-        $user = User::factory()->create(['role' => $this->roles->random()]);
+        $user = User::factory()->createQuietly(['role' => $this->roles->random()]);
         $route = route('teachers.destroy', [
             'teacher' => $teacher->id,
         ]);

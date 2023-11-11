@@ -2,6 +2,8 @@
 
 namespace App\Services\Http\Controllers\Api\V1\Auth\Implementation;
 
+use App\Exceptions\ResourceConflictException;
+use App\Exceptions\ResourceNotFoundException;
 use App\Http\Requests\V1\Auth\LoginRequest;
 use App\Http\Requests\V1\Auth\RegisterRequest;
 use App\Http\Responses\V1\Auth\LoginResponse;
@@ -10,8 +12,10 @@ use App\Http\Responses\V1\InfoResponse;
 use App\Http\Responses\V1\Response;
 use App\Models\User;
 use App\Services\Http\Controllers\Api\V1\Auth\AuthServiceInterface;
+use App\Traits\Auth\ConfirmableTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 use Symfony\Component\HttpFoundation\Response as SynfonyResponse;
 
 final class AuthService implements AuthServiceInterface
@@ -43,7 +47,8 @@ final class AuthService implements AuthServiceInterface
     public function register(RegisterRequest $registerRequest): Response
     {
         $validatedRequest = $registerRequest->validated();
-        $user = new User([
+
+        $user = User::create([
             'first_name' => $validatedRequest['first_name'],
             'last_name' => $validatedRequest['last_name'],
             'birth_date' => $validatedRequest['birth_date'],
@@ -51,8 +56,29 @@ final class AuthService implements AuthServiceInterface
             'password' => Hash::make($validatedRequest['password']),
             'role' => $validatedRequest['role'],
         ]);
-        $user->save();
 
         return new RegisterResponse('Register successfull.', SynfonyResponse::HTTP_OK, $user);
+    }
+
+    public function confirmAccount(string $userId, string $confirmationCode) : Response
+    {
+        $user= User::find($userId);
+
+        if ($user == null) {
+            throw new ResourceNotFoundException('Unknown user.');
+        }
+
+        $userConfirmationCode = $user->confirmation;
+
+        if ($userConfirmationCode == null) {
+            throw new ResourceConflictException('Account already confirmed.');
+        }
+
+        if ($confirmationCode == $userConfirmationCode) {
+            $user->update(['confirmation' => null]);
+            return new InfoResponse('Account confirmed successfully.', SynfonyResponse::HTTP_OK);
+        }
+
+        throw new ResourceConflictException('Invalid confirmation code.');
     }
 }

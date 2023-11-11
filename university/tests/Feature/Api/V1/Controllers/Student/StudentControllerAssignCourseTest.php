@@ -37,7 +37,7 @@ class StudentControllerAssignCourseTest extends TestCase
 
     final public function test_assign_student_to_course_as_student_returns_unauthorized(): void
     {
-        $user = User::factory()->create(['role' => 'student']);
+        $user = User::factory()->createQuietly(['role' => 'student']);
         $route = route('students.assign-course', [
             'course' => 1,
             'student' => 1,
@@ -53,7 +53,7 @@ class StudentControllerAssignCourseTest extends TestCase
 
     final public function test_assign_student_to_course_as_professor_returns_unauthorized(): void
     {
-        $user = User::factory()->create(['role' => 'professor']);
+        $user = User::factory()->createQuietly(['role' => 'professor']);
         $route = route('students.assign-course', [
             'course' => 1,
             'student' => 1,
@@ -69,7 +69,7 @@ class StudentControllerAssignCourseTest extends TestCase
 
     final public function test_assign_not_existing_student_to_not_existing_course_returns_not_found(): void
     {
-        $user = User::factory()->create(['role' => $this->roles->random()]);
+        $user = User::factory()->createQuietly(['role' => $this->roles->random()]);
         $route = route('students.assign-course', [
             'course' => 1,
             'student' => 1,
@@ -85,8 +85,8 @@ class StudentControllerAssignCourseTest extends TestCase
 
     final public function test_assign_not_existing_student_to_course_returns_not_found(): void
     {
-        $user = User::factory()->create(['role' => $this->roles->random()]);
-        $course = Course::factory()->create();
+        $user = User::factory()->createQuietly(['role' => $this->roles->random()]);
+        $course = Course::factory()->createQuietly();
         $route = route('students.assign-course', [
             'course' => $course->id,
             'student' => 1,
@@ -102,8 +102,8 @@ class StudentControllerAssignCourseTest extends TestCase
 
     final public function test_assign_student_to_not_existing_course_returns_not_found(): void
     {
-        $user = User::factory()->create(['role' => $this->roles->random()]);
-        $student = Student::factory()->create();
+        $user = User::factory()->createQuietly(['role' => $this->roles->random()]);
+        $student = Student::factory()->createQuietly();
         $route = route('students.assign-course', [
             'course' => 1,
             'student' => $student->id,
@@ -119,9 +119,9 @@ class StudentControllerAssignCourseTest extends TestCase
 
     final public function test_assign_student_to_course_returns_ok(): void
     {
-        $user = User::factory()->create(['role' => $this->roles->random()]);
-        $student = Student::factory()->create();
-        $course = Course::factory()->create();
+        $user = User::factory()->createQuietly(['role' => $this->roles->random()]);
+        $student = Student::factory()->createQuietly();
+        $course = Course::factory()->createQuietly();
         $route = route('students.assign-course', [
             'course' => $course->id,
             'student' => $student->id,
