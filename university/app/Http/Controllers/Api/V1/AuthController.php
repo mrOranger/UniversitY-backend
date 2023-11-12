@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\V1\Auth\ConfirmAccountRequest;
 use App\Http\Requests\V1\Auth\LoginRequest;
 use App\Http\Requests\V1\Auth\RegisterRequest;
 use App\Http\Responses\V1\Response;
@@ -34,7 +33,7 @@ class AuthController extends Controller
         return $this->authenticationService->register($registerRequest);
     }
 
-    final public function confirmAccount (string $userId, string $confirmationCode) : Response
+    final public function confirmAccount(string $userId, string $confirmationCode): Response
     {
         return $this->authenticationService->confirmAccount($userId, $confirmationCode);
     }

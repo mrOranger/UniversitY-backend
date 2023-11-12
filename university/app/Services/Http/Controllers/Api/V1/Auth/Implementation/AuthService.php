@@ -12,10 +12,8 @@ use App\Http\Responses\V1\InfoResponse;
 use App\Http\Responses\V1\Response;
 use App\Models\User;
 use App\Services\Http\Controllers\Api\V1\Auth\AuthServiceInterface;
-use App\Traits\Auth\ConfirmableTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
 use Symfony\Component\HttpFoundation\Response as SynfonyResponse;
 
 final class AuthService implements AuthServiceInterface
@@ -60,9 +58,9 @@ final class AuthService implements AuthServiceInterface
         return new RegisterResponse('Register successfull.', SynfonyResponse::HTTP_OK, $user);
     }
 
-    public function confirmAccount(string $userId, string $confirmationCode) : Response
+    public function confirmAccount(string $userId, string $confirmationCode): Response
     {
-        $user= User::find($userId);
+        $user = User::find($userId);
 
         if ($user == null) {
             throw new ResourceNotFoundException('Unknown user.');
@@ -76,6 +74,7 @@ final class AuthService implements AuthServiceInterface
 
         if ($confirmationCode == $userConfirmationCode) {
             $user->update(['confirmation' => null]);
+
             return new InfoResponse('Account confirmed successfully.', SynfonyResponse::HTTP_OK);
         }
 

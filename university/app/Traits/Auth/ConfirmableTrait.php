@@ -7,11 +7,11 @@ use Illuminate\Support\Facades\Crypt;
 
 trait ConfirmableTrait
 {
-    final public function generateConfirmToken (string $userId) : string
+    final public function generateConfirmToken(string $userId): string
     {
         $confirmationInfo = [
             'user_id' => $userId,
-            'created_at' => Carbon::today()
+            'created_at' => Carbon::today(),
         ];
 
         return Crypt::encrypt($confirmationInfo);

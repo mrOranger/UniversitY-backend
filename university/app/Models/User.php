@@ -25,7 +25,7 @@ class User extends Authenticatable
         'password',
         'birth_date',
         'role',
-        'confirmation'
+        'confirmation',
     ];
 
     /**
@@ -39,7 +39,7 @@ class User extends Authenticatable
         'password_confirmation',
         'role',
         'updated_at',
-        'created_at'
+        'created_at',
     ];
 
     /**
@@ -53,7 +53,7 @@ class User extends Authenticatable
     ];
 
     protected $dispatchesEvents = [
-        'created' => UserSignup::class
+        'created' => UserSignup::class,
     ];
 
     public function student(): HasOne

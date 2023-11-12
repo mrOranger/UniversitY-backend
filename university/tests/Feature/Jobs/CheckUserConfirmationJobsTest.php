@@ -11,16 +11,16 @@ use Tests\TestCase;
 
 class CheckUserConfirmationJobsTest extends TestCase
 {
-    use RefreshDatabase;
     use ConfirmableTrait;
+    use RefreshDatabase;
 
-    public function setUp() : void
+    public function setUp(): void
     {
         parent::setUp();
         Queue::fake();
     }
 
-    public function test_job_is_dispatched_when_user_is_registerd () : void
+    public function test_job_is_dispatched_when_user_is_registerd(): void
     {
         $route = route('auth.register', [
             'first_name' => 'Mario',
@@ -41,11 +41,11 @@ class CheckUserConfirmationJobsTest extends TestCase
         });
     }
 
-    public function test_job_delete_user_if_did_not_confirmed_account () : void
+    public function test_job_delete_user_if_did_not_confirmed_account(): void
     {
         $user = User::factory()->createQuietly();
         $user->update([
-            'confirmation' => $this->generateConfirmToken($user->id)
+            'confirmation' => $this->generateConfirmToken($user->id),
         ]);
 
         (new CheckUserConfirmationJob($user))->handle();
@@ -53,10 +53,10 @@ class CheckUserConfirmationJobsTest extends TestCase
         $this->assertNull(User::find($user->id));
     }
 
-    public function test_job_does_not_delete_user_if_confimed_account () : void
+    public function test_job_does_not_delete_user_if_confimed_account(): void
     {
         $user = User::factory()->createQuietly([
-            'confirmation' => null
+            'confirmation' => null,
         ]);
 
         (new CheckUserConfirmationJob($user))->handle();

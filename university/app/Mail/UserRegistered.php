@@ -14,6 +14,7 @@ class UserRegistered extends Mailable
     use Queueable, SerializesModels;
 
     public User $user;
+
     public string $confirmationCode;
 
     /**

@@ -39,7 +39,7 @@ class CheckUserConfirmationJob implements ShouldQueue
                 $this->user->delete();
             }
         } catch (DecryptException $exception) {
-            Log::info('Error in parsing the confirmation token for user ' . $this->user->id);
+            Log::info('Error in parsing the confirmation token for user '.$this->user->id);
         }
     }
 }

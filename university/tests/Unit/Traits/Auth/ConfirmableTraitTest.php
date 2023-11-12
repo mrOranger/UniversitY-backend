@@ -12,16 +12,17 @@ class ConfirmableTraitTest extends TestCase
     use ConfirmableTrait;
 
     private string $userId;
+
     private Carbon $createdAt;
 
-    public function setUp () : void
+    public function setUp(): void
     {
         parent::setUp();
-        $this->userId = (string)rand(0, 100);
+        $this->userId = (string) rand(0, 100);
         $this->createdAt = Carbon::today();
     }
 
-    public function test_generate_confirm_token_creates_string_with_valid_user_id () : void
+    public function test_generate_confirm_token_creates_string_with_valid_user_id(): void
     {
         $confirmToken = $this->generateConfirmToken($this->userId);
 
@@ -30,7 +31,7 @@ class ConfirmableTraitTest extends TestCase
         $this->assertEquals($decrpytedToken['user_id'], $this->userId);
     }
 
-    public function test_generate_confirm_token_creates_string_with_valid_created_at () : void
+    public function test_generate_confirm_token_creates_string_with_valid_created_at(): void
     {
         $confirmToken = $this->generateConfirmToken($this->userId);
 

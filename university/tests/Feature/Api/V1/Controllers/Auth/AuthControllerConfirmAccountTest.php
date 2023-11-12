@@ -12,15 +12,16 @@ class AuthControllerConfirmAccountTest extends TestCase
     use RefreshDatabase;
 
     private string $route;
+
     private string $confirmationCode;
 
-    public function setUp() : void
+    public function setUp(): void
     {
         parent::setUp();
         $this->confirmationCode = fake()->uuid();
     }
 
-    public function test_confirm_account_with_not_existing_user_returns_not_found () : void
+    public function test_confirm_account_with_not_existing_user_returns_not_found(): void
     {
         $route = 'api/v1/auth/confirm/user/1/code/ab123';
 
@@ -30,10 +31,10 @@ class AuthControllerConfirmAccountTest extends TestCase
         $response->assertJsonPath('message', 'Unknown user.');
     }
 
-    public function test_confirm_account_with_invalid_confirmation_code_returns_conflict () : void
+    public function test_confirm_account_with_invalid_confirmation_code_returns_conflict(): void
     {
         $user = User::factory()->createQuietly([
-            'confirmation' => $this->confirmationCode
+            'confirmation' => $this->confirmationCode,
         ]);
         $route = "api/v1/auth/confirm/user/$user->id/code/ab123";
 
@@ -43,10 +44,10 @@ class AuthControllerConfirmAccountTest extends TestCase
         $response->assertJsonPath('message', 'Invalid confirmation code.');
     }
 
-    public function test_confirm_account_with_user_already_confirmed_returns_conflict () : void
+    public function test_confirm_account_with_user_already_confirmed_returns_conflict(): void
     {
         $user = User::factory()->createQuietly([
-            'confirmation' => null
+            'confirmation' => null,
         ]);
         $route = "api/v1/auth/confirm/user/$user->id/code/$this->confirmationCode";
 
@@ -56,10 +57,10 @@ class AuthControllerConfirmAccountTest extends TestCase
         $response->assertJsonPath('message', 'Account already confirmed.');
     }
 
-    public function test_confirm_account_with_valid_confirmation_code_returns_ok () : void
+    public function test_confirm_account_with_valid_confirmation_code_returns_ok(): void
     {
         $user = User::factory()->createQuietly([
-            'confirmation' => $this->confirmationCode
+            'confirmation' => $this->confirmationCode,
         ]);
         $route = "api/v1/auth/confirm/user/$user->id/code/$this->confirmationCode";
 

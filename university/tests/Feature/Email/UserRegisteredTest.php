@@ -11,13 +11,13 @@ class UserRegisteredTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function setUp() : void
+    public function setUp(): void
     {
         parent::setUp();
         Mail::fake();
     }
 
-    public function test_email_is_sent_if_user_signup_correctly () : void
+    public function test_email_is_sent_if_user_signup_correctly(): void
     {
         $route = route('auth.register', [
             'first_name' => 'Mario',
@@ -37,7 +37,7 @@ class UserRegisteredTest extends TestCase
         });
     }
 
-    public function test_email_is_not_sent_if_user_does_not_signup_correctly () : void
+    public function test_email_is_not_sent_if_user_does_not_signup_correctly(): void
     {
         $route = route('auth.register', [
             'first_name' => 'Mario',
