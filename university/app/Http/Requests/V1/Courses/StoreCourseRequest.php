@@ -2,10 +2,19 @@
 
 namespace App\Http\Requests\V1\Courses;
 
+use App\Http\Requests\V1\Teachers\StoreTeacherRequest;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreCourseRequest extends FormRequest
 {
+
+    /**
+     * Stops the validation process on first failure.
+     * 
+     * @var bool $stopsOnFirstFailure
+     */
+    protected $stopOnFirstFailure = true;
+
     /**
      * Determine if the user is authorized to make this request.
      */
@@ -24,19 +33,10 @@ class StoreCourseRequest extends FormRequest
         return [
             'name' => ['required', 'string', 'bail'],
             'sector' => ['required', 'string', 'bail'],
-            'starting_date' => ['required', 'date', 'bail'],
-            'ending_date' => ['required', 'date', 'bail', 'after_or_equal:starting_date'],
+            'starting_date' => ['required', 'date', 'date_format:Y-m-d', 'bail'],
+            'ending_date' => ['required', 'date', 'date_format:Y-m-d', 'after_or_equal:starting_date', 'bail'],
             'cfu' => ['required', 'numeric', 'bail'],
-            'professor' => [
-                'role' => ['required', 'string', 'in:researcher,associate,full'],
-                'subject' => ['required', 'string'],
-                'user' => [
-                    'first_name' => ['bail', 'required', 'string'],
-                    'last_name' => ['bail', 'required', 'string'],
-                    'email' => ['bail', 'email', 'required'],
-                    'birth_date' => ['bail', 'required', 'date'],
-                ],
-            ],
+            'professor' => (new StoreTeacherRequest())->rules()
         ];
     }
 }

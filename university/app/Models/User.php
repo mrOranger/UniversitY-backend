@@ -18,7 +18,7 @@ class User extends Authenticatable
      *   
      * @var string 
      */
-    protected $dateFormat = 'U';
+    protected $dateFormat = 'Y-m-d H:i:s';
     /**
      * The attributes that are mass assignable.
      *

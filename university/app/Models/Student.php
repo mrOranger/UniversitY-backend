@@ -16,7 +16,7 @@ class Student extends Model
      *   
      * @var string 
      */
-    protected $dateFormat = 'U';
+    protected $dateFormat = 'Y-m-d H:i:s';
 
     protected $fillable = [
         'bachelor_final_mark',

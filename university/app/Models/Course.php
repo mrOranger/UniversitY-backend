@@ -17,7 +17,7 @@ class Course extends Model
      *   
      * @var string 
      */
-    protected $dateFormat = 'U';
+    protected $dateFormat = 'Y-m-d H:i:s';
 
     protected $fillable = ['name', 'sector', 'starting_date', 'ending_date', 'cfu'];
 

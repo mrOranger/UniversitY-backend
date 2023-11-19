@@ -15,7 +15,7 @@ class Degree extends Model
      *   
      * @var string 
      */
-    protected $dateFormat = 'U';
+    protected $dateFormat = 'Y-m-d H:i:s';
     protected $fillable = [
         'name',
         'code',
