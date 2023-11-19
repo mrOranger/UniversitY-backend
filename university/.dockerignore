@@ -1,0 +1,8 @@
+.env
+.gitignore
+.prettierrc
+.gitattributes
+README.md
+vendor
+node_modules
+code_coverage
