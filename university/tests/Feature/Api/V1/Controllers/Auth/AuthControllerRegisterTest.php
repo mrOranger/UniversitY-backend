@@ -3,10 +3,11 @@
 namespace Tests\Feature\Api\V1\Controllers\Auth;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Mail;
 use Symfony\Component\HttpFoundation\Response;
 use Tests\TestCase;
 
-class AuthControllerRegistertTest extends TestCase
+class AuthControllerRegisterTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -15,6 +16,7 @@ class AuthControllerRegistertTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
+        Mail::fake();
         $this->test_url = 'api/v1/auth/register';
     }
 
