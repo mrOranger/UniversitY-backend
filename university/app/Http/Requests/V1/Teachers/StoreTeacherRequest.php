@@ -2,10 +2,17 @@
 
 namespace App\Http\Requests\V1\Teachers;
 
+use App\Http\Requests\V1\Common\UserRequest;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreTeacherRequest extends FormRequest
 {
+    /**
+     * Stops the validation process on first failure.
+     * 
+     * @var bool $stopsOnFirstFailure
+     */
+    protected $stopOnFirstFailure = true;
     /**
      * Determine if the user is authorized to make this request.
      */
@@ -24,12 +31,7 @@ class StoreTeacherRequest extends FormRequest
         return [
             'role' => ['required', 'string', 'in:researcher,associate,full'],
             'subject' => ['required', 'string'],
-            'user' => [
-                'first_name' => ['bail', 'required', 'string'],
-                'last_name' => ['bail', 'required', 'string'],
-                'email' => ['bail', 'email', 'required'],
-                'birth_date' => ['bail', 'required', 'date'],
-            ],
+            'user' => (new UserRequest())->rules()
         ];
     }
 }

@@ -29,12 +29,10 @@ class UserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'user' => [
-                'first_name' => ['bail', 'required', 'string'],
-                'last_name' => ['bail', 'required', 'string'],
-                'email' => ['bail', 'email', 'required'],
-                'birth_date' => ['bail', 'required', 'date', 'date_format:Y-m-d',],
-            ],
+            'first_name' => ['bail', 'required', 'string'],
+            'last_name' => ['bail', 'required', 'string'],
+            'email' => ['bail', 'email', 'required'],
+            'birth_date' => ['bail', 'required', 'date', 'date_format:Y-m-d',],
         ];
     }
 }

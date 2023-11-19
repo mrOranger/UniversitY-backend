@@ -53,7 +53,7 @@ class TeacherControllerSaveTest extends TestCase
                 'user' => [
                     'first_name' => 'Mario',
                     'last_name' => 'Rossi',
-                    'birth_date' => '01/01/2000',
+                    'birth_date' => '2000-01-01',
                     'email' => 'mario.rossi@gmail.com',
                 ],
                 'subject' => 'Artificial Intelligence',
@@ -75,7 +75,7 @@ class TeacherControllerSaveTest extends TestCase
                 'user' => [
                     'first_name' => 'Mario',
                     'last_name' => 'Rossi',
-                    'birth_date' => '01/01/2000',
+                    'birth_date' => '2000-01-01',
                     'email' => 'mario.rossi@gmail.com',
                 ],
                 'role' => 1234,
@@ -98,7 +98,7 @@ class TeacherControllerSaveTest extends TestCase
                 'user' => [
                     'first_name' => 'Mario',
                     'last_name' => 'Rossi',
-                    'birth_date' => '01/01/2000',
+                    'birth_date' => '2000-01-01',
                     'email' => 'mario.rossi@gmail.com',
                 ],
                 'role' => 'student',
@@ -121,7 +121,7 @@ class TeacherControllerSaveTest extends TestCase
                 'user' => [
                     'first_name' => 'Mario',
                     'last_name' => 'Rossi',
-                    'birth_date' => '01/01/2000',
+                    'birth_date' => '2000-01-01',
                     'email' => 'mario.rossi@gmail.com',
                 ],
                 'role' => 'researcher',
@@ -143,7 +143,7 @@ class TeacherControllerSaveTest extends TestCase
                 'user' => [
                     'first_name' => 'Mario',
                     'last_name' => 'Rossi',
-                    'birth_date' => '01/01/2000',
+                    'birth_date' => '2000-01-01',
                     'email' => 'mario.rossi@gmail.com',
                 ],
                 'role' => 'researcher',
@@ -166,7 +166,7 @@ class TeacherControllerSaveTest extends TestCase
                 'user' => [
                     'first_name' => 'Mario',
                     'last_name' => 'Rossi',
-                    'birth_date' => '01/01/2000',
+                    'birth_date' => '2000-01-01',
                     'email' => 'mario.rossi@gmail.com',
                 ],
                 'role' => 'associate',
@@ -177,13 +177,13 @@ class TeacherControllerSaveTest extends TestCase
         $response->assertJsonPath('message', 'Associated user does not exists.');
     }
 
-    final public function test_save_teacher_returns_createQuietlyd(): void
+    final public function test_save_teacher_returns_created(): void
     {
         $user = User::factory()->createQuietly(['role' => $this->roles->random()]);
         User::factory()->createQuietly([
             'first_name' => 'Mario',
             'last_name' => 'Rossi',
-            'birth_date' => '01/01/2000',
+            'birth_date' => '2000-01-01',
             'email' => 'mario.rossi@gmail.com',
         ]);
         $route = route('teachers.store');
@@ -194,7 +194,7 @@ class TeacherControllerSaveTest extends TestCase
                 'user' => [
                     'first_name' => 'Mario',
                     'last_name' => 'Rossi',
-                    'birth_date' => '01/01/2000',
+                    'birth_date' => '2000-01-01',
                     'email' => 'mario.rossi@gmail.com',
                 ],
                 'role' => 'associate',

@@ -60,7 +60,7 @@ class TeacherControllerUpdateTest extends TestCase
                 'user' => [
                     'first_name' => 'Mario',
                     'last_name' => 'Rossi',
-                    'birth_date' => '01/01/2000',
+                    'birth_date' => '2000-01-01',
                     'email' => 'mario.rossi@gmail.com',
                 ],
                 'subject' => 'Artificial Intelligence',
@@ -84,7 +84,7 @@ class TeacherControllerUpdateTest extends TestCase
                 'user' => [
                     'first_name' => 'Mario',
                     'last_name' => 'Rossi',
-                    'birth_date' => '01/01/2000',
+                    'birth_date' => '2000-01-01',
                     'email' => 'mario.rossi@gmail.com',
                 ],
                 'role' => 1234,
@@ -109,7 +109,7 @@ class TeacherControllerUpdateTest extends TestCase
                 'user' => [
                     'first_name' => 'Mario',
                     'last_name' => 'Rossi',
-                    'birth_date' => '01/01/2000',
+                    'birth_date' => '2000-01-01',
                     'email' => 'mario.rossi@gmail.com',
                 ],
                 'role' => 'student',
@@ -134,7 +134,7 @@ class TeacherControllerUpdateTest extends TestCase
                 'user' => [
                     'first_name' => 'Mario',
                     'last_name' => 'Rossi',
-                    'birth_date' => '01/01/2000',
+                    'birth_date' => '2000-01-01',
                     'email' => 'mario.rossi@gmail.com',
                 ],
                 'role' => 'researcher',
@@ -158,7 +158,7 @@ class TeacherControllerUpdateTest extends TestCase
                 'user' => [
                     'first_name' => 'Mario',
                     'last_name' => 'Rossi',
-                    'birth_date' => '01/01/2000',
+                    'birth_date' => '2000-01-01',
                     'email' => 'mario.rossi@gmail.com',
                 ],
                 'role' => 'researcher',
@@ -176,7 +176,7 @@ class TeacherControllerUpdateTest extends TestCase
         User::factory()->createQuietly([
             'first_name' => 'Mario',
             'last_name' => 'Rossi',
-            'birth_date' => '01/01/2000',
+            'birth_date' => '2000-01-01',
             'email' => 'mario.rossi@gmail.com',
         ]);
         $route = route('teachers.update', [
@@ -189,7 +189,7 @@ class TeacherControllerUpdateTest extends TestCase
                 'user' => [
                     'first_name' => 'Mario',
                     'last_name' => 'Rossi',
-                    'birth_date' => '01/01/2000',
+                    'birth_date' => '2000-01-01',
                     'email' => 'mario.rossi@gmail.com',
                 ],
                 'role' => 'associate',
@@ -213,7 +213,7 @@ class TeacherControllerUpdateTest extends TestCase
                 'user' => [
                     'first_name' => 'Mario',
                     'last_name' => 'Rossi',
-                    'birth_date' => '01/01/2000',
+                    'birth_date' => '2000-01-01',
                     'email' => 'mario.rossi@gmail.com',
                 ],
                 'role' => 'associate',
@@ -224,7 +224,7 @@ class TeacherControllerUpdateTest extends TestCase
         $response->assertJsonPath('message', 'Associated user does not exists.');
     }
 
-    final public function test_update_teacher_returns_createQuietlyd(): void
+    final public function test_update_teacher_returns_ok(): void
     {
         $user = User::factory()->createQuietly(['role' => $this->roles->random()]);
         $teacher = Teacher::factory()->createQuietly([
@@ -233,7 +233,7 @@ class TeacherControllerUpdateTest extends TestCase
             'user_id' => User::factory()->createQuietly([
                 'first_name' => 'Mario',
                 'last_name' => 'Rossi',
-                'birth_date' => '01/01/2000',
+                'birth_date' => '2000-01-01',
                 'email' => 'mario.rossi@gmail.com',
             ])->id,
         ]);
@@ -247,7 +247,7 @@ class TeacherControllerUpdateTest extends TestCase
                 'user' => [
                     'first_name' => 'Mario',
                     'last_name' => 'Rossi',
-                    'birth_date' => '01/01/2000',
+                    'birth_date' => '2000-01-01',
                     'email' => 'mario.rossi@gmail.com',
                 ],
                 'role' => 'associate',
