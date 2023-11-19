@@ -21,7 +21,7 @@ services:
             - app-network
         depends_on:
             database:
-                condition: service_completed_successfully
+                condition: service_healthy
 
     # MySQL Database service
     database:
@@ -40,6 +40,22 @@ services:
             - db-data:/var/lib/mysql/
         networks:
             - app-network
+        healthcheck:
+            test:
+                [
+                    "CMD",
+                    "mysqladmin",
+                    "ping",
+                    "-h",
+                    "localhost",
+                    "-u",
+                    "root",
+                    "-p$$MYSQL_ROOT_PASSWORD",
+                ]
+            timeout: 20s
+            retries: 10
+
+    # Redis server for caching
     redis:
         container_name: redis
         image: redis:alpine
