@@ -12,6 +12,6 @@ class DegreeSeeder extends Seeder
      */
     public function run(): void
     {
-        Degree::factory(50)->create();
+        Degree::factory(50)->createQuietly();
     }
 }

@@ -13,7 +13,7 @@ class StudentSeeder extends Seeder
      */
     public function run(): void
     {
-        Student::factory(100)->create();
+        Student::factory(100)->createQuietly();
         foreach (Course::all() as $course) {
             $students = Student::all()->take(rand(1, 10))->pluck('id');
             $course->students()->attach($students);

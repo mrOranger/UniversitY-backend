@@ -13,11 +13,11 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        User::factory()->create([
+        User::factory()->createQuietly([
             'role' => 'admin',
             'email' => 'admin@example.com',
             'password' => Hash::make('ThisIsAValidPassword!'),
         ]);
-        User::factory(50)->create();
+        User::factory(50)->createQuietly();
     }
 }
