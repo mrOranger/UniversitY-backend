@@ -34,8 +34,8 @@ class CourseControllerUpdateTest extends TestCase
             ->putJson($this->route, [
                 'name' => 'Algorithms & Data Structures',
                 'sector' => 'INF-01',
-                'starting_date' => '01/09/2023',
-                'ending_date' => '01/06/2024',
+                'starting_date' => '2023-01-09',
+                'ending_date' => '2024-01-06',
                 'cfu' => '12',
                 'professor' => [
                     'role' => 'full',
@@ -43,7 +43,7 @@ class CourseControllerUpdateTest extends TestCase
                     'user' => [
                         'first_name' => 'Mario',
                         'last_name' => 'Rossi',
-                        'birth_date' => '01/01/2000',
+                        'birth_date' => '2000-01-01',
                         'email' => 'mario.rossi@gmail.com',
                     ],
                 ],
@@ -60,8 +60,8 @@ class CourseControllerUpdateTest extends TestCase
             ->putJson($this->route, [
                 'name' => 'Algorithms & Data Structures',
                 'sector' => 'INF-01',
-                'starting_date' => '01/09/2023',
-                'ending_date' => '01/06/2024',
+                'starting_date' => '2023-01-09',
+                'ending_date' => '2024-01-06',
                 'cfu' => '12',
                 'professor' => [
                     'role' => 'full',
@@ -69,7 +69,7 @@ class CourseControllerUpdateTest extends TestCase
                     'user' => [
                         'first_name' => 'Mario',
                         'last_name' => 'Rossi',
-                        'birth_date' => '01/01/2000',
+                        'birth_date' => '2000-01-01',
                         'email' => 'mario.rossi@gmail.com',
                     ],
                 ],
@@ -85,8 +85,8 @@ class CourseControllerUpdateTest extends TestCase
             ->actingAs(User::factory()->createQuietly(['role' => $this->roles->random()]))
             ->putJson($this->route, [
                 'sector' => 'INF-01',
-                'starting_date' => '01/09/2023',
-                'ending_date' => '01/06/2024',
+                'starting_date' => '2023-01-09',
+                'ending_date' => '2024-01-06',
                 'cfu' => '12',
                 'professor' => [
                     'role' => 'full',
@@ -94,7 +94,7 @@ class CourseControllerUpdateTest extends TestCase
                     'user' => [
                         'first_name' => 'Mario',
                         'last_name' => 'Rossi',
-                        'birth_date' => '01/01/2000',
+                        'birth_date' => '2000-01-01',
                         'email' => 'mario.rossi@gmail.com',
                     ],
                 ],
@@ -112,8 +112,8 @@ class CourseControllerUpdateTest extends TestCase
             ->putJson($this->route, [
                 'name' => 123,
                 'sector' => 'INF-01',
-                'starting_date' => '01/09/2023',
-                'ending_date' => '01/06/2024',
+                'starting_date' => '2023-01-09',
+                'ending_date' => '2024-01-06',
                 'cfu' => '12',
                 'professor' => [
                     'role' => 'full',
@@ -121,7 +121,7 @@ class CourseControllerUpdateTest extends TestCase
                     'user' => [
                         'first_name' => 'Mario',
                         'last_name' => 'Rossi',
-                        'birth_date' => '01/01/2000',
+                        'birth_date' => '2000-01-01',
                         'email' => 'mario.rossi@gmail.com',
                     ],
                 ],
@@ -138,8 +138,8 @@ class CourseControllerUpdateTest extends TestCase
             ->actingAs(User::factory()->createQuietly(['role' => $this->roles->random()]))
             ->putJson($this->route, [
                 'name' => 'Computer Science',
-                'starting_date' => '01/09/2023',
-                'ending_date' => '01/06/2024',
+                'starting_date' => '2023-01-09',
+                'ending_date' => '2024-01-06',
                 'cfu' => '12',
                 'professor' => [
                     'role' => 'full',
@@ -147,7 +147,7 @@ class CourseControllerUpdateTest extends TestCase
                     'user' => [
                         'first_name' => 'Mario',
                         'last_name' => 'Rossi',
-                        'birth_date' => '01/01/2000',
+                        'birth_date' => '2000-01-01',
                         'email' => 'mario.rossi@gmail.com',
                     ],
                 ],
@@ -165,8 +165,8 @@ class CourseControllerUpdateTest extends TestCase
             ->putJson($this->route, [
                 'name' => 'Computer Science',
                 'sector' => 123,
-                'starting_date' => '01/09/2023',
-                'ending_date' => '01/06/2024',
+                'starting_date' => '2023-01-09',
+                'ending_date' => '2024-01-06',
                 'cfu' => '12',
                 'professor' => [
                     'role' => 'full',
@@ -174,7 +174,7 @@ class CourseControllerUpdateTest extends TestCase
                     'user' => [
                         'first_name' => 'Mario',
                         'last_name' => 'Rossi',
-                        'birth_date' => '01/01/2000',
+                        'birth_date' => '2000-01-01',
                         'email' => 'mario.rossi@gmail.com',
                     ],
                 ],
@@ -192,7 +192,7 @@ class CourseControllerUpdateTest extends TestCase
             ->putJson($this->route, [
                 'name' => 'Computer Science',
                 'sector' => 'INF-01',
-                'ending_date' => '01/06/2024',
+                'ending_date' => '2024-01-01',
                 'cfu' => '12',
                 'professor' => [
                     'role' => 'full',
@@ -200,7 +200,7 @@ class CourseControllerUpdateTest extends TestCase
                     'user' => [
                         'first_name' => 'Mario',
                         'last_name' => 'Rossi',
-                        'birth_date' => '01/01/2000',
+                        'birth_date' => '2000-01-01',
                         'email' => 'mario.rossi@gmail.com',
                     ],
                 ],
@@ -218,8 +218,8 @@ class CourseControllerUpdateTest extends TestCase
             ->putJson($this->route, [
                 'name' => 'Computer Science',
                 'sector' => 'INF-01',
-                'starting_date' => '1900/1/90',
-                'ending_date' => '01/06/2024',
+                'starting_date' => '2023-90-90',
+                'ending_date' => '2024-01-01',
                 'cfu' => '12',
                 'professor' => [
                     'role' => 'full',
@@ -227,7 +227,7 @@ class CourseControllerUpdateTest extends TestCase
                     'user' => [
                         'first_name' => 'Mario',
                         'last_name' => 'Rossi',
-                        'birth_date' => '01/01/2000',
+                        'birth_date' => '2000-01-01',
                         'email' => 'mario.rossi@gmail.com',
                     ],
                 ],
@@ -238,14 +238,15 @@ class CourseControllerUpdateTest extends TestCase
         $response->assertJsonPath('errors.starting_date.0', 'The starting date field must be a valid date.');
     }
 
-    final public function test_update_course_without_ending_date_returns_unprocessable_content(): void
+    final public function test_update_course_with_starting_date_invalid_format_returns_unprocessable_content(): void
     {
         $response = $this
             ->actingAs(User::factory()->createQuietly(['role' => $this->roles->random()]))
             ->putJson($this->route, [
                 'name' => 'Computer Science',
                 'sector' => 'INF-01',
-                'starting_date' => '01/06/2024',
+                'ending_date' => '2022-01-01',
+                'starting_date' => '2023/01/01',
                 'cfu' => '12',
                 'professor' => [
                     'role' => 'full',
@@ -253,7 +254,33 @@ class CourseControllerUpdateTest extends TestCase
                     'user' => [
                         'first_name' => 'Mario',
                         'last_name' => 'Rossi',
-                        'birth_date' => '01/01/2000',
+                        'birth_date' => '2000-01-01',
+                        'email' => 'mario.rossi@gmail.com',
+                    ],
+                ],
+            ]);
+
+        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
+        $response->assertJsonPath('message', 'The starting date field must match the format Y-m-d.');
+        $response->assertJsonPath('errors.starting_date.0', 'The starting date field must match the format Y-m-d.');
+    }
+
+    final public function test_update_course_without_ending_date_returns_unprocessable_content(): void
+    {
+        $response = $this
+            ->actingAs(User::factory()->createQuietly(['role' => $this->roles->random()]))
+            ->putJson($this->route, [
+                'name' => 'Computer Science',
+                'sector' => 'INF-01',
+                'starting_date' => '2024-01-01',
+                'cfu' => '12',
+                'professor' => [
+                    'role' => 'full',
+                    'subject' => 'Computer Science',
+                    'user' => [
+                        'first_name' => 'Mario',
+                        'last_name' => 'Rossi',
+                        'birth_date' => '2000-01-01',
                         'email' => 'mario.rossi@gmail.com',
                     ],
                 ],
@@ -271,8 +298,8 @@ class CourseControllerUpdateTest extends TestCase
             ->putJson($this->route, [
                 'name' => 'Computer Science',
                 'sector' => 'INF-01',
-                'ending_date' => '1900/1/90',
-                'starting_date' => '01/06/2024',
+                'ending_date' => '1900-01-90',
+                'starting_date' => '2023-01-01',
                 'cfu' => '12',
                 'professor' => [
                     'role' => 'full',
@@ -280,7 +307,7 @@ class CourseControllerUpdateTest extends TestCase
                     'user' => [
                         'first_name' => 'Mario',
                         'last_name' => 'Rossi',
-                        'birth_date' => '01/01/2000',
+                        'birth_date' => '2000-01-01',
                         'email' => 'mario.rossi@gmail.com',
                     ],
                 ],
@@ -291,15 +318,15 @@ class CourseControllerUpdateTest extends TestCase
         $response->assertJsonPath('errors.ending_date.0', 'The ending date field must be a valid date.');
     }
 
-    final public function test_update_course_with_ending_date_before_starting_date_returns_unprocessable_content(): void
+    final public function test_update_course_with_ending_date_invalid_format_returns_unprocessable_content(): void
     {
         $response = $this
             ->actingAs(User::factory()->createQuietly(['role' => $this->roles->random()]))
             ->putJson($this->route, [
                 'name' => 'Computer Science',
                 'sector' => 'INF-01',
-                'ending_date' => '01/04/2024',
-                'starting_date' => '01/06/2024',
+                'ending_date' => '2022/01/01',
+                'starting_date' => '2023-01-01',
                 'cfu' => '12',
                 'professor' => [
                     'role' => 'full',
@@ -307,7 +334,34 @@ class CourseControllerUpdateTest extends TestCase
                     'user' => [
                         'first_name' => 'Mario',
                         'last_name' => 'Rossi',
-                        'birth_date' => '01/01/2000',
+                        'birth_date' => '2000-01-01',
+                        'email' => 'mario.rossi@gmail.com',
+                    ],
+                ],
+            ]);
+
+        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
+        $response->assertJsonPath('message', 'The ending date field must match the format Y-m-d.');
+        $response->assertJsonPath('errors.ending_date.0', 'The ending date field must match the format Y-m-d.');
+    }
+
+    final public function test_update_course_with_ending_date_before_starting_date_returns_unprocessable_content(): void
+    {
+        $response = $this
+            ->actingAs(User::factory()->createQuietly(['role' => $this->roles->random()]))
+            ->putJson($this->route, [
+                'name' => 'Computer Science',
+                'sector' => 'INF-01',
+                'ending_date' => '2022-01-01',
+                'starting_date' => '2023-01-01',
+                'cfu' => '12',
+                'professor' => [
+                    'role' => 'full',
+                    'subject' => 'Computer Science',
+                    'user' => [
+                        'first_name' => 'Mario',
+                        'last_name' => 'Rossi',
+                        'birth_date' => '2000-01-01',
                         'email' => 'mario.rossi@gmail.com',
                     ],
                 ],
@@ -325,8 +379,8 @@ class CourseControllerUpdateTest extends TestCase
             ->putJson($this->route, [
                 'name' => 'Computer Science',
                 'sector' => 'INF-01',
-                'starting_date' => '01/04/2024',
-                'ending_date' => '01/06/2024',
+                'starting_date' => '2023-01-01',
+                'ending_date' => '2024-01-01',
                 'professor' => [
                     'role' => 'full',
                     'subject' => 'Computer Science',
@@ -351,8 +405,8 @@ class CourseControllerUpdateTest extends TestCase
             ->putJson($this->route, [
                 'name' => 'Computer Science',
                 'sector' => 'INF-01',
-                'starting_date' => '01/04/2024',
-                'ending_date' => '01/06/2024',
+                'starting_date' => '2023-01-01',
+                'ending_date' => '2024-01-01',
                 'cfu' => 'as',
                 'professor' => [
                     'role' => 'full',
@@ -360,7 +414,7 @@ class CourseControllerUpdateTest extends TestCase
                     'user' => [
                         'first_name' => 'Mario',
                         'last_name' => 'Rossi',
-                        'birth_date' => '01/01/2000',
+                        'birth_date' => '2000-01-01',
                         'email' => 'mario.rossi@gmail.com',
                     ],
                 ],
@@ -378,8 +432,8 @@ class CourseControllerUpdateTest extends TestCase
             ->putJson($this->route, [
                 'name' => 'Algorithms & Data Structures',
                 'sector' => 'INF-01',
-                'starting_date' => '01/09/2023',
-                'ending_date' => '01/06/2024',
+                'starting_date' => '2023-01-01',
+                'ending_date' => '2024-01-01',
                 'cfu' => '12',
                 'professor' => [
                     'role' => 'full',
@@ -387,7 +441,7 @@ class CourseControllerUpdateTest extends TestCase
                     'user' => [
                         'first_name' => 'Mario',
                         'last_name' => 'Rossi',
-                        'birth_date' => '01/01/2000',
+                        'birth_date' => '2000-01-01',
                         'email' => 'mario.rossi@gmail.com',
                     ],
                 ],
@@ -402,7 +456,7 @@ class CourseControllerUpdateTest extends TestCase
         $user = User::factory()->createQuietly([
             'first_name' => 'Mario',
             'last_name' => 'Rossi',
-            'birth_date' => '01/01/2000',
+            'birth_date' => '2000-01-01',
             'email' => 'mario.rossi@gmail.com',
         ]);
         $teacher = Teacher::factory()->createQuietly([
@@ -416,8 +470,8 @@ class CourseControllerUpdateTest extends TestCase
             ->putJson($this->route, [
                 'name' => 'Algorithms & Data Structures',
                 'sector' => 'INF-01',
-                'starting_date' => '01/09/2023',
-                'ending_date' => '01/06/2024',
+                'starting_date' => '2023-01-01',
+                'ending_date' => '2024-01-01',
                 'cfu' => '12',
                 'professor' => [
                     'role' => $teacher->role,
