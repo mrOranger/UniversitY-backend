@@ -10,8 +10,16 @@ class Degree extends Model
 {
     use HasFactory;
 
+    /**
+     * The storage format of the model's date column.
+     *   
+     * @var string 
+     */
+    protected $dateFormat = 'U';
     protected $fillable = [
-        'name', 'code', 'course_type',
+        'name',
+        'code',
+        'course_type',
     ];
 
     /**

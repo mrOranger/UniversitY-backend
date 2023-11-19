@@ -14,6 +14,12 @@ class User extends Authenticatable
     use HasApiTokens, HasFactory, Notifiable;
 
     /**
+     * The storage format of the model's date column.
+     *   
+     * @var string 
+     */
+    protected $dateFormat = 'U';
+    /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>

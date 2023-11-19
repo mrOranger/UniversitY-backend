@@ -12,6 +12,13 @@ class Course extends Model
 {
     use HasFactory, SoftDeletes;
 
+    /**
+     * The storage format of the model's date column.
+     *   
+     * @var string 
+     */
+    protected $dateFormat = 'U';
+
     protected $fillable = ['name', 'sector', 'starting_date', 'ending_date', 'cfu'];
 
     protected $hidden = ['created_at', 'updated_at', 'deleted_at', 'professor_id', 'pivot'];

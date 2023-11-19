@@ -12,6 +12,13 @@ class Teacher extends Model
 {
     use HasFactory, SoftDeletes;
 
+    /**
+     * The storage format of the model's date column.
+     *   
+     * @var string 
+     */
+    protected $dateFormat = 'U';
+
     protected $fillable = [
         'user_id',
         'role',

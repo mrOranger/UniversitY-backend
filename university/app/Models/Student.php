@@ -11,6 +11,13 @@ class Student extends Model
 {
     use HasFactory;
 
+    /**
+     * The storage format of the model's date column.
+     *   
+     * @var string 
+     */
+    protected $dateFormat = 'U';
+
     protected $fillable = [
         'bachelor_final_mark',
         'master_final_mark',
