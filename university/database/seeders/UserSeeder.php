@@ -16,7 +16,7 @@ class UserSeeder extends Seeder
         User::factory()->createQuietly([
             'role' => 'admin',
             'email' => 'admin@example.com',
-            'password' => Hash::make('ThisIsAValidPassword!'),
+            'password' => Hash::make('ThisIsAValidPassword1!'),
         ]);
         User::factory(50)->createQuietly();
     }
