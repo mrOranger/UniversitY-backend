@@ -1,0 +1,52 @@
+version: "3"
+
+services:
+      # Php Service depending on MySQL
+      php:
+            container_name: php
+            build:
+                  context: .
+                  target: php
+                  args:
+                        - APP_ENV=${APP_ENV}
+            environment:
+                  - APP_ENV=${APP_ENV}
+                  - CONTAINER_ROLW=app
+            working_dir: /var/www
+            depends_on:
+                  - database
+            ports:
+                  - "8000:8000"
+            volumes:
+                  - ./:/var/www
+            networks:
+                  - app-network
+
+      # MySQL Database service
+      database:
+            image: mysql
+            container_name: database
+            restart: unless-stopped
+            tty: true
+            ports:
+                  - "3306:3306"
+            environment:
+                  - MYSQL_DATABASE=${DB_DATABASE}
+                  - MYSQL_USER=${DB_USERNAME}
+                  - MYSQL_PASSWORD=${DB_PASSWORD}
+                  - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
+            volumes:
+                  - db-data:/var/lib/mysql/
+            networks:
+                  - app-network
+      redis:
+            container_name: redis
+            image: redis:alpine
+            command: redis-server --appendonly yes --requirepass "${REDIS_PASSWORD}"
+            ports:
+                  - "6379:6379"
+networks:
+      app-network:
+            driver: bridge
+volumes:
+      db-data: ~

@@ -1,34 +1,18 @@
-FROM php:8.2.12
+# Used for prod build.
+FROM php:8.2-fpm as php
 
-COPY composer.lock composer.json /var/www/
+RUN apt-get update -y
+RUN apt-get install -y unzip libpq-dev libcurl4-gnutls-dev
+RUN docker-php-ext-install pdo pdo_mysql bcmath
+RUN pecl install -o -f redis \
+      && rm -rf /tmp/pear \
+      && docker-php-ext-enable redis
 
 WORKDIR /var/www
 
-RUN apt-get update && apt-get install -y \
-    build-essential \
-    libpng-dev \
-    libjpeg62-turbp-dev \
-    libfreetype6-dev \
-    locales \
-    zip \
-    jpegoptim optipng pngquant gifsicle \
-    vim \
-    unzip \
-    git \ 
-    curl
+COPY . .
+COPY --from=composer:2.3.5 /usr/bin/composer /usr/bin/composer
 
-RUN apt-get clean && rm -rf /var/lib/apt/lists/*
-RUN docker-php-ext-install pdo_mysql mbstring zip exif pcntl
-RUN docker-php-ext-configure gd --with-gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ --with-png-dir=/usr/include/
-RUN docker-php-ext-install gd
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-RUN groupadd -g 1000 www
-RUN useradd -u 1000 -ms /bin/bash -g www www
+ENV PORT=8000
 
-COPY . /var/www
-COPY --chown=www:www . /var/www
-
-USER www
-
-EXPOSE 9000
-CMD ["php-fpm"]
+ENTRYPOINT [ "docker/entrypoint.sh" ]
