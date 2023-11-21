@@ -18,6 +18,11 @@ RUN pecl install -o -f redis \
 WORKDIR /var/www
 
 COPY --chown=www-data . . 
+
+COPY ./docker/php.ini /usr/local/etc/php/php.ini
+COPY ./docker/php-fpm.conf /usr/local/etc/php-fpm.d/www.conf
+COPY ./docker/nginx.conf /etc/nginx/nginx.congs
+
 COPY --from=composer:2.3.5 /usr/bin/composer /usr/bin/composer
 
 RUN chmod -R 755 /var/www/storage
