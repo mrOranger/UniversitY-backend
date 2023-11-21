@@ -10,9 +10,13 @@ RUN pecl install -o -f redis \
 
 WORKDIR /var/www
 
-COPY . .
+COPY --chown=www-data . . 
 COPY --from=composer:2.3.5 /usr/bin/composer /usr/bin/composer
 
-ENV PORT=8000
+RUN php artisan cache:clear
+RUN php artisan confi:cache
+
+RUN chmod -R 755 /var/www/storage
+RUN chmor -R 755 /var/www/bootstrap
 
 ENTRYPOINT [ "docker/entrypoint.sh" ]
