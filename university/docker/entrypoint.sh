@@ -6,6 +6,7 @@ fi
 
 cp .env.example .env
 
+php artisan optimize
 php artisan migrate
 php artisan test
 php artisan db:seed
