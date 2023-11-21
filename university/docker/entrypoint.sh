@@ -12,6 +12,6 @@ php artisan db:seed
 php artisan key:generate
 php artisan optimize
 php artisan view:cache
-php artisan serve --port=$PORT --host=0.0.0.0 --env=.env
 
-exec docker-php-entrypoint "$@
+php-fpm -D
+nginx -g "daemon off;"
