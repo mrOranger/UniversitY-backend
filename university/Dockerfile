@@ -1,17 +1,29 @@
 # Used for prod build.
 FROM php:8.2-fpm as php
 
+# OpCache environment variables
 ENV PHP_OPCACHE_ENABLE=1
 ENV PHP_OPCACHE_ENABLE_CLI=0
 ENV PHP_OPCACHE_VALIDATE_TIMESTAMPS=0
 ENV PHP_OPCACHE_REVALIDATE_FREQ=0
+ENV PHP_OPCACHE_MEMORY_CONSUMPTION=128
+
+# XDebug environment variables
+ENV XDEBUG_MODE=debug
+ENV XDEBUG_START_WITH_REQUEST=yes
+ENV XDEBUG_CLIENT_HOST=host.docker.internal
+ENV XDEBUG_REMOTE_ENABLE=on
+ENV XDEBUG_REMOTE_AUTOSTART=on
+ENV XDEBUG_IDEKEY=VSCODE
+ENV XDEBUG_CLIENT_PORT=9003
 
 RUN usermod -u 1000 www-data
 
 RUN apt-get update -y
 RUN apt-get install -y unzip libpq-dev libcurl4-gnutls-dev nginx libonig-dev
 RUN docker-php-ext-install mysqli pdo pdo_mysql bcmath curl opcache mbstring
-RUN pecl install -o -f redis xdebug \
+RUN pecl install -o -f redis \
+      && pecl install xdebug \
       && rm -rf /tmp/pear \
       && docker-php-ext-enable redis \
       && docker-php-ext-enable xdebug

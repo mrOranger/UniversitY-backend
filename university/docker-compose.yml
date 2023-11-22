@@ -17,6 +17,8 @@ services:
             - "9000:8080"
         volumes:
             - ./:/var/www
+        extra_hosts:
+            - host.docker.internal:host-gateway
         networks:
             - app-network
         depends_on:
