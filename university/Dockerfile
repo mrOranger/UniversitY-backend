@@ -11,9 +11,10 @@ RUN usermod -u 1000 www-data
 RUN apt-get update -y
 RUN apt-get install -y unzip libpq-dev libcurl4-gnutls-dev nginx libonig-dev
 RUN docker-php-ext-install mysqli pdo pdo_mysql bcmath curl opcache mbstring
-RUN pecl install -o -f redis \
+RUN pecl install -o -f redis xdebug \
       && rm -rf /tmp/pear \
-      && docker-php-ext-enable redis
+      && docker-php-ext-enable redis \
+      && docker-php-ext-enable xdebug
 
 # Copy configuration files.
 COPY ./docker/php.ini /usr/local/etc/php/php.ini
