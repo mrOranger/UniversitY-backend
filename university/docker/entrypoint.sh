@@ -6,10 +6,19 @@ fi
 
 cp .env.example .env
 
-php artisan optimize
-php artisan migrate:fresh
-php artisan test
-php artisan db:seed
+role=${CONTAINER_ROLE:-app}
 
-php-fpm -D
-nginx -g "daemon off;"
+if  [ "$role" == "app" ]; then
+    echo "Laravel app starting ..."
+    php artisan optimize
+    php artisan migrate:fresh
+    php artisan test
+    php artisan db:seed
+    php-fpm -D
+    nginx -g "daemon off;"
+elif [ "$role" == "queue" ]; then
+    echo "Laravel queue starting ..."
+
+    php artisan queue:restart
+    php artisan queue:work --tries=3 --timeout=1s
+fi

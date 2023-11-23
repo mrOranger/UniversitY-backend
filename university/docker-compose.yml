@@ -1,71 +1,91 @@
 version: "3"
 
 services:
-    # Php Service depending on MySQL
-    php:
-        container_name: php
-        build:
-            context: .
-            target: php
-            args:
-                - APP_ENV=${APP_ENV}
-        environment:
-            - APP_ENV=${APP_ENV}
-        working_dir: /var/www
-        ports:
-            - "8000:8000"
-            - "9000:8080"
-        volumes:
-            - ./:/var/www
-        extra_hosts:
-            - host.docker.internal:host-gateway
-        networks:
-            - app-network
-        depends_on:
-            database:
-                condition: service_healthy
+  # Php Service depending on MySQL
+  php:
+    container_name: php
+    build:
+      context: .
+      target: php
+      args:
+        - APP_ENV=${APP_ENV}
+    environment:
+      - APP_ENV=${APP_ENV}
+      - CONTAINER_ROLE=app
+    working_dir: /var/www
+    ports:
+      - "8000:8000"
+      - "9000:8080"
+    volumes:
+      - ./:/var/www
+    extra_hosts:
+      - host.docker.internal:host-gateway
+    networks:
+      - app-network
+    depends_on:
+      database:
+        condition: service_healthy
+  # Laravel Queue Worker
+  queue:
+    container_name: laravel-queue
+    build:
+      context: .
+      target: php
+      args:
+        - APP_ENV=${APP_ENV}
+    environment:
+      - APP_ENV=${APP_ENV}
+      - CONTAINER_ROLE=queue
+    working_dir: /var/www
+    volumes:
+      - ./:/var/www
+    networks:
+      - app-network
+    depends_on:
+      database:
+        condition: service_healthy
 
-    # MySQL Database service
-    database:
-        image: mysql
-        container_name: database
-        restart: unless-stopped
-        tty: true
-        ports:
-            - "3306:3306"
-        environment:
-            - MYSQL_DATABASE=${DB_DATABASE}
-            - MYSQL_USER=${DB_USERNAME}
-            - MYSQL_PASSWORD=${DB_PASSWORD}
-            - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
-        volumes:
-            - db-data:/var/lib/mysql/
-        networks:
-            - app-network
-        healthcheck:
-            test:
-                [
-                    "CMD",
-                    "mysqladmin",
-                    "ping",
-                    "-h",
-                    "localhost",
-                    "-u",
-                    "root",
-                    "-p$$MYSQL_ROOT_PASSWORD",
-                ]
-            timeout: 20s
-            retries: 10
+  # MySQL Database service
+  database:
+    image: mysql
+    container_name: database
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_DATABASE=${DB_DATABASE}
+      - MYSQL_USER=${DB_USERNAME}
+      - MYSQL_PASSWORD=${DB_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
+    volumes:
+      - db-data:/var/lib/mysql/
+    networks:
+      - app-network
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "mysqladmin",
+          "ping",
+          "-h",
+          "localhost",
+          "-u",
+          "root",
+          "-p$$MYSQL_ROOT_PASSWORD",
+        ]
+      timeout: 20s
+      retries: 10
 
-    # Redis server for caching
-    redis:
-        container_name: redis
-        image: redis:alpine
-        command: redis-server --appendonly yes --requirepass "${REDIS_PASSWORD}"
-        ports:
-            - "6379:6379"
+  # Redis server for caching
+  redis:
+    container_name: redis
+    image: redis:alpine
+    command: redis-server --appendonly yes --requirepass "${REDIS_PASSWORD}"
+    ports:
+      - "6379:6379"
 networks:
-    app-network:
-        driver: bridge
+  app-network:
+    driver: bridge
 volumes:
-    db-data: ~
+  db-data: ~

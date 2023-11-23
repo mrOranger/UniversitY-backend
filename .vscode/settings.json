@@ -11,7 +11,7 @@
   "editor.cursorStyle": "underline-thin",
   "editor.fontVariations": true,
   "editor.formatOnSave": true,
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.defaultFormatter": "EditorConfig.EditorConfig",
   "editor.indentSize": "tabSize",
   "editor.padding.top": 20,
   "editor.padding.bottom": 20,
